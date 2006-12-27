@@ -1,0 +1,10 @@
+vec_add.o
+vec_assi.o
+vec_div.o
+vec_dotp.o
+vec_mag.o
+vec_mult.o
+vec_norm.o
+vec_sub.o
+vec_xprod.o
+vec_zero.o

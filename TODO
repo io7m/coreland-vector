@@ -10,43 +10,50 @@ Redesign:
 
   for all functions (except where it doesn't make sense ie zero, assign)!
 
--  float vec_mag4f(const float [4]);
--  float vec_mag3f(const float [3]);
   float vec_dist3f(const float [3], const float [3]);
   float vec_dist4f(const float [4], const float [4]);
   float vec_abs3f(const float [3], const float [3]);
   float vec_abs4f(const float [4], const float [4]);
+  float vec_angle3f(const float [3], const float [3]);
+  float vec_angle4f(const float [4], const float [4]);
+  (calculate angle between two normalized vectors)
+  float vec_anglenorm3f(const float [3], const float [3]);
+  float vec_anglenorm4f(const float [4], const float [4]);
+
 -+  float vec_dotprod3f(const float[3], const float[3]);
 -+  float vec_dotprod4f(const float[4], const float[4]);
--+  void vec_norm3fx(const float [3], float [3]);
--+  void vec_norm4fx(const float [4], float [4]);
--+  void vec_norm3f(float [3]);
--+  void vec_norm4f(float [4]);
--+  void vec_add3f(float [3], const float [3]);
--+  void vec_add4f(float [4], const float [4]);
--+  void vec_add3fx(const float [3], const float [3], float [3]);
--+  void vec_add4fx(const float [4], const float [4], float [4]);
--+  void vec_sub3f(float [3], const float [3]);
--+  void vec_sub4f(float [4], const float [4]);
--+  void vec_sub3fx(const float [3], const float [3], float [3]);
--+  void vec_sub4fx(const float [4], const float [4], float [4]);
--+  void vec_mult3f(float [3], const float);
--+  void vec_mult4f(float [4], const float);
--+  void vec_mult3fx(const float [3], const float, float [3]);
--+  void vec_mult4fx(const float [4], const float, float [4]);
--+  void vec_div3f(float [3], const float);
--+  void vec_div4f(float [4], const float);
--+  void vec_div3fx(const float [3], const float, float [3]);
--+  void vec_div4fx(const float [4], const float, float [4]);
--+  void vec_negate3f(float [3], const float);
--+  void vec_negate4f(float [4], const float);
--+  void vec_negate3fx(const float [3], const float, float [3]);
--+  void vec_negate4fx(const float [4], const float, float [4]);
--  void vec_crossprod3fx(const float[3], const float[3], float[3]);
--+  void vec_assign3f(float [3], const float [3]);
--+  void vec_assign4f(float [3], const float [4]);
--+  void vec_zero3f(float [3]);
--+  void vec_zero4f(float [3]);
+-  float vec_mag4f(const float [4]);
+-  float vec_mag3f(const float [3]);
+
+-+  float *vec_norm3fx(const float [3], float [3]);
+-+  float *vec_norm4fx(const float [4], float [4]);
+-+  float *vec_norm3f(float [3]);
+-+  float *vec_norm4f(float [4]);
+-+  float *vec_add3f(float [3], const float [3]);
+-+  float *vec_add4f(float [4], const float [4]);
+-+  float *vec_add3fx(const float [3], const float [3], float [3]);
+-+  float *vec_add4fx(const float [4], const float [4], float [4]);
+-+  float *vec_sub3f(float [3], const float [3]);
+-+  float *vec_sub4f(float [4], const float [4]);
+-+  float *vec_sub3fx(const float [3], const float [3], float [3]);
+-+  float *vec_sub4fx(const float [4], const float [4], float [4]);
+-+  float *vec_mult3f(float [3], const float);
+-+  float *vec_mult4f(float [4], const float);
+-+  float *vec_mult3fx(const float [3], const float, float [3]);
+-+  float *vec_mult4fx(const float [4], const float, float [4]);
+-+  float *vec_div3f(float [3], const float);
+-+  float *vec_div4f(float [4], const float);
+-+  float *vec_div3fx(const float [3], const float, float [3]);
+-+  float *vec_div4fx(const float [4], const float, float [4]);
+-+  float *vec_negate3f(float [3], const float);
+-+  float *vec_negate4f(float [4], const float);
+-+  float *vec_negate3fx(const float [3], const float, float [3]);
+-+  float *vec_negate4fx(const float [4], const float, float [4]);
+-   float *vec_crossprod3fx(const float[3], const float[3], float[3]);
+-+  float *vec_assign3f(float [3], const float [3]);
+-+  float *vec_assign4f(float [3], const float [4]);
+-+  float *vec_zero3f(float [3]);
+-+  float *vec_zero4f(float [3]);
   int vec_cmp3f(const float [3], const float [3]);
   int vec_cmp4f(const float [4], const float [4]);
 

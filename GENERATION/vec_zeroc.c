@@ -9,10 +9,11 @@ int gen(struct vecgen *vg)
 
   if (!type) { fprintf(stderr, "gen: type not specified\n"); return 112; }
 
-  printf("void vec_zero%u%s(%s v[%u])\n",
-          dim, abbr, type, dim);
+  printf("%s *vec_zero%u%s(%s v[%u])\n",
+          type, dim, abbr, type, dim);
   printf("{\n");
   printf("  vec_ZERO%u(v);\n", dim);
+  printf("  return v;\n");
   printf("}\n");
   return 0;
 }

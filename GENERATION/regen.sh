@@ -6,6 +6,7 @@
 ./vec_assi_H.sh > ../vec_assi.h
 ./vec_div_C.sh > ../vec_div.c
 ./vec_div_H.sh > ../vec_div.h
+./vec_dist_C.sh > ../vec_dist.c
 ./vec_dotp_C.sh > ../vec_dotp.c
 ./vec_dotp_H.sh > ../vec_dotp.h
 ./vec_mag_C.sh > ../vec_mag.c

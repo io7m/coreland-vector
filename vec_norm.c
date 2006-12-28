@@ -1,7 +1,7 @@
 #include <math.h>
 #include "vector.h"
 
-void vec_norm2f(float v[2])
+float *vec_norm2f(float v[2])
 {
   float mag =
     (v[0] * v[0]) +
@@ -11,8 +11,9 @@ void vec_norm2f(float v[2])
     v[0] *= mdiv;
     v[1] *= mdiv;
   }
+  return v;
 }
-void vec_norm2fx(const float v[2], float vr[2])
+float *vec_norm2fx(const float v[2], float vr[2])
 {
   float mag =
     (v[0] * v[0]) +
@@ -22,9 +23,10 @@ void vec_norm2fx(const float v[2], float vr[2])
     vr[0] = v[0] * mdiv;
     vr[1] = v[1] * mdiv;
   }
+  return vr;
 }
 
-void vec_norm3f(float v[3])
+float *vec_norm3f(float v[3])
 {
   float mag =
     (v[0] * v[0]) +
@@ -36,8 +38,9 @@ void vec_norm3f(float v[3])
     v[1] *= mdiv;
     v[2] *= mdiv;
   }
+  return v;
 }
-void vec_norm3fx(const float v[3], float vr[3])
+float *vec_norm3fx(const float v[3], float vr[3])
 {
   float mag =
     (v[0] * v[0]) +
@@ -49,9 +52,10 @@ void vec_norm3fx(const float v[3], float vr[3])
     vr[1] = v[1] * mdiv;
     vr[2] = v[2] * mdiv;
   }
+  return vr;
 }
 
-void vec_norm4f(float v[4])
+float *vec_norm4f(float v[4])
 {
   float mag =
     (v[0] * v[0]) +
@@ -65,8 +69,9 @@ void vec_norm4f(float v[4])
     v[2] *= mdiv;
     v[3] *= mdiv;
   }
+  return v;
 }
-void vec_norm4fx(const float v[4], float vr[4])
+float *vec_norm4fx(const float v[4], float vr[4])
 {
   float mag =
     (v[0] * v[0]) +
@@ -80,9 +85,10 @@ void vec_norm4fx(const float v[4], float vr[4])
     vr[2] = v[2] * mdiv;
     vr[3] = v[3] * mdiv;
   }
+  return vr;
 }
 
-void vec_norm2d(double v[2])
+double *vec_norm2d(double v[2])
 {
   double mag =
     (v[0] * v[0]) +
@@ -92,8 +98,9 @@ void vec_norm2d(double v[2])
     v[0] *= mdiv;
     v[1] *= mdiv;
   }
+  return v;
 }
-void vec_norm2dx(const double v[2], double vr[2])
+double *vec_norm2dx(const double v[2], double vr[2])
 {
   double mag =
     (v[0] * v[0]) +
@@ -103,9 +110,10 @@ void vec_norm2dx(const double v[2], double vr[2])
     vr[0] = v[0] * mdiv;
     vr[1] = v[1] * mdiv;
   }
+  return vr;
 }
 
-void vec_norm3d(double v[3])
+double *vec_norm3d(double v[3])
 {
   double mag =
     (v[0] * v[0]) +
@@ -117,8 +125,9 @@ void vec_norm3d(double v[3])
     v[1] *= mdiv;
     v[2] *= mdiv;
   }
+  return v;
 }
-void vec_norm3dx(const double v[3], double vr[3])
+double *vec_norm3dx(const double v[3], double vr[3])
 {
   double mag =
     (v[0] * v[0]) +
@@ -130,9 +139,10 @@ void vec_norm3dx(const double v[3], double vr[3])
     vr[1] = v[1] * mdiv;
     vr[2] = v[2] * mdiv;
   }
+  return vr;
 }
 
-void vec_norm4d(double v[4])
+double *vec_norm4d(double v[4])
 {
   double mag =
     (v[0] * v[0]) +
@@ -146,8 +156,9 @@ void vec_norm4d(double v[4])
     v[2] *= mdiv;
     v[3] *= mdiv;
   }
+  return v;
 }
-void vec_norm4dx(const double v[4], double vr[4])
+double *vec_norm4dx(const double v[4], double vr[4])
 {
   double mag =
     (v[0] * v[0]) +
@@ -161,5 +172,6 @@ void vec_norm4dx(const double v[4], double vr[4])
     vr[2] = v[2] * mdiv;
     vr[3] = v[3] * mdiv;
   }
+  return vr;
 }
 

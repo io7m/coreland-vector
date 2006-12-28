@@ -148,6 +148,9 @@ vec_add.o:\
 vec_assi.o:\
 	cc vec_assi.c vector.h vec_assi.h 
 	./cc vec_assi.c
+vec_dist.o:\
+	cc vec_dist.c vector.h 
+	./cc vec_dist.c
 vec_div.o:\
 	cc vec_div.c vector.h vec_div.h 
 	./cc vec_div.c
@@ -176,12 +179,12 @@ vec_zero.o:\
 	cc vec_zero.c vector.h vec_zero.h 
 	./cc vec_zero.c
 vector.a:\
-	mk-slib vector.sld vec_add.o vec_assi.o vec_div.o vec_dotp.o \
-	vec_mag.o vec_mult.o vec_nega.o vec_norm.o vec_sub.o vec_xprod.o \
-	vec_zero.o 
-	./mk-slib vector vec_add.o vec_assi.o vec_div.o vec_dotp.o \
-	vec_mag.o vec_mult.o vec_nega.o vec_norm.o vec_sub.o vec_xprod.o \
-	vec_zero.o 
+	mk-slib vector.sld vec_add.o vec_assi.o vec_dist.o vec_div.o \
+	vec_dotp.o vec_mag.o vec_mult.o vec_nega.o vec_norm.o vec_sub.o \
+	vec_xprod.o vec_zero.o 
+	./mk-slib vector vec_add.o vec_assi.o vec_dist.o vec_div.o \
+	vec_dotp.o vec_mag.o vec_mult.o vec_nega.o vec_norm.o vec_sub.o \
+	vec_xprod.o vec_zero.o 
 clean: tests_clean 
 	rm -f UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
 	UNIT_TESTS/t_add2.o UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o \
@@ -194,8 +197,9 @@ clean: tests_clean
 	UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o UNIT_TESTS/t_sub2 \
 	UNIT_TESTS/t_sub2.o UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o \
 	UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o conf-cctype conf-systype \
-	vec_add.o vec_assi.o vec_div.o vec_dotp.o vec_mag.o vec_mult.o \
-	vec_nega.o vec_norm.o vec_sub.o vec_xprod.o vec_zero.o vector.a 
+	vec_add.o vec_assi.o vec_dist.o vec_div.o vec_dotp.o vec_mag.o \
+	vec_mult.o vec_nega.o vec_norm.o vec_sub.o vec_xprod.o vec_zero.o \
+	vector.a 
 
 tests:
 	(cd UNIT_TESTS && make tests)

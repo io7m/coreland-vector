@@ -16,8 +16,8 @@ int gen(struct vecgen *vg)
   else
     sqr = "sqrt";
 
-  printf("void vec_norm%u%s(%s v[%u])\n",
-          dim, abbr, type, dim);
+  printf("%s *vec_norm%u%s(%s v[%u])\n",
+          type, dim, abbr, type, dim);
   printf("{\n");
   printf("  %s mag =\n", type);
   for (ind = 0; ind < dim; ++ind) {
@@ -33,10 +33,11 @@ int gen(struct vecgen *vg)
     printf("    v[%u] *= mdiv;\n", ind);
   }
   printf("  }\n");
+  printf("  return v;\n");
   printf("}\n");
 
-  printf("void vec_norm%u%sx(const %s v[%u], %s vr[%u])\n",
-          dim, abbr, type, dim, type, dim);
+  printf("%s *vec_norm%u%sx(const %s v[%u], %s vr[%u])\n",
+          type, dim, abbr, type, dim, type, dim);
   printf("{\n");
   printf("  %s mag =\n", type);
   for (ind = 0; ind < dim; ++ind) {
@@ -52,6 +53,7 @@ int gen(struct vecgen *vg)
     printf("    vr[%u] = v[%u] * mdiv;\n", ind, ind);
   }
   printf("  }\n");
+  printf("  return vr;\n");
   printf("}\n");
   return 0;
 }

@@ -4,11 +4,11 @@ default: all
 
 all:\
 	vec_add_C vec_add_D vec_add_H vec_assi_C vec_assi_D vec_assi_H \
-	vec_div_C vec_div_D vec_div_H vec_dotp_C vec_dotp_D vec_dotp_H \
-	vec_mag_C vec_mag_D vec_mult_C vec_mult_D vec_mult_H vec_nega_C \
-	vec_nega_D vec_nega_H vec_norm_C vec_norm_D vec_sub_C vec_sub_D \
-	vec_sub_H vec_xprod_C vec_xprod_D vec_xprod_H vec_zero_C vec_zero_D \
-	vec_zero_H 
+	vec_dist_C vec_dist_D vec_div_C vec_div_D vec_div_H vec_dotp_C \
+	vec_dotp_D vec_dotp_H vec_mag_C vec_mag_D vec_mult_C vec_mult_D \
+	vec_mult_H vec_nega_C vec_nega_D vec_nega_H vec_norm_C vec_norm_D \
+	vec_sub_C vec_sub_D vec_sub_H vec_xprod_C vec_xprod_D vec_xprod_H \
+	vec_zero_C vec_zero_D vec_zero_H 
 
 cc: conf-cc conf-cctype 
 conf-cctype:\
@@ -59,6 +59,18 @@ vec_assid.o:\
 vec_assih.o:\
 	cc vec_assih.c vecgen.h 
 	./cc vec_assih.c
+vec_dist_C:\
+	ld vec_dist_C.ld entry.o vec_distc.o 
+	./ld vec_dist_C entry.o vec_distc.o 
+vec_dist_D:\
+	ld vec_dist_D.ld entry.o vec_distd.o 
+	./ld vec_dist_D entry.o vec_distd.o 
+vec_distc.o:\
+	cc vec_distc.c vecgen.h 
+	./cc vec_distc.c
+vec_distd.o:\
+	cc vec_distd.c vecgen.h 
+	./cc vec_distd.c
 vec_div_C:\
 	ld vec_div_C.ld entry.o vec_divc.o 
 	./ld vec_div_C entry.o vec_divc.o 
@@ -212,17 +224,16 @@ vec_zeroh.o:\
 clean: 
 	rm -f conf-cctype conf-systype entry.o vec_add_C vec_add_D \
 	vec_add_H vec_addc.o vec_addd.o vec_addh.o vec_assi_C vec_assi_D \
-	vec_assi_H vec_assic.o vec_assid.o vec_assih.o vec_div_C vec_div_D \
-	vec_div_H vec_divc.o vec_divd.o vec_divh.o vec_dotp_C vec_dotp_D \
-	vec_dotp_H vec_dotpc.o vec_dotpd.o vec_dotph.o vec_mag_C vec_mag_D \
-	vec_magc.o vec_magd.o vec_mult_C vec_mult_D vec_mult_H vec_multc.o \
-	vec_multd.o vec_multh.o vec_nega_C vec_nega_D vec_nega_H vec_negac.o \
-	vec_negad.o vec_negah.o vec_norm_C vec_norm_D vec_normc.o \
-	vec_normd.o vec_sub_C vec_sub_D vec_sub_H vec_subc.o vec_subd.o \
-	vec_subh.o vec_xprod_C vec_xprod_D vec_xprod_H vec_xprodc.o \
-	vec_xprodd.o vec_xprodh.o vec_zero_C vec_zero_D vec_zero_H \
-	vec_zeroc.o vec_zerod.o 
-	rm -f vec_zeroh.o 
+	vec_assi_H vec_assic.o vec_assid.o vec_assih.o vec_dist_C vec_dist_D \
+	vec_distc.o vec_distd.o vec_div_C vec_div_D vec_div_H vec_divc.o \
+	vec_divd.o vec_divh.o vec_dotp_C vec_dotp_D vec_dotp_H vec_dotpc.o \
+	vec_dotpd.o vec_dotph.o vec_mag_C vec_mag_D vec_magc.o vec_magd.o \
+	vec_mult_C vec_mult_D vec_mult_H vec_multc.o vec_multd.o vec_multh.o \
+	vec_nega_C vec_nega_D vec_nega_H vec_negac.o vec_negad.o vec_negah.o \
+	vec_norm_C vec_norm_D vec_normc.o vec_normd.o vec_sub_C vec_sub_D \
+	vec_sub_H vec_subc.o vec_subd.o vec_subh.o vec_xprod_C vec_xprod_D \
+	vec_xprod_H vec_xprodc.o vec_xprodd.o vec_xprodh.o vec_zero_C 
+	rm -f vec_zero_D vec_zero_H vec_zeroc.o vec_zerod.o vec_zeroh.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

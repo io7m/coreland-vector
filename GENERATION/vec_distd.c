@@ -9,9 +9,7 @@ int gen(struct vecgen *vg)
 
   if (!type) { fprintf(stderr, "gen: type not specified\n"); return 112; }
 
-  printf("%s *vec_nega%u%s(%s [%u]);\n",
-          type, dim, abbr, type, dim);
-  printf("%s *vec_nega%u%sx(const %s [%u], %s [%u]);\n",
-          type, dim, abbr, type, dim, type, dim);
+  printf("%s vec_dist%u%s(const %s [%u], const %s [%u]);\n",
+          type, dim, abbr, type, dim, type, dim, type, dim);
   return 0;
 }

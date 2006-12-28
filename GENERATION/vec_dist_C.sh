@@ -1,6 +1,5 @@
 #!/bin/sh
 
-echo '#include <math.h>'
 echo '#include "vector.h"'
 echo
 ./vec_dist_C 2 float f

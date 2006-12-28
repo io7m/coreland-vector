@@ -10,8 +10,8 @@ Redesign:
 
   for all functions (except where it doesn't make sense ie zero, assign)!
 
-  float vec_dist3f(const float [3], const float [3]);
-  float vec_dist4f(const float [4], const float [4]);
+-  float vec_dist3f(const float [3], const float [3]);
+-  float vec_dist4f(const float [4], const float [4]);
   float vec_abs3f(const float [3], const float [3]);
   float vec_abs4f(const float [4], const float [4]);
   float vec_angle3f(const float [3], const float [3]);

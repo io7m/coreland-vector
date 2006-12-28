@@ -19,9 +19,9 @@ int gen(struct vecgen *vg)
   printf("%s vec_dist%u%s(const %s va[%u], const %s vb[%u])\n",
           type, dim, abbr, type, dim, type, dim);
   printf("{\n");
-  printf("  %s d;\n", type);
-  printf("  return d;\n");
+  printf("  %s vc[%u];\n", type, dim);
+  printf("  return vec_mag%u%s(vec_sub%u%sx(va, vb, vc));\n",
+         dim, abbr, dim, abbr);
   printf("}\n");
-
   return 0;
 }

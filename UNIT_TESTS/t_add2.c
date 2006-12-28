@@ -220,7 +220,7 @@ int main()
         printf("fail: [%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, tests[ind].vr[jnd], jnd, tests[ind].va[jnd]);
       }
-      printf("[%u] vr[%u] %f == va[%u] %f\n",
+      printf("[%u] vr[%u] %f ~ va[%u] %f\n",
               ind, jnd, tests[ind].vr[jnd], jnd, tests[ind].va[jnd]);
     }
     printf("--\n");

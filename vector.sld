@@ -4,6 +4,7 @@ vec_div.o
 vec_dotp.o
 vec_mag.o
 vec_mult.o
+vec_nega.o
 vec_norm.o
 vec_sub.o
 vec_xprod.o

@@ -1,0 +1,1 @@
+nega_gen.o

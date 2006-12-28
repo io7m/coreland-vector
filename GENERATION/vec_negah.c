@@ -9,7 +9,7 @@ int gen(struct vecgen *vg)
   printf("#define vec_NEGA%u(v) \\\n", dim);
   printf("{ \\\n");
   for (ind = 0; ind < dim; ++ind)
-    printf("  (va)[%u] = -(v)[%u]; \\\n", ind, ind);
+    printf("  (v)[%u] = -(v)[%u]; \\\n", ind, ind);
   printf("}\n");
   printf("#define vec_NEGA%ux(v, vr) \\\n", dim);
   printf("{ \\\n");

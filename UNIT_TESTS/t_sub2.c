@@ -197,7 +197,7 @@ struct sub_test tests[] = {
 
 int main()
 {
-  float tmp[4];
+  float tmp[4] = {0, 0, 0, 0};
   unsigned int ind;
   unsigned int jnd;
 
@@ -221,7 +221,10 @@ int main()
         printf("fail: [%u] vr[%u] %f != tmp[%u] %f\n",
                 ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
       }
+      printf("[%u] vr[%u] %f ~ tmp[%u] %f\n",
+              ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
     }
+    printf("--\n");
   }
 
   return 0;

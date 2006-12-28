@@ -16,12 +16,12 @@ Redesign:
   float vec_dist4f(const float [4], const float [4]);
   float vec_abs3f(const float [3], const float [3]);
   float vec_abs4f(const float [4], const float [4]);
--  float vec_dotprod3f(const float[3], const float[3]);
--  float vec_dotprod4f(const float[4], const float[4]);
--  void vec_norm3fx(const float [3], float [3]);
--  void vec_norm4fx(const float [4], float [4]);
--  void vec_norm3f(float [3]);
--  void vec_norm4f(float [4]);
+-+  float vec_dotprod3f(const float[3], const float[3]);
+-+  float vec_dotprod4f(const float[4], const float[4]);
+-+  void vec_norm3fx(const float [3], float [3]);
+-+  void vec_norm4fx(const float [4], float [4]);
+-+  void vec_norm3f(float [3]);
+-+  void vec_norm4f(float [4]);
 -+  void vec_add3f(float [3], const float [3]);
 -+  void vec_add4f(float [4], const float [4]);
 -+  void vec_add3fx(const float [3], const float [3], float [3]);

@@ -3,7 +3,7 @@
 default: all
 
 all:\
-	add_gen div_gen mult_gen nega_gen norm_gen sub_gen 
+	add_gen div_gen dotprod_gen mult_gen nega_gen norm_gen sub_gen 
 
 add_gen:\
 	ld add_gen.ld add_gen.o 
@@ -24,6 +24,12 @@ div_gen:\
 div_gen.o:\
 	cc div_gen.c 
 	./cc div_gen.c
+dotprod_gen:\
+	ld dotprod_gen.ld dotprod_gen.o 
+	./ld dotprod_gen dotprod_gen.o 
+dotprod_gen.o:\
+	cc dotprod_gen.c 
+	./cc dotprod_gen.c
 ld: conf-ld 
 mk-cctype: conf-cc conf-systype 
 mk-slib: conf-systype 
@@ -53,7 +59,7 @@ sub_gen.o:\
 	cc sub_gen.c 
 	./cc sub_gen.c
 clean: 
-	rm -f add_gen add_gen.o conf-cctype conf-systype div_gen div_gen.o \
+	rm -f add_gen add_gen.o div_gen div_gen.o dotprod_gen dotprod_gen.o \
 	mult_gen mult_gen.o nega_gen nega_gen.o norm_gen norm_gen.o sub_gen \
 	sub_gen.o 
 

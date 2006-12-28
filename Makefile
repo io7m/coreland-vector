@@ -4,10 +4,11 @@ default: all
 
 all:\
 	UNIT_TESTS/t_add1 UNIT_TESTS/t_add2 UNIT_TESTS/t_assign \
-	UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 UNIT_TESTS/t_mult1 \
-	UNIT_TESTS/t_mult2 UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega2 \
-	UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 \
-	UNIT_TESTS/t_sub2 UNIT_TESTS/t_util.a UNIT_TESTS/t_zero vector.a 
+	UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 UNIT_TESTS/t_dotprod \
+	UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult2 UNIT_TESTS/t_nega1 \
+	UNIT_TESTS/t_nega2 UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm2 \
+	UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub2 UNIT_TESTS/t_util.a \
+	UNIT_TESTS/t_zero vector.a 
 
 UNIT_TESTS/t_add1:\
 	ld UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a \
@@ -47,6 +48,14 @@ UNIT_TESTS/t_div2:\
 UNIT_TESTS/t_div2.o:\
 	cc UNIT_TESTS/t_div2.c vector.h UNIT_TESTS/t_util.h 
 	./cc UNIT_TESTS/t_div2.c
+UNIT_TESTS/t_dotprod:\
+	ld UNIT_TESTS/t_dotprod.ld UNIT_TESTS/t_dotprod.o \
+	UNIT_TESTS/t_util.a vector.a 
+	./ld UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
+	UNIT_TESTS/t_util.a vector.a 
+UNIT_TESTS/t_dotprod.o:\
+	cc UNIT_TESTS/t_dotprod.c vector.h UNIT_TESTS/t_util.h 
+	./cc UNIT_TESTS/t_dotprod.c
 UNIT_TESTS/t_mult1:\
 	ld UNIT_TESTS/t_mult1.ld UNIT_TESTS/t_mult1.o UNIT_TESTS/t_util.a \
 	vector.a 
@@ -145,9 +154,6 @@ vec_div.o:\
 vec_dotp.o:\
 	cc vec_dotp.c vector.h vec_dotp.h 
 	./cc vec_dotp.c
-vec_dotprod.o:\
-	cc vec_dotprod.c 
-	./cc vec_dotprod.c
 vec_mag.o:\
 	cc vec_mag.c vector.h 
 	./cc vec_mag.c
@@ -180,16 +186,16 @@ clean: tests_clean
 	rm -f UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
 	UNIT_TESTS/t_add2.o UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o \
 	UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o UNIT_TESTS/t_div2 \
-	UNIT_TESTS/t_div2.o UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o \
-	UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o UNIT_TESTS/t_nega1 \
-	UNIT_TESTS/t_nega1.o UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o \
-	UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o UNIT_TESTS/t_norm2 \
-	UNIT_TESTS/t_norm2.o UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o \
-	UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o UNIT_TESTS/t_util.a \
-	UNIT_TESTS/t_util.o UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o \
-	conf-cctype conf-systype vec_add.o vec_assi.o vec_div.o vec_dotp.o \
-	vec_dotprod.o vec_mag.o vec_mult.o vec_nega.o vec_norm.o vec_sub.o \
-	vec_xprod.o vec_zero.o vector.a 
+	UNIT_TESTS/t_div2.o UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
+	UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 \
+	UNIT_TESTS/t_mult2.o UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o \
+	UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o UNIT_TESTS/t_norm1 \
+	UNIT_TESTS/t_norm1.o UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o \
+	UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o UNIT_TESTS/t_sub2 \
+	UNIT_TESTS/t_sub2.o UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o \
+	UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o conf-cctype conf-systype \
+	vec_add.o vec_assi.o vec_div.o vec_dotp.o vec_mag.o vec_mult.o \
+	vec_nega.o vec_norm.o vec_sub.o vec_xprod.o vec_zero.o vector.a 
 
 tests:
 	(cd UNIT_TESTS && make tests)

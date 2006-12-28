@@ -19,12 +19,14 @@ Redesign:
   (calculate angle between two normalized vectors)
   float vec_anglenorm3f(const float [3], const float [3]);
   float vec_anglenorm4f(const float [4], const float [4]);
+  int vec_cmp3f(const float [3], const float [3]);
+  int vec_cmp4f(const float [4], const float [4]);
 
+-   float *vec_crossprod3fx(const float[3], const float[3], float[3]);
 -+  float vec_dotprod3f(const float[3], const float[3]);
 -+  float vec_dotprod4f(const float[4], const float[4]);
--  float vec_mag4f(const float [4]);
--  float vec_mag3f(const float [3]);
-
+-+  float vec_mag4f(const float [4]);
+-+  float vec_mag3f(const float [3]);
 -+  float *vec_norm3fx(const float [3], float [3]);
 -+  float *vec_norm4fx(const float [4], float [4]);
 -+  float *vec_norm3f(float [3]);
@@ -49,11 +51,8 @@ Redesign:
 -+  float *vec_negate4f(float [4], const float);
 -+  float *vec_negate3fx(const float [3], const float, float [3]);
 -+  float *vec_negate4fx(const float [4], const float, float [4]);
--   float *vec_crossprod3fx(const float[3], const float[3], float[3]);
 -+  float *vec_assign3f(float [3], const float [3]);
 -+  float *vec_assign4f(float [3], const float [4]);
 -+  float *vec_zero3f(float [3]);
 -+  float *vec_zero4f(float [3]);
-  int vec_cmp3f(const float [3], const float [3]);
-  int vec_cmp4f(const float [4], const float [4]);
 

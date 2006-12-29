@@ -127,4 +127,18 @@ double vec_dist2d(const double [2], const double [2]);
 double vec_dist3d(const double [3], const double [3]);
 double vec_dist4d(const double [4], const double [4]);
 
+float vec_angle2f(const float [2], const float [2]);
+float vec_angle3f(const float [3], const float [3]);
+float vec_angle4f(const float [4], const float [4]);
+double vec_angle2d(const double [2], const double [2]);
+double vec_angle3d(const double [3], const double [3]);
+double vec_angle4d(const double [4], const double [4]);
+
+float vec_anglenorm2f(const float [2], const float [2]);
+float vec_anglenorm3f(const float [3], const float [3]);
+float vec_anglenorm4f(const float [4], const float [4]);
+double vec_anglenorm2d(const double [2], const double [2]);
+double vec_anglenorm3d(const double [3], const double [3]);
+double vec_anglenorm4d(const double [4], const double [4]);
+
 #endif

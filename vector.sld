@@ -1,4 +1,6 @@
 vec_add.o
+vec_angle.o
+vec_anglen.o
 vec_assi.o
 vec_dist.o
 vec_div.o

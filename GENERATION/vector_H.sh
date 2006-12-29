@@ -37,4 +37,8 @@ echo
 echo
 ./vec_dist_D.sh
 echo
+./vec_ang_D.sh
+echo
+./vec_angn_D.sh
+echo
 echo '#endif'

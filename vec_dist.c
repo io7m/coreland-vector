@@ -1,4 +1,3 @@
-#include <math.h>
 #include "vector.h"
 
 float vec_dist2f(const float va[2], const float vb[2])

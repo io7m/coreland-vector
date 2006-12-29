@@ -14,6 +14,8 @@
 ./vec_mult_H.sh > ../vec_mult.h
 ./vec_nega_C.sh > ../vec_nega.c
 ./vec_nega_H.sh > ../vec_nega.h
+./vec_ang_C.sh > ../vec_angle.c
+./vec_angn_C.sh > ../vec_anglen.c
 ./vec_norm_C.sh > ../vec_norm.c
 ./vec_sub_C.sh > ../vec_sub.c
 ./vec_sub_H.sh > ../vec_sub.h

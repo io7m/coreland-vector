@@ -1,1 +1,3 @@
--g -W -Wall -pedantic -ansi
+-g
+
+These are passed to the C compiler.

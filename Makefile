@@ -11,7 +11,8 @@ all:\
 	UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega2 UNIT_TESTS/t_norm1 \
 	UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub2 \
 	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc2 UNIT_TESTS/t_util.a \
-	UNIT_TESTS/t_xprod UNIT_TESTS/t_zero vector.a 
+	UNIT_TESTS/t_xprod UNIT_TESTS/t_zero ctxt/ctxt.a deinstaller \
+	inst-check inst-copy inst-dir inst-link installer instchk vector.a 
 
 UNIT_TESTS/t_add1:\
 	ld UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a \
@@ -219,15 +220,126 @@ cc: conf-cc conf-cctype conf-cflags
 conf-cctype:\
 	conf-systype conf-cc mk-cctype 
 	./mk-cctype > conf-cctype
+conf-sosuffix:\
+	mk-sosuffix 
+	./mk-sosuffix > conf-sosuffix
 conf-systype:\
 	mk-systype 
 	./mk-systype > conf-systype
+ctxt/bindir.c: mk-ctxt conf-bindir
+	rm -f ctxt/bindir.c
+	./mk-ctxt ctxt_bindir < conf-bindir > ctxt/bindir.c
+
+ctxt/bindir.o:\
+	cc ctxt/bindir.c 
+	./cc ctxt/bindir.c
+ctxt/ctxt.a:\
+	mk-slib ctxt/ctxt.sld ctxt/bindir.o ctxt/dlibdir.o ctxt/incdir.o \
+	ctxt/repos.o ctxt/slibdir.o ctxt/version.o 
+	./mk-slib ctxt/ctxt ctxt/bindir.o ctxt/dlibdir.o ctxt/incdir.o \
+	ctxt/repos.o ctxt/slibdir.o ctxt/version.o 
+ctxt/dlibdir.c: mk-ctxt conf-dlibdir
+	rm -f ctxt/dlibdir.c
+	./mk-ctxt ctxt_dlibdir < conf-dlibdir > ctxt/dlibdir.c
+
+ctxt/dlibdir.o:\
+	cc ctxt/dlibdir.c 
+	./cc ctxt/dlibdir.c
+ctxt/incdir.c: mk-ctxt conf-incdir
+	rm -f ctxt/incdir.c
+	./mk-ctxt ctxt_incdir < conf-incdir > ctxt/incdir.c
+
+ctxt/incdir.o:\
+	cc ctxt/incdir.c 
+	./cc ctxt/incdir.c
+ctxt/repos.c: mk-ctxt conf-repos
+	rm -f ctxt/repos.c
+	./mk-ctxt ctxt_repos < conf-repos > ctxt/repos.c
+
+ctxt/repos.o:\
+	cc ctxt/repos.c 
+	./cc ctxt/repos.c
+ctxt/slibdir.c: mk-ctxt conf-slibdir
+	rm -f ctxt/slibdir.c
+	./mk-ctxt ctxt_slibdir < conf-slibdir > ctxt/slibdir.c
+
+ctxt/slibdir.o:\
+	cc ctxt/slibdir.c 
+	./cc ctxt/slibdir.c
+ctxt/version.c: mk-ctxt VERSION
+	rm -f ctxt/version.c
+	./mk-ctxt ctxt_version < VERSION > ctxt/version.c
+
+ctxt/version.o:\
+	cc ctxt/version.c 
+	./cc ctxt/version.c
+deinstaller:\
+	ld deinstaller.ld deinstaller.o insthier.o install_core.o \
+	install_error.o ctxt/ctxt.a 
+	./ld deinstaller deinstaller.o insthier.o install_core.o \
+	install_error.o ctxt/ctxt.a 
+deinstaller.o:\
+	cc deinstaller.c install.h 
+	./cc deinstaller.c
+inst-check:\
+	ld inst-check.ld inst-check.o install_error.o 
+	./ld inst-check inst-check.o install_error.o 
+inst-check.o:\
+	cc inst-check.c install.h 
+	./cc inst-check.c
+inst-copy:\
+	ld inst-copy.ld inst-copy.o install_error.o 
+	./ld inst-copy inst-copy.o install_error.o 
+inst-copy.o:\
+	cc inst-copy.c install.h 
+	./cc inst-copy.c
+inst-dir:\
+	ld inst-dir.ld inst-dir.o install_error.o 
+	./ld inst-dir inst-dir.o install_error.o 
+inst-dir.o:\
+	cc inst-dir.c install.h 
+	./cc inst-dir.c
+inst-link:\
+	ld inst-link.ld inst-link.o install_error.o 
+	./ld inst-link inst-link.o install_error.o 
+inst-link.o:\
+	cc inst-link.c install.h 
+	./cc inst-link.c
+install_core.o:\
+	cc install_core.c install.h 
+	./cc install_core.c
+install_error.o:\
+	cc install_error.c install.h 
+	./cc install_error.c
+installer:\
+	ld installer.ld installer.o insthier.o install_core.o \
+	install_error.o ctxt/ctxt.a 
+	./ld installer installer.o insthier.o install_core.o \
+	install_error.o ctxt/ctxt.a 
+installer.o:\
+	cc installer.c install.h 
+	./cc installer.c
+instchk:\
+	ld instchk.ld instchk.o insthier.o install_core.o install_error.o \
+	ctxt/ctxt.a 
+	./ld instchk instchk.o insthier.o install_core.o install_error.o \
+	ctxt/ctxt.a 
+instchk.o:\
+	cc instchk.c install.h 
+	./cc instchk.c
+insthier.o:\
+	cc insthier.c ctxt.h install.h 
+	./cc insthier.c
 ld: conf-ld libs-sysmath 
 mk-cctype: conf-cc conf-systype 
+mk-ctxt.o:\
+	cc mk-ctxt.c
+	./cc mk-ctxt.c
+mk-ctxt:\
+	ld mk-ctxt.o mk-ctxt.ld
+	./ld mk-ctxt mk-ctxt.o
 mk-slib: conf-systype 
-t1.o:\
-	cc t1.c vector.h 
-	./cc t1.c
+mk-sosuffix: conf-systype 
 vec_add.o:\
 	cc vec_add.c vector.h vec_add.h 
 	./cc vec_add.c
@@ -309,12 +421,30 @@ clean: tests_clean
 	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o UNIT_TESTS/t_subsc2 \
 	UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o \
 	UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero \
-	UNIT_TESTS/t_zero.o conf-cctype conf-systype t1.o vec_add.o \
-	vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o vec_div.o \
-	vec_divsc.o vec_dotp.o 
-	rm -f vec_mag.o vec_mult.o vec_multsc.o vec_nega.o vec_norm.o \
-	vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o vector.a 
+	UNIT_TESTS/t_zero.o conf-cctype conf-systype ctxt/bindir.c \
+	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c 
+	rm -f ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
+	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
+	installer installer.o instchk instchk.o insthier.o mk-ctxt mk-ctxt.o \
+	vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o \
+	vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o \
+	vec_nega.o vec_norm.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o \
+	vector.a 
 
+deinstall: deinstaller inst-check inst-copy inst-dir inst-link
+	./deinstaller
+deinstall-dryrun: deinstaller inst-check inst-copy inst-dir inst-link
+	./deinstaller dryrun
+install: installer inst-check inst-copy inst-dir inst-link postinstall
+	./installer
+	./postinstall
+
+install-dryrun: installer inst-check inst-copy inst-dir inst-link
+	./installer dryrun
+install-check: instchk inst-check
+	./instchk
 tests:
 	(cd UNIT_TESTS && make tests)
 tests_clean:

@@ -31,7 +31,7 @@ Redesign:
 -+  float *vec_subsc3f(float [3]);
 -+  float *vec_subsc3fx(const float [3], float [3], float);
 
--   float *vec_crossprod3fx(const float[3], const float[3], float[3]);
+-+  float *vec_crossprod3fx(const float[3], const float[3], float[3]);
 -+  float vec_dotprod3f(const float[3], const float[3]);
 -+  float vec_dotprod4f(const float[4], const float[4]);
 -+  float vec_mag4f(const float [4]);
@@ -64,4 +64,3 @@ Redesign:
 -+  float *vec_assign4f(float [3], const float [4]);
 -+  float *vec_zero3f(float [3]);
 -+  float *vec_zero4f(float [3]);
-

@@ -173,8 +173,8 @@ double vec_dotprod2d(const double [2], const double [2]);
 double vec_dotprod3d(const double [3], const double [3]);
 double vec_dotprod4d(const double [4], const double [4]);
 
-float vec_dotprod3f(const float [3], const float [3]);
-double vec_dotprod3d(const double [3], const double [3]);
+float *vec_crossprod3fx(const float [3], const float [3], float [3]);
+double *vec_crossprod3dx(const double [3], const double [3], double [3]);
 
 float vec_dist2f(const float [2], const float [2]);
 float vec_dist3f(const float [3], const float [3]);

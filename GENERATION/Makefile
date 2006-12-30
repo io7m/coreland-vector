@@ -3,13 +3,15 @@
 default: all
 
 all:\
-	vec_add_C vec_add_D vec_add_H vec_ang_C vec_ang_D vec_angn_C \
-	vec_angn_D vec_assi_C vec_assi_D vec_assi_H vec_dist_C vec_dist_D \
-	vec_div_C vec_div_D vec_div_H vec_dotp_C vec_dotp_D vec_dotp_H \
-	vec_mag_C vec_mag_D vec_mult_C vec_mult_D vec_mult_H vec_nega_C \
-	vec_nega_D vec_nega_H vec_norm_C vec_norm_D vec_sub_C vec_sub_D \
-	vec_sub_H vec_xprod_C vec_xprod_D vec_xprod_H vec_zero_C vec_zero_D \
-	vec_zero_H 
+	vec_add_C vec_add_D vec_add_H vec_addsc_C vec_addsc_D vec_addsc_H \
+	vec_ang_C vec_ang_D vec_angn_C vec_angn_D vec_assi_C vec_assi_D \
+	vec_assi_H vec_dist_C vec_dist_D vec_div_C vec_div_D vec_div_H \
+	vec_divsc_C vec_divsc_D vec_divsc_H vec_dotp_C vec_dotp_D vec_dotp_H \
+	vec_mag_C vec_mag_D vec_mult_C vec_mult_D vec_mult_H vec_multsc_C \
+	vec_multsc_D vec_multsc_H vec_nega_C vec_nega_D vec_nega_H \
+	vec_norm_C vec_norm_D vec_sub_C vec_sub_D vec_sub_H vec_subsc_C \
+	vec_subsc_D vec_subsc_H vec_xprod_C vec_xprod_D vec_xprod_H \
+	vec_zero_C vec_zero_D vec_zero_H 
 
 cc: conf-cc conf-cctype 
 conf-cctype:\
@@ -42,6 +44,24 @@ vec_addd.o:\
 vec_addh.o:\
 	cc vec_addh.c vecgen.h 
 	./cc vec_addh.c
+vec_addsc_C:\
+	ld vec_addsc_C.ld entry.o vec_addscc.o 
+	./ld vec_addsc_C entry.o vec_addscc.o 
+vec_addsc_D:\
+	ld vec_addsc_D.ld entry.o vec_addscd.o 
+	./ld vec_addsc_D entry.o vec_addscd.o 
+vec_addsc_H:\
+	ld vec_addsc_H.ld entry.o vec_addsch.o 
+	./ld vec_addsc_H entry.o vec_addsch.o 
+vec_addscc.o:\
+	cc vec_addscc.c vecgen.h 
+	./cc vec_addscc.c
+vec_addscd.o:\
+	cc vec_addscd.c vecgen.h 
+	./cc vec_addscd.c
+vec_addsch.o:\
+	cc vec_addsch.c vecgen.h 
+	./cc vec_addsch.c
 vec_ang_C:\
 	ld vec_ang_C.ld entry.o vec_angc.o 
 	./ld vec_ang_C entry.o vec_angc.o 
@@ -114,6 +134,24 @@ vec_divd.o:\
 vec_divh.o:\
 	cc vec_divh.c vecgen.h 
 	./cc vec_divh.c
+vec_divsc_C:\
+	ld vec_divsc_C.ld entry.o vec_divscc.o 
+	./ld vec_divsc_C entry.o vec_divscc.o 
+vec_divsc_D:\
+	ld vec_divsc_D.ld entry.o vec_divscd.o 
+	./ld vec_divsc_D entry.o vec_divscd.o 
+vec_divsc_H:\
+	ld vec_divsc_H.ld entry.o vec_divsch.o 
+	./ld vec_divsc_H entry.o vec_divsch.o 
+vec_divscc.o:\
+	cc vec_divscc.c vecgen.h 
+	./cc vec_divscc.c
+vec_divscd.o:\
+	cc vec_divscd.c vecgen.h 
+	./cc vec_divscd.c
+vec_divsch.o:\
+	cc vec_divsch.c vecgen.h 
+	./cc vec_divsch.c
 vec_dotp_C:\
 	ld vec_dotp_C.ld entry.o vec_dotpc.o 
 	./ld vec_dotp_C entry.o vec_dotpc.o 
@@ -162,6 +200,24 @@ vec_multd.o:\
 vec_multh.o:\
 	cc vec_multh.c vecgen.h 
 	./cc vec_multh.c
+vec_multsc_C:\
+	ld vec_multsc_C.ld entry.o vec_multscc.o 
+	./ld vec_multsc_C entry.o vec_multscc.o 
+vec_multsc_D:\
+	ld vec_multsc_D.ld entry.o vec_multscd.o 
+	./ld vec_multsc_D entry.o vec_multscd.o 
+vec_multsc_H:\
+	ld vec_multsc_H.ld entry.o vec_multsch.o 
+	./ld vec_multsc_H entry.o vec_multsch.o 
+vec_multscc.o:\
+	cc vec_multscc.c vecgen.h 
+	./cc vec_multscc.c
+vec_multscd.o:\
+	cc vec_multscd.c vecgen.h 
+	./cc vec_multscd.c
+vec_multsch.o:\
+	cc vec_multsch.c vecgen.h 
+	./cc vec_multsch.c
 vec_nega_C:\
 	ld vec_nega_C.ld entry.o vec_negac.o 
 	./ld vec_nega_C entry.o vec_negac.o 
@@ -210,6 +266,24 @@ vec_subd.o:\
 vec_subh.o:\
 	cc vec_subh.c vecgen.h 
 	./cc vec_subh.c
+vec_subsc_C:\
+	ld vec_subsc_C.ld entry.o vec_subscc.o 
+	./ld vec_subsc_C entry.o vec_subscc.o 
+vec_subsc_D:\
+	ld vec_subsc_D.ld entry.o vec_subscd.o 
+	./ld vec_subsc_D entry.o vec_subscd.o 
+vec_subsc_H:\
+	ld vec_subsc_H.ld entry.o vec_subsch.o 
+	./ld vec_subsc_H entry.o vec_subsch.o 
+vec_subscc.o:\
+	cc vec_subscc.c vecgen.h 
+	./cc vec_subscc.c
+vec_subscd.o:\
+	cc vec_subscd.c vecgen.h 
+	./cc vec_subscd.c
+vec_subsch.o:\
+	cc vec_subsch.c vecgen.h 
+	./cc vec_subsch.c
 vec_xprod_C:\
 	ld vec_xprod_C.ld entry.o vec_xprodc.o 
 	./ld vec_xprod_C entry.o vec_xprodc.o 
@@ -248,19 +322,24 @@ vec_zeroh.o:\
 	./cc vec_zeroh.c
 clean: 
 	rm -f conf-cctype conf-systype entry.o vec_add_C vec_add_D \
-	vec_add_H vec_addc.o vec_addd.o vec_addh.o vec_ang_C vec_ang_D \
-	vec_angc.o vec_angd.o vec_angn_C vec_angn_D vec_angnc.o vec_angnd.o \
-	vec_assi_C vec_assi_D vec_assi_H vec_assic.o vec_assid.o vec_assih.o \
-	vec_dist_C vec_dist_D vec_distc.o vec_distd.o vec_div_C vec_div_D \
-	vec_div_H vec_divc.o vec_divd.o vec_divh.o vec_dotp_C vec_dotp_D \
-	vec_dotp_H vec_dotpc.o vec_dotpd.o vec_dotph.o vec_mag_C vec_mag_D \
-	vec_magc.o vec_magd.o vec_mult_C vec_mult_D vec_mult_H vec_multc.o \
-	vec_multd.o vec_multh.o vec_nega_C vec_nega_D vec_nega_H vec_negac.o \
-	vec_negad.o vec_negah.o vec_norm_C vec_norm_D vec_normc.o \
-	vec_normd.o vec_sub_C vec_sub_D vec_sub_H vec_subc.o vec_subd.o 
-	rm -f vec_subh.o vec_xprod_C vec_xprod_D vec_xprod_H vec_xprodc.o \
-	vec_xprodd.o vec_xprodh.o vec_zero_C vec_zero_D vec_zero_H \
-	vec_zeroc.o vec_zerod.o vec_zeroh.o 
+	vec_add_H vec_addc.o vec_addd.o vec_addh.o vec_addsc_C vec_addsc_D \
+	vec_addsc_H vec_addscc.o vec_addscd.o vec_addsch.o vec_ang_C \
+	vec_ang_D vec_angc.o vec_angd.o vec_angn_C vec_angn_D vec_angnc.o \
+	vec_angnd.o vec_assi_C vec_assi_D vec_assi_H vec_assic.o vec_assid.o \
+	vec_assih.o vec_dist_C vec_dist_D vec_distc.o vec_distd.o vec_div_C \
+	vec_div_D vec_div_H vec_divc.o vec_divd.o vec_divh.o vec_divsc_C \
+	vec_divsc_D vec_divsc_H vec_divscc.o vec_divscd.o vec_divsch.o \
+	vec_dotp_C vec_dotp_D vec_dotp_H vec_dotpc.o vec_dotpd.o vec_dotph.o \
+	vec_mag_C vec_mag_D vec_magc.o vec_magd.o vec_mult_C vec_mult_D \
+	vec_mult_H vec_multc.o vec_multd.o vec_multh.o vec_multsc_C \
+	vec_multsc_D vec_multsc_H 
+	rm -f vec_multscc.o vec_multscd.o vec_multsch.o vec_nega_C \
+	vec_nega_D vec_nega_H vec_negac.o vec_negad.o vec_negah.o vec_norm_C \
+	vec_norm_D vec_normc.o vec_normd.o vec_sub_C vec_sub_D vec_sub_H \
+	vec_subc.o vec_subd.o vec_subh.o vec_subsc_C vec_subsc_D vec_subsc_H \
+	vec_subscc.o vec_subscd.o vec_subsch.o vec_xprod_C vec_xprod_D \
+	vec_xprod_H vec_xprodc.o vec_xprodd.o vec_xprodh.o vec_zero_C \
+	vec_zero_D vec_zero_H vec_zeroc.o vec_zerod.o vec_zeroh.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

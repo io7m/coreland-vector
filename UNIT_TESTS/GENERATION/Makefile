@@ -3,8 +3,8 @@
 default: all
 
 all:\
-	add_gen div_gen dotprod_gen mag_gen mult_gen nega_gen norm_gen \
-	sub_gen 
+	add_gen addsc_gen div_gen divsc_gen dotprod_gen mag_gen mult_gen \
+	multsc_gen nega_gen norm_gen sub_gen subsc_gen 
 
 add_gen:\
 	ld add_gen.ld add_gen.o 
@@ -12,6 +12,12 @@ add_gen:\
 add_gen.o:\
 	cc add_gen.c 
 	./cc add_gen.c
+addsc_gen:\
+	ld addsc_gen.ld addsc_gen.o 
+	./ld addsc_gen addsc_gen.o 
+addsc_gen.o:\
+	cc addsc_gen.c 
+	./cc addsc_gen.c
 cc: conf-cc conf-cctype conf-cflags 
 conf-cctype:\
 	conf-systype conf-cc mk-cctype 
@@ -25,6 +31,12 @@ div_gen:\
 div_gen.o:\
 	cc div_gen.c 
 	./cc div_gen.c
+divsc_gen:\
+	ld divsc_gen.ld divsc_gen.o 
+	./ld divsc_gen divsc_gen.o 
+divsc_gen.o:\
+	cc divsc_gen.c 
+	./cc divsc_gen.c
 dotprod_gen:\
 	ld dotprod_gen.ld dotprod_gen.o 
 	./ld dotprod_gen dotprod_gen.o 
@@ -47,6 +59,12 @@ mult_gen:\
 mult_gen.o:\
 	cc mult_gen.c 
 	./cc mult_gen.c
+multsc_gen:\
+	ld multsc_gen.ld multsc_gen.o 
+	./ld multsc_gen multsc_gen.o 
+multsc_gen.o:\
+	cc multsc_gen.c 
+	./cc multsc_gen.c
 nega_gen:\
 	ld nega_gen.ld nega_gen.o 
 	./ld nega_gen nega_gen.o 
@@ -66,10 +84,18 @@ sub_gen:\
 sub_gen.o:\
 	cc sub_gen.c 
 	./cc sub_gen.c
+subsc_gen:\
+	ld subsc_gen.ld subsc_gen.o 
+	./ld subsc_gen subsc_gen.o 
+subsc_gen.o:\
+	cc subsc_gen.c 
+	./cc subsc_gen.c
 clean: 
-	rm -f add_gen add_gen.o conf-cctype conf-systype div_gen div_gen.o \
-	dotprod_gen dotprod_gen.o mag_gen mag_gen.o mult_gen mult_gen.o \
-	nega_gen nega_gen.o norm_gen norm_gen.o sub_gen sub_gen.o 
+	rm -f add_gen add_gen.o addsc_gen addsc_gen.o conf-cctype \
+	conf-systype div_gen div_gen.o divsc_gen divsc_gen.o dotprod_gen \
+	dotprod_gen.o mag_gen mag_gen.o mult_gen mult_gen.o multsc_gen \
+	multsc_gen.o nega_gen nega_gen.o norm_gen norm_gen.o sub_gen \
+	sub_gen.o subsc_gen subsc_gen.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

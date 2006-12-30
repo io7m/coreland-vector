@@ -2,12 +2,16 @@
 #define VECTOR_H
 
 #include "vec_add.h"
+#include "vec_addsc.h"
 #include "vec_assi.h"
 #include "vec_div.h"
+#include "vec_divsc.h"
 #include "vec_dotp.h"
 #include "vec_mult.h"
+#include "vec_multsc.h"
 #include "vec_nega.h"
 #include "vec_sub.h"
+#include "vec_subsc.h"
 #include "vec_xprod.h"
 #include "vec_zero.h"
 
@@ -62,6 +66,58 @@ double *vec_mult3d(double [3], const double [3]);
 double *vec_mult3dx(const double [3], const double [3], double [3]);
 double *vec_mult4d(double [4], const double [4]);
 double *vec_mult4dx(const double [4], const double [4], double [4]);
+
+float *vec_addsc2f(float [2], float);
+float *vec_addsc2fx(const float [2], float [2], float);
+float *vec_addsc3f(float [3], float);
+float *vec_addsc3fx(const float [3], float [3], float);
+float *vec_addsc4f(float [4], float);
+float *vec_addsc4fx(const float [4], float [4], float);
+double *vec_addsc2d(double [2], double);
+double *vec_addsc2dx(const double [2], double [2], double);
+double *vec_addsc3d(double [3], double);
+double *vec_addsc3dx(const double [3], double [3], double);
+double *vec_addsc4d(double [4], double);
+double *vec_addsc4dx(const double [4], double [4], double);
+
+float *vec_subsc2f(float [2], float);
+float *vec_subsc2fx(const float [2], float [2], float);
+float *vec_subsc3f(float [3], float);
+float *vec_subsc3fx(const float [3], float [3], float);
+float *vec_subsc4f(float [4], float);
+float *vec_subsc4fx(const float [4], float [4], float);
+double *vec_subsc2d(double [2], double);
+double *vec_subsc2dx(const double [2], double [2], double);
+double *vec_subsc3d(double [3], double);
+double *vec_subsc3dx(const double [3], double [3], double);
+double *vec_subsc4d(double [4], double);
+double *vec_subsc4dx(const double [4], double [4], double);
+
+float *vec_divsc2f(float [2], float);
+float *vec_divsc2fx(const float [2], float [2], float);
+float *vec_divsc3f(float [3], float);
+float *vec_divsc3fx(const float [3], float [3], float);
+float *vec_divsc4f(float [4], float);
+float *vec_divsc4fx(const float [4], float [4], float);
+double *vec_divsc2d(double [2], double);
+double *vec_divsc2dx(const double [2], double [2], double);
+double *vec_divsc3d(double [3], double);
+double *vec_divsc3dx(const double [3], double [3], double);
+double *vec_divsc4d(double [4], double);
+double *vec_divsc4dx(const double [4], double [4], double);
+
+float *vec_multsc2f(float [2], float);
+float *vec_multsc2fx(const float [2], float [2], float);
+float *vec_multsc3f(float [3], float);
+float *vec_multsc3fx(const float [3], float [3], float);
+float *vec_multsc4f(float [4], float);
+float *vec_multsc4fx(const float [4], float [4], float);
+double *vec_multsc2d(double [2], double);
+double *vec_multsc2dx(const double [2], double [2], double);
+double *vec_multsc3d(double [3], double);
+double *vec_multsc3dx(const double [3], double [3], double);
+double *vec_multsc4d(double [4], double);
+double *vec_multsc4dx(const double [4], double [4], double);
 
 float *vec_assign2f(float [2], const float [2]);
 float *vec_assign3f(float [3], const float [3]);

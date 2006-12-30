@@ -22,15 +22,14 @@ Redesign:
   int vec_cmp3f(const float [3], const float [3]);
   int vec_cmp4f(const float [4], const float [4]);
 
-  float *vec_assignsc3f(float [3], float, float, float);
-  float *vec_multsc3f(float [3]);
-  float *vec_multsc3fx(const float [3], float [3], float);
-  float *vec_divsc3f(float [3]);
-  float *vec_divsc3fx(const float [3], float [3], float);
-  float *vec_addsc3f(float [3]);
-  float *vec_addsc3fx(const float [3], float [3], float);
-  float *vec_subsc3f(float [3]);
-  float *vec_subsc3fx(const float [3], float [3], float);
+-+  float *vec_multsc3f(float [3]);
+-+  float *vec_multsc3fx(const float [3], float [3], float);
+-+  float *vec_divsc3f(float [3]);
+-+  float *vec_divsc3fx(const float [3], float [3], float);
+-+  float *vec_addsc3f(float [3]);
+-+  float *vec_addsc3fx(const float [3], float [3], float);
+-+  float *vec_subsc3f(float [3]);
+-+  float *vec_subsc3fx(const float [3], float [3], float);
 
 -   float *vec_crossprod3fx(const float[3], const float[3], float[3]);
 -+  float vec_dotprod3f(const float[3], const float[3]);

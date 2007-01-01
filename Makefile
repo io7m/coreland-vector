@@ -12,7 +12,8 @@ all:\
 	UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub2 \
 	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc2 UNIT_TESTS/t_util.a \
 	UNIT_TESTS/t_xprod UNIT_TESTS/t_zero ctxt/ctxt.a deinstaller \
-	inst-check inst-copy inst-dir inst-link installer instchk vector.a 
+	inst-check inst-copy inst-dir inst-link installer instchk \
+	vector-conf vector.a 
 
 UNIT_TESTS/t_add1:\
 	ld UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a \
@@ -394,6 +395,12 @@ vec_xprod.o:\
 vec_zero.o:\
 	cc vec_zero.c vector.h vec_zero.h 
 	./cc vec_zero.c
+vector-conf:\
+	ld vector-conf.ld vector-conf.o ctxt/ctxt.a 
+	./ld vector-conf vector-conf.o ctxt/ctxt.a 
+vector-conf.o:\
+	cc vector-conf.c ctxt.h 
+	./cc vector-conf.c
 vector.a:\
 	mk-slib vector.sld vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
 	vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o \
@@ -431,7 +438,7 @@ clean: tests_clean
 	vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o \
 	vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o \
 	vec_nega.o vec_norm.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o \
-	vector.a 
+	vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

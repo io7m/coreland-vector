@@ -55,6 +55,5 @@ struct install_item insthier[] = {
   {INST_COPY, "vector.h", 0, ctxt_incdir, 0, 0, 0644},
   {INST_COPY, "vector.sld", 0, ctxt_repos, 0, 0, 0644},
   {INST_COPY, "vector.a", "libvector.a", ctxt_slibdir, 0, 0, 0644},
-  {INST_COPY, "vector-conf", 0, ctxt_bindir, 0, 0, 0755},
 };
 unsigned long insthier_len = sizeof(insthier) / sizeof(struct install_item);

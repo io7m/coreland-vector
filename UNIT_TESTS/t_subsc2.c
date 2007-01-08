@@ -219,6 +219,7 @@ int main()
       if (!approx_equalf(tests[ind].vr[jnd], tmp[jnd], APPROX_MAX_ERROR)) {
         printf("fail: [%u] vr[%u] %f != tmp[%u] %f\n",
                 ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
+        return 1;
       }
       printf("[%u] vr[%u] %f ~ tmp[%u] %f\n",
               ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);

@@ -219,7 +219,7 @@ int main()
        larger due to dot product */
 
     if (!approx_equalf(tests[ind].res, res, APPROX_MAX_ERROR * 10.0)) {
-      printf("[%u] res %f != %f\n", ind, tests[ind].res, res);
+      printf("fail: [%u] res %f != %f\n", ind, tests[ind].res, res);
       return 1;
     }
     printf("[%u] dotprod(va) %f ~ res %f\n", ind, tests[ind].res, res);

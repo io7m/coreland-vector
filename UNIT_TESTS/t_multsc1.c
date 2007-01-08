@@ -216,9 +216,10 @@ int main()
     }
     for (jnd = 0; jnd < tests[ind].sz; ++jnd) {
       if (!approx_equalf(tests[ind].vr[jnd],
-                         tests[ind].va[jnd], APPROX_MAX_ERROR)) {
+                         tests[ind].va[jnd], APPROX_MAX_ERROR * 10)) {
         printf("fail: [%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, tests[ind].vr[jnd], jnd, tests[ind].va[jnd]);
+        return 1;
       }
       printf("[%u] vr[%u] %f ~ va[%u] %f\n",
               ind, jnd, tests[ind].vr[jnd], jnd, tests[ind].va[jnd]);

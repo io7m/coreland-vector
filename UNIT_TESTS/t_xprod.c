@@ -177,7 +177,7 @@ int main()
 
     for (jnd = 0; jnd < 3; ++jnd) {
       if (!approx_equalf(tests[ind].vr[jnd], tmp[jnd], APPROX_MAX_ERROR * 10.0)) {
-        printf("[%u] vr[%u] %f != tmp[%u] %f\n",
+        printf("fail: [%u] vr[%u] %f != tmp[%u] %f\n",
                ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
         return 1;
       }

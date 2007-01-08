@@ -1,69 +1,77 @@
+#include "simd.h"
 #include "vector.h"
 #include "vec_add.h"
 
-float *vec_add2f(float va[2], const float vb[2])
+float *vec_addNf(float *va, const float *vb, unsigned int n)
 {
-  vec_ADD2(va, vb);
-  return va;
+#ifdef HAVE_SIMD
+#ifdef HAVE_SIMD_SSE
+
+#endif
+#ifdef HAVE_SIMD_ALTIVEC
+
+#endif
+#else
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] += vb[ind];
+    return va;
+  }
+#endif
 }
-float *vec_add2fx(const float va[2], const float vb[2], float vr[2])
+float *vec_addNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
-  vec_ADD2x(va, vb, vr);
-  return vr;
+#ifdef HAVE_SIMD
+#ifdef HAVE_SIMD_SSE
+
+#endif
+#ifdef HAVE_SIMD_ALTIVEC
+
+#endif
+#else
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = va[ind] + vb[ind];
+    return vr;
+  }
+#endif
 }
 
-float *vec_add3f(float va[3], const float vb[3])
+double *vec_addNd(double *va, const double *vb, unsigned int n)
 {
-  vec_ADD3(va, vb);
-  return va;
-}
-float *vec_add3fx(const float va[3], const float vb[3], float vr[3])
-{
-  vec_ADD3x(va, vb, vr);
-  return vr;
-}
+#ifdef HAVE_SIMD
+#ifdef HAVE_SIMD_SSE2
 
-float *vec_add4f(float va[4], const float vb[4])
-{
-  vec_ADD4(va, vb);
-  return va;
-}
-float *vec_add4fx(const float va[4], const float vb[4], float vr[4])
-{
-  vec_ADD4x(va, vb, vr);
-  return vr;
-}
+#endif
+#ifdef HAVE_SIMD_ALTIVEC
 
-double *vec_add2d(double va[2], const double vb[2])
-{
-  vec_ADD2(va, vb);
-  return va;
+#endif
+#else
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] += vb[ind];
+    return va;
+  }
+#endif
 }
-double *vec_add2dx(const double va[2], const double vb[2], double vr[2])
+double *vec_addNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
-  vec_ADD2x(va, vb, vr);
-  return vr;
-}
+#ifdef HAVE_SIMD
+#ifdef HAVE_SIMD_SSE2
 
-double *vec_add3d(double va[3], const double vb[3])
-{
-  vec_ADD3(va, vb);
-  return va;
-}
-double *vec_add3dx(const double va[3], const double vb[3], double vr[3])
-{
-  vec_ADD3x(va, vb, vr);
-  return vr;
-}
+#endif
+#ifdef HAVE_SIMD_ALTIVEC
 
-double *vec_add4d(double va[4], const double vb[4])
-{
-  vec_ADD4(va, vb);
-  return va;
+#endif
+#else
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = va[ind] + vb[ind];
+    return vr;
+  }
+#endif
 }
-double *vec_add4dx(const double va[4], const double vb[4], double vr[4])
-{
-  vec_ADD4x(va, vb, vr);
-  return vr;
-}
-

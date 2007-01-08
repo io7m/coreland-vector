@@ -342,7 +342,7 @@ mk-ctxt:\
 mk-slib: conf-systype 
 mk-sosuffix: conf-systype 
 vec_add.o:\
-	cc vec_add.c vector.h vec_add.h 
+	cc vec_add.c simd.h vector.h vec_add.h 
 	./cc vec_add.c
 vec_addsc.o:\
 	cc vec_addsc.c vector.h vec_addsc.h 

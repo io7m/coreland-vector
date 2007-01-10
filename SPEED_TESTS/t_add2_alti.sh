@@ -1,12 +1,15 @@
 #!/bin/sh
 
-cc -DNO_VECTOR_SIMD -c -o vec_add_pure.o vec_add.c
-cc -faltivec -c -o vec_add_alti.o vec_add.c
+. ./test-subs
 
-cc -o t_pure t.c vec_add_pure.o
-cc -o t_alti t.c vec_add_alti.o
+cc ${CFLAGS} ${ALTIVEC_FLAGS} \
+  -o t_add2_pure -DNO_VECTOR_SIMD t_add2.c ../vec_add.c
+cc ${CFLAGS} ${ALTIVEC_FLAGS} \
+  -o t_add2_alti -faltivec t_add2.c ../vec_add.c
 
 printf "alti "
-./t_alti
+./t_add2_alti
 printf "pure "
-./t_pure
+./t_add2_pure
+
+rm -f t_add2_pure t_add2_alti

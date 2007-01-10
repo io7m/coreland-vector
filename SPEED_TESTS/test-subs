@@ -1,0 +1,12 @@
+#!/bin/sh
+
+ALTIVEC_FLAGS=`head -n 1 ../flags-altivec`
+SSE_FLAGS=`head -n 1 ../flags-sse`
+SSE2_FLAGS=`head -n 1 ../flags-sse2`
+CFLAGS=${CFLAGS} `head -n 1 conf-cflags` 2>/dev/null
+CFLAGS="-I../ ${CFLAGS}"
+
+export CFLAGS
+export ALTIVEC_FLAGS
+export SSE_FLAGS
+export SSE2_FLAGS

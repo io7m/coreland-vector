@@ -350,6 +350,9 @@ mk-ctxt:\
 	./ld mk-ctxt mk-ctxt.o
 mk-slib: conf-systype 
 mk-sosuffix: conf-systype 
+t.o:\
+	cc t.c vector.h 
+	./cc t.c
 vec_add.o:\
 	cc vec_add.c sysinfo.h vector.h vec_add.h vec_simd.h 
 	./cc vec_add.c
@@ -444,7 +447,7 @@ clean: sysdeps_clean tests_clean
 	rm -f ctxt/version.o deinstaller deinstaller.o inst-check \
 	inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
 	inst-link.o install_core.o install_error.o installer installer.o \
-	instchk instchk.o insthier.o vec_add.o vec_addsc.o vec_angle.o \
+	instchk instchk.o insthier.o t.o vec_add.o vec_addsc.o vec_angle.o \
 	vec_anglen.o vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o \
 	vec_mag.o vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_sub.o \
 	vec_subsc.o vec_xprod.o vec_zero.o vector-conf vector-conf.o \

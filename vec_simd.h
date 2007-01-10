@@ -9,11 +9,11 @@
 #undef SYSINFO_HAVE_CPU_EXT_ALTIVEC
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
-union aligned4f{
-  vector float v;
-  float f[4];
-};
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#include <xmmintrin.h>
 #endif
+
+void vec_simd_segments(unsigned int *, unsigned int *,
+                       unsigned int *, unsigned int *, unsigned int); 
 
 #endif

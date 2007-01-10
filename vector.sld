@@ -12,6 +12,7 @@ vec_mult.o
 vec_multsc.o
 vec_nega.o
 vec_norm.o
+vec_simd.o
 vec_sub.o
 vec_subsc.o
 vec_xprod.o

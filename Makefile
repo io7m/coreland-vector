@@ -395,6 +395,9 @@ vec_nega.o:\
 vec_norm.o:\
 	cc vec_norm.c vector.h 
 	./cc vec_norm.c
+vec_simd.o:\
+	cc vec_simd.c vec_simd.h 
+	./cc vec_simd.c
 vec_sub.o:\
 	cc vec_sub.c vector.h vec_sub.h 
 	./cc vec_sub.c
@@ -416,12 +419,12 @@ vector-conf.o:\
 vector.a:\
 	mk-slib vector.sld vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
 	vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o \
-	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_sub.o vec_subsc.o \
-	vec_xprod.o vec_zero.o 
+	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o \
+	vec_subsc.o vec_xprod.o vec_zero.o 
 	./mk-slib vector vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
 	vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o \
-	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_sub.o vec_subsc.o \
-	vec_xprod.o vec_zero.o 
+	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o \
+	vec_subsc.o vec_xprod.o vec_zero.o 
 clean: sysdeps_clean tests_clean 
 	rm -f UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
 	UNIT_TESTS/t_add2.o UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc1.o \
@@ -440,18 +443,17 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o UNIT_TESTS/t_subsc2 \
 	UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o \
 	UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero \
-	UNIT_TESTS/t_zero.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
-	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/incdir.c ctxt/incdir.o \
-	ctxt/repos.c ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o \
-	ctxt/version.c 
-	rm -f ctxt/version.o deinstaller deinstaller.o inst-check \
-	inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
-	inst-link.o install_core.o install_error.o installer installer.o \
-	instchk instchk.o insthier.o t.o vec_add.o vec_addsc.o vec_angle.o \
-	vec_anglen.o vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o \
-	vec_mag.o vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_sub.o \
-	vec_subsc.o vec_xprod.o vec_zero.o vector-conf vector-conf.o \
-	vector.a 
+	UNIT_TESTS/t_zero.o conf-cctype conf-systype ctxt/bindir.c \
+	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c 
+	rm -f ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
+	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
+	installer installer.o instchk instchk.o insthier.o mk-ctxt mk-ctxt.o \
+	t.o vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o \
+	vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o \
+	vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o \
+	vec_xprod.o vec_zero.o vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

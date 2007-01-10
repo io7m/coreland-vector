@@ -4,67 +4,103 @@
 #include "vec_simd.h"
 
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE
-#include <xmmintrin.h>
+#include <assert.h>
 
-static float *vec_addNf_sse(float *va, const float *vb, unsigned int n)
+static float *vec_addNf_sse(float *va, const float *vb, unsigned int ne)
 {
-  __m128 mva;
-  __m128 mvb;
-  float *ova;
-  unsigned int max;
-  unsigned int rem;
+  __m128 mva1;
+  __m128 mva2;
+  __m128 mvb1;
+  __m128 mvb2;
+  const float *pvb;
+  float *pva;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
   unsigned int ind;
 
-  ova = va;
-  max = n >> 2;
-  rem = n - (max * 4);
+  pva = va;
+  pvb = vb;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
-  for (ind = 0; ind < max; ++ind) {
-    mva = _mm_loadu_ps(va);
-    mvb = _mm_loadu_ps(vb);
-    mva = _mm_add_ps(mva, mvb);
-    _mm_storeu_ps(va, mva);
-    va += 4;
-    vb += 4;
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb);
+    mvb2 = _mm_load_ps(pvb + 4);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    mva2 = _mm_add_ps(mva2, mvb2);
+    _mm_store_ps(pva, mva1);
+    _mm_store_ps(pva + 4, mva2);
+    pva += 8;
+    pvb += 8;
   }
-  for (ind = 0; ind < rem; ++ind)
-    va[ind] += vb[ind];
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mvb1 = _mm_load_ps(pvb);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pva, mva1);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pva[ind] += pvb[ind];
 
-  return ova;
+  return va;
 }
 static float *vec_addNfx_sse(const float *va, const float *vb,
-                             float *vr, unsigned int n)
+                             float *vr, unsigned int ne)
 {
-  __m128 mva;
-  __m128 mvb;
-  float *ovr;
-  unsigned int max;
-  unsigned int rem;
+  __m128 mva1;
+  __m128 mva2;
+  __m128 mvb1;
+  __m128 mvb2;
+  __m128 mvr;
+  const float *pva;
+  const float *pvb;
+  float *pvr;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
   unsigned int ind;
 
-  ovr = vr;
-  max = n >> 2;
-  rem = n - (max * 4);
+  pva = va;
+  pvb = vb;
+  pvr = vr;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
-  for (ind = 0; ind < max; ++ind) {
-    mva = _mm_loadu_ps(va);
-    mvb = _mm_loadu_ps(vb);
-    mva = _mm_add_ps(mva, mvb);
-    _mm_storeu_ps(vr, mva);
-    va += 4;
-    vb += 4;
-    vr += 4;
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb);
+    mvb2 = _mm_load_ps(pvb + 4);
+    mvr = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pvr, mva1);
+    mvr = _mm_add_ps(mva2, mvb2);
+    _mm_store_ps(pvr + 4, mva2);
+    pva += 8;
+    pvb += 8;
+    pvr += 8;
   }
-  for (ind = 0; ind < rem; ++ind)
-    vr[ind] = va[ind] + vb[ind];
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mvb1 = _mm_load_ps(pvb);
+    mvr = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pvr, mva1);
+    pva += 4;
+    pvb += 4;
+    pvr += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = pva[ind] + pvb[ind];
 
-  return ovr;
+  return vr;
 }
 #endif
 
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE2
-#include <xmmintrin.h>
-
 static double *vec_addNd_sse2(double *va, const double *vb, unsigned int n)
 {
   return va;
@@ -77,21 +113,6 @@ static double *vec_addNdx_sse2(const double *va, const double *vb,
 #endif
 
 #ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
-static void vsizes(unsigned int *pd16, unsigned int *pd8,
-                   unsigned int *pd4,  unsigned int *pdr, unsigned int ne)
-{
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
-  
-  d16 = ne >> 4; ne -= d16 << 4;
-  d8 = ne >> 3; ne -= d8 << 3;
-  d4 = ne >> 2; ne -= d4 << 2;
-  dr = ne;
-
-  *pd16 = d16; *pd8 = d8; *pd4 = d4; *pdr = dr;
-}
 static float *vec_addNf_altivec(float *va, const float *vb, unsigned int ne)
 {
   vector float vva1;
@@ -112,8 +133,7 @@ static float *vec_addNf_altivec(float *va, const float *vb, unsigned int ne)
 
   pva = va;
   pvb = vb;
-
-  vsizes(&d16, &d8, &d4, &dr, ne);
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
   for (ind = 0; ind < d16; ++ind) {
     vva1 = vec_ld(0, pva);
@@ -135,7 +155,6 @@ static float *vec_addNf_altivec(float *va, const float *vb, unsigned int ne)
     pva += 16;
     pvb += 16;
   }
-
   for (ind = 0; ind < d8; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
@@ -148,7 +167,6 @@ static float *vec_addNf_altivec(float *va, const float *vb, unsigned int ne)
     pva += 8;
     pvb += 8;
   }
-
   for (ind = 0; ind < d4; ++ind) {
     vva1 = vec_ld(0, pva);
     vvb1 = vec_ld(0, pvb);
@@ -186,7 +204,7 @@ static float *vec_addNfx_altivec(const float *va, const float *vb,
   pva = va;
   pvb = vb;
   pvr = vr;
-  vsizes(&d16, &d8, &d4, &dr, ne);
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
   for (ind = 0; ind < d16; ++ind) {
     vva1 = vec_ld(0, pva);

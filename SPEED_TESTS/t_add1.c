@@ -2,7 +2,7 @@
 #include <time.h>
 #include "vector.h"
 
-#define VEC_SIZE 32
+#define VEC_SIZE 128
 #define TEST_ITER 20000000
 
 union align16 {

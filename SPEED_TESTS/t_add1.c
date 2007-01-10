@@ -62,7 +62,7 @@ int main()
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
-    vec_addNf(test.va, test.vb, VEC_SIZE);
+    vec_addNfx(test.va, test.vb, test.vr, VEC_SIZE);
   t2 = clock();
 
   t = (float) t2 - t1;

@@ -1,12 +1,9 @@
-
 #include "sysinfo.h"
 #include "vector.h"
 #include "vec_sub.h"
 #include "vec_simd.h"
 
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE
-#include <assert.h>
-
 static float *vec_subNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mva1;
@@ -78,9 +75,9 @@ static float *vec_subNfx_sse(const float *va, const float *vb,
     mvb1 = _mm_load_ps(pvb);
     mvb2 = _mm_load_ps(pvb + 4);
     mvr = _mm_sub_ps(mva1, mvb1);
-    _mm_store_ps(pvr, mva1);
+    _mm_store_ps(pvr, mvr);
     mvr = _mm_sub_ps(mva2, mvb2);
-    _mm_store_ps(pvr + 4, mva2);
+    _mm_store_ps(pvr + 4, mvr);
     pva += 8;
     pvb += 8;
     pvr += 8;
@@ -89,7 +86,7 @@ static float *vec_subNfx_sse(const float *va, const float *vb,
     mva1 = _mm_load_ps(pva);
     mvb1 = _mm_load_ps(pvb);
     mvr = _mm_sub_ps(mva1, mvb1);
-    _mm_store_ps(pvr, mva1);
+    _mm_store_ps(pvr, mvr);
     pva += 4;
     pvb += 4;
     pvr += 4;

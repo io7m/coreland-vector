@@ -41,19 +41,6 @@ double *vec_mult3dx(const double [3], const double [3], double [3]);
 double *vec_mult4d(double [4], const double [4]);
 double *vec_mult4dx(const double [4], const double [4], double [4]);
 
-float *vec_addsc2f(float [2], float);
-float *vec_addsc2fx(const float [2], float [2], float);
-float *vec_addsc3f(float [3], float);
-float *vec_addsc3fx(const float [3], float [3], float);
-float *vec_addsc4f(float [4], float);
-float *vec_addsc4fx(const float [4], float [4], float);
-double *vec_addsc2d(double [2], double);
-double *vec_addsc2dx(const double [2], double [2], double);
-double *vec_addsc3d(double [3], double);
-double *vec_addsc3dx(const double [3], double [3], double);
-double *vec_addsc4d(double [4], double);
-double *vec_addsc4dx(const double [4], double [4], double);
-
 float *vec_subsc2f(float [2], float);
 float *vec_subsc2fx(const float [2], float [2], float);
 float *vec_subsc3f(float [3], float);

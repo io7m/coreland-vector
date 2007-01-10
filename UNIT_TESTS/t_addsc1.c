@@ -8,6 +8,7 @@ struct addsc_test {
   float sc;
   float vr[4];
   unsigned int sz;
+  char align[24];
 };
 
 struct addsc_test tests[] = {

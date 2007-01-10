@@ -9,4 +9,11 @@
 #undef SYSINFO_HAVE_CPU_EXT_ALTIVEC
 #endif
 
+#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+union aligned4f{
+  vector float v;
+  float f[4];
+};
+#endif
+
 #endif

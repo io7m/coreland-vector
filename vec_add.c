@@ -10,10 +10,12 @@ static float *vec_addNf_sse(float *va, const float *vb, unsigned int n)
 {
   __m128 mva;
   __m128 mvb;
+  float *ova;
   unsigned int max;
   unsigned int rem;
   unsigned int ind;
 
+  ova = va;
   max = n >> 2;
   rem = n - (max * 4);
 
@@ -28,17 +30,19 @@ static float *vec_addNf_sse(float *va, const float *vb, unsigned int n)
   for (ind = 0; ind < rem; ++ind)
     va[ind] += vb[ind];
 
-  return va;
+  return ova;
 }
 static float *vec_addNfx_sse(const float *va, const float *vb,
                              float *vr, unsigned int n)
 {
   __m128 mva;
   __m128 mvb;
+  float *ovr;
   unsigned int max;
   unsigned int rem;
   unsigned int ind;
 
+  ovr = vr;
   max = n >> 2;
   rem = n - (max * 4);
 
@@ -54,7 +58,7 @@ static float *vec_addNfx_sse(const float *va, const float *vb,
   for (ind = 0; ind < rem; ++ind)
     vr[ind] = va[ind] + vb[ind];
 
-  return vr;
+  return ovr;
 }
 #endif
 
@@ -75,12 +79,63 @@ static double *vec_addNdx_sse2(const double *va, const double *vb,
 #ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
 static float *vec_addNf_altivec(float *va, const float *vb, unsigned int n)
 {
-  return va;
+  union aligned4f ava;
+  union aligned4f avb;
+  float *ova;
+  unsigned int max;
+  unsigned int rem;
+  unsigned int ind;
+
+  ova = va;
+  max = n >> 2;
+  rem = n - (max * 4);
+
+  for (ind = 0; ind < max; ++ind) {
+    memcpy(ava.f, va, 4 * sizeof(float));
+    memcpy(avb.f, vb, 4 * sizeof(float));
+    ava.v = vec_add(ava.v, avb.v);
+    memcpy(va, ava.f, 4 * sizeof(float));
+    va += 4;
+    vb += 4;
+  }
+  if (rem) {
+    memcpy(ava.f, va, rem * sizeof(float));
+    memcpy(avb.f, vb, rem * sizeof(float));
+    ava.v = vec_add(ava.v, avb.v);
+    memcpy(va, ava.f, rem * sizeof(float));
+  }
+  return ova;
 }
 static float *vec_addNfx_altivec(const float *va, const float *vb,
                                  float *vr, unsigned int n)
 {
-  return vr;
+  union aligned4f ava;
+  union aligned4f avb;
+  float *ovr;
+  unsigned int max;
+  unsigned int rem;
+  unsigned int ind;
+
+  ovr = vr;
+  max = n >> 2;
+  rem = n - (max * 4);
+
+  for (ind = 0; ind < max; ++ind) {
+    memcpy(ava.f, va, 4 * sizeof(float));
+    memcpy(avb.f, vb, 4 * sizeof(float));
+    ava.v = vec_add(ava.v, avb.v);
+    memcpy(vr, ava.f, 4 * sizeof(float));
+    va += 4;
+    vb += 4;
+    vr += 4;
+  }
+  if (rem) {
+    memcpy(ava.f, va, rem * sizeof(float));
+    memcpy(avb.f, vb, rem * sizeof(float));
+    ava.v = vec_add(ava.v, avb.v);
+    memcpy(vr, ava.f, 4 * sizeof(float));
+  }
+  return ovr;
 }
 #endif
 

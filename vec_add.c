@@ -163,16 +163,76 @@ static float *vec_addNf_altivec(float *va, const float *vb, unsigned int ne)
   return va;
 }
 static float *vec_addNfx_altivec(const float *va, const float *vb,
-                                 float *vr, unsigned int n)
+                                 float *vr, unsigned int ne)
 {
-  vector float vva;
-  vector float vvb;
-  float *ovr;
-  unsigned int max;
-  unsigned int rem;
+  vector float vva1;
+  vector float vva2;
+  vector float vva3;
+  vector float vva4;
+  vector float vvb1;
+  vector float vvb2;
+  vector float vvb3;
+  vector float vvb4;
+  vector float vvr;
+  const float *pvb;
+  const float *pva;
+  float *pvr;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
   unsigned int ind;
 
-  return ovr;
+  pva = va;
+  pvb = vb;
+  pvr = vr;
+  vsizes(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d16; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvb3 = vec_ld(0, pvb + 8);
+    vvb4 = vec_ld(0, pvb + 12);
+    vvr = vec_add(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_add(vva2, vvb2);
+    vec_st(vvr, 0, pvr + 4);
+    vvr = vec_add(vva3, vvb3);
+    vec_st(vvr, 0, pvr + 8);
+    vvr = vec_add(vva4, vvb4);
+    vec_st(vvr, 0, pvr + 12);
+    pva += 16;
+    pvb += 16;
+    pvr += 16;
+  }
+  for (ind = 0; ind < d8; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvr = vec_add(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_add(vva2, vvb2);
+    vec_st(vvr, 0, pvr + 4);
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vvb1 = vec_ld(0, pvb);
+    vvr = vec_add(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = pva[ind] + pvb[ind];
+
+  return vr;
 }
 #endif
 

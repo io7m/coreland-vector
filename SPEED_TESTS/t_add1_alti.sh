@@ -2,10 +2,10 @@
 
 . ./test-subs
 
-cc ${CFLAGS} ${ALTIVEC_FLAGS} \
+${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
   -o t_add1_pure -DNO_VECTOR_SIMD t_add1.c ../vec_add.c
-cc ${CFLAGS} ${ALTIVEC_FLAGS} \
-  -o t_add1_alti -faltivec t_add1.c ../vec_add.c
+${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
+  -o t_add1_alti t_add1.c ../vec_add.c
 
 printf "alti "
 ./t_add1_alti

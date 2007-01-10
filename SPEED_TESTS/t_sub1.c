@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include <time.h>
 #include "vector.h"
 
-#define VEC_SIZE 128
+#define VEC_SIZE 32
 #define TEST_ITER 20000000
 
 union align16 {
@@ -13,8 +12,11 @@ union align16 {
 struct test {
   union align16 xva;
   union align16 xvb;
+  union align16 xvr;
   float *va;
   float *vb;
+  float *vr;
+  char x[4];
 };
 
 struct test test;
@@ -34,9 +36,11 @@ void fill()
 
   test.va = (float *) &test.xva;
   test.vb = (float *) &test.xvb;
+  test.vr = (float *) &test.xvr;
   for (ind = 0; ind < VEC_SIZE; ++ind) {
     test.va[ind] = frand();
     test.vb[ind] = frand();
+    test.vr[ind] = frand();
   }
 }
 
@@ -53,10 +57,12 @@ int main()
     printf("test.va unaligned %p\n", &test.va);
   if (((unsigned long) test.vb) & 15)
     printf("test.vb unaligned %p\n", &test.vb);
+  if (((unsigned long) test.vr) & 15)
+    printf("test.vr unaligned %p\n", &test.vr);
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
-    vec_addNf(test.va, test.vb, VEC_SIZE);
+    vec_subNfx(test.va, test.vb, test.vr, VEC_SIZE);
   t2 = clock();
 
   t = (float) t2 - t1;

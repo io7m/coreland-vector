@@ -34,10 +34,11 @@ float frand()
 void fill()
 {
   unsigned int ind;
+
+  test.va = (float *) &test.xva;
+  test.vb = (float *) &test.xvb;
+  test.vr = (float *) &test.xvr;
   for (ind = 0; ind < VEC_SIZE; ++ind) {
-    test.va = (float *) &test.xva;
-    test.vb = (float *) &test.xvb;
-    test.vr = (float *) &test.xvr;
     test.va[ind] = frand();
     test.vb[ind] = frand();
     test.vr[ind] = frand();

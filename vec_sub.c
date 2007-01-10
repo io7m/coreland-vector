@@ -1,69 +1,313 @@
+
+#include "sysinfo.h"
 #include "vector.h"
 #include "vec_sub.h"
+#include "vec_simd.h"
 
-float *vec_sub2f(float va[2], const float vb[2])
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#include <assert.h>
+
+static float *vec_subNf_sse(float *va, const float *vb, unsigned int ne)
 {
-  vec_SUB2(va, vb);
+  __m128 mva1;
+  __m128 mva2;
+  __m128 mvb1;
+  __m128 mvb2;
+  const float *pvb;
+  float *pva;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb);
+    mvb2 = _mm_load_ps(pvb + 4);
+    mva1 = _mm_sub_ps(mva1, mvb1);
+    mva2 = _mm_sub_ps(mva2, mvb2);
+    _mm_store_ps(pva, mva1);
+    _mm_store_ps(pva + 4, mva2);
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mvb1 = _mm_load_ps(pvb);
+    mva1 = _mm_sub_ps(mva1, mvb1);
+    _mm_store_ps(pva, mva1);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pva[ind] -= pvb[ind];
+
   return va;
 }
-float *vec_sub2fx(const float va[2], const float vb[2], float vr[2])
+static float *vec_subNfx_sse(const float *va, const float *vb,
+                             float *vr, unsigned int ne)
 {
-  vec_SUB2x(va, vb, vr);
+  __m128 mva1;
+  __m128 mva2;
+  __m128 mvb1;
+  __m128 mvb2;
+  __m128 mvr;
+  const float *pva;
+  const float *pvb;
+  float *pvr;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  pvr = vr;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb);
+    mvb2 = _mm_load_ps(pvb + 4);
+    mvr = _mm_sub_ps(mva1, mvb1);
+    _mm_store_ps(pvr, mva1);
+    mvr = _mm_sub_ps(mva2, mvb2);
+    _mm_store_ps(pvr + 4, mva2);
+    pva += 8;
+    pvb += 8;
+    pvr += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mvb1 = _mm_load_ps(pvb);
+    mvr = _mm_sub_ps(mva1, mvb1);
+    _mm_store_ps(pvr, mva1);
+    pva += 4;
+    pvb += 4;
+    pvr += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = pva[ind] - pvb[ind];
+
   return vr;
 }
+#endif
 
-float *vec_sub3f(float va[3], const float vb[3])
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+static double *vec_subNd_sse2(double *va, const double *vb, unsigned int n)
 {
-  vec_SUB3(va, vb);
   return va;
 }
-float *vec_sub3fx(const float va[3], const float vb[3], float vr[3])
+static double *vec_subNdx_sse2(const double *va, const double *vb,
+                               double *vr, unsigned int n)
 {
-  vec_SUB3x(va, vb, vr);
   return vr;
 }
+#endif
 
-float *vec_sub4f(float va[4], const float vb[4])
+#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+static float *vec_subNf_altivec(float *va, const float *vb, unsigned int ne)
 {
-  vec_SUB4(va, vb);
+  vector float vva1;
+  vector float vva2;
+  vector float vva3;
+  vector float vva4;
+  vector float vvb1;
+  vector float vvb2;
+  vector float vvb3;
+  vector float vvb4;
+  const float *pvb;
+  float *pva;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d16; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvb3 = vec_ld(0, pvb + 8);
+    vvb4 = vec_ld(0, pvb + 12);
+    vva1 = vec_sub(vva1, vvb1);
+    vva2 = vec_sub(vva2, vvb2);
+    vva3 = vec_sub(vva3, vvb3);
+    vva4 = vec_sub(vva4, vvb4); 
+    vec_st(vva1, 0, pva);
+    vec_st(vva2, 0, pva + 4);
+    vec_st(vva3, 0, pva + 8);
+    vec_st(vva4, 0, pva + 12);
+    pva += 16;
+    pvb += 16;
+  }
+  for (ind = 0; ind < d8; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vva1 = vec_sub(vva1, vvb1);
+    vva2 = vec_sub(vva2, vvb2);
+    vec_st(vva1, 0, pva);
+    vec_st(vva2, 0, pva + 4);
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vvb1 = vec_ld(0, pvb);
+    vva1 = vec_sub(vva1, vvb1);
+    vec_st(vva1, 0, pva);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pva[ind] -= pvb[ind];
+
   return va;
 }
-float *vec_sub4fx(const float va[4], const float vb[4], float vr[4])
+static float *vec_subNfx_altivec(const float *va, const float *vb,
+                                 float *vr, unsigned int ne)
 {
-  vec_SUB4x(va, vb, vr);
+  vector float vva1;
+  vector float vva2;
+  vector float vva3;
+  vector float vva4;
+  vector float vvb1;
+  vector float vvb2;
+  vector float vvb3;
+  vector float vvb4;
+  vector float vvr;
+  const float *pvb;
+  const float *pva;
+  float *pvr;
+  unsigned int d16;
+  unsigned int d8;
+  unsigned int d4;
+  unsigned int dr;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  pvr = vr;
+  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d16; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvb3 = vec_ld(0, pvb + 8);
+    vvb4 = vec_ld(0, pvb + 12);
+    vvr = vec_sub(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_sub(vva2, vvb2);
+    vec_st(vvr, 0, pvr + 4);
+    vvr = vec_sub(vva3, vvb3);
+    vec_st(vvr, 0, pvr + 8);
+    vvr = vec_sub(vva4, vvb4);
+    vec_st(vvr, 0, pvr + 12);
+    pva += 16;
+    pvb += 16;
+    pvr += 16;
+  }
+  for (ind = 0; ind < d8; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvr = vec_sub(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_sub(vva2, vvb2);
+    vec_st(vvr, 0, pvr + 4);
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vvb1 = vec_ld(0, pvb);
+    vvr = vec_sub(vva1, vvb1);
+    vec_st(vvr, 0, pvr);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = pva[ind] - pvb[ind];
+
   return vr;
 }
+#endif
 
-double *vec_sub2d(double va[2], const double vb[2])
-{
-  vec_SUB2(va, vb);
-  return va;
-}
-double *vec_sub2dx(const double va[2], const double vb[2], double vr[2])
-{
-  vec_SUB2x(va, vb, vr);
-  return vr;
-}
+/* interface */
 
-double *vec_sub3d(double va[3], const double vb[3])
+float *vec_subNf(float *va, const float *vb, unsigned int n)
 {
-  vec_SUB3(va, vb);
-  return va;
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+  return vec_subNf_sse(va, vb, n);
+#endif
+#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+  return vec_subNf_altivec(va, vb, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] -= vb[ind];
+    return va;
+  }
 }
-double *vec_sub3dx(const double va[3], const double vb[3], double vr[3])
+float *vec_subNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
-  vec_SUB3x(va, vb, vr);
-  return vr;
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+  return vec_subNfx_sse(va, vb, vr, n);
+#endif
+#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+  return vec_subNfx_altivec(va, vb, vr, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = va[ind] - vb[ind];
+    return vr;
+  }
 }
-
-double *vec_sub4d(double va[4], const double vb[4])
+double *vec_subNd(double *va, const double *vb, unsigned int n)
 {
-  vec_SUB4(va, vb);
-  return va;
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+  return vec_subNd_sse2(va, vb, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] -= vb[ind];
+    return va;
+  }
 }
-double *vec_sub4dx(const double va[4], const double vb[4], double vr[4])
+double *vec_subNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
-  vec_SUB4x(va, vb, vr);
-  return vr;
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+  return vec_subNdx_sse2(va, vb, vr, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = va[ind] - vb[ind];
+    return vr;
+  }
 }
-

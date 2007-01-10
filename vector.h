@@ -15,19 +15,6 @@
 #include "vec_xprod.h"
 #include "vec_zero.h"
 
-float *vec_sub2f(float [2], const float [2]);
-float *vec_sub2fx(const float [2], const float [2], float [2]);
-float *vec_sub3f(float [3], const float [3]);
-float *vec_sub3fx(const float [3], const float [3], float [3]);
-float *vec_sub4f(float [4], const float [4]);
-float *vec_sub4fx(const float [4], const float [4], float [4]);
-double *vec_sub2d(double [2], const double [2]);
-double *vec_sub2dx(const double [2], const double [2], double [2]);
-double *vec_sub3d(double [3], const double [3]);
-double *vec_sub3dx(const double [3], const double [3], double [3]);
-double *vec_sub4d(double [4], const double [4]);
-double *vec_sub4dx(const double [4], const double [4], double [4]);
-
 float *vec_div2f(float [2], const float [2]);
 float *vec_div2fx(const float [2], const float [2], float [2]);
 float *vec_div3f(float [3], const float [3]);

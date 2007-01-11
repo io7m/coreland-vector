@@ -154,10 +154,10 @@ static float *vec_addscNfx_altivec(const float *va, float *vr, float sc,
 float *vec_addscNf(float *va, float sc, unsigned int n)
 {
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE
-  return vec_addscNf_sse(va, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNf_sse(va, sc, n);
 #endif
 #ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
-  return vec_addscNf_altivec(va, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNf_altivec(va, sc, n);
 #endif
   {
     unsigned int ind;
@@ -169,10 +169,10 @@ float *vec_addscNf(float *va, float sc, unsigned int n)
 float *vec_addscNfx(const float *va, float *vr, float sc, unsigned int n)
 {
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE
-  return vec_addscNfx_sse(va, vr, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNfx_sse(va, vr, sc, n);
 #endif
 #ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
-  return vec_addscNfx_altivec(va, vr, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNfx_altivec(va, vr, sc, n);
 #endif
   {
     unsigned int ind;
@@ -184,7 +184,7 @@ float *vec_addscNfx(const float *va, float *vr, float sc, unsigned int n)
 double *vec_addscNd(double *va, double sc, unsigned int n)
 {
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE2
-  return vec_addscNd_sse2(va, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNd_sse2(va, sc, n);
 #endif
   {
     unsigned int ind;
@@ -196,7 +196,7 @@ double *vec_addscNd(double *va, double sc, unsigned int n)
 double *vec_addscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE2
-  return vec_addscNdx_sse2(vr, va, sc, n);
+  if (!vec_unaligned(va)) return vec_addscNdx_sse2(vr, va, sc, n);
 #endif
   {
     unsigned int ind;

@@ -1,41 +1,23 @@
 #ifndef VEC_SUBSC_H
 #define VEC_SUBSC_H
 
-#define vec_SUBSC2(va, sc) \
-{ \
-  (va)[0] -= (sc); \
-  (va)[1] -= (sc); \
-}
-#define vec_SUBSC2x(va, vr, sc) \
-{ \
-  (vr)[0] = (va)[0] - (sc); \
-  (vr)[1] = (va)[1] - (sc); \
-}
-#define vec_SUBSC3(va, sc) \
-{ \
-  (va)[0] -= (sc); \
-  (va)[1] -= (sc); \
-  (va)[2] -= (sc); \
-}
-#define vec_SUBSC3x(va, vr, sc) \
-{ \
-  (vr)[0] = (va)[0] - (sc); \
-  (vr)[1] = (va)[1] - (sc); \
-  (vr)[2] = (va)[2] - (sc); \
-}
-#define vec_SUBSC4(va, sc) \
-{ \
-  (va)[0] -= (sc); \
-  (va)[1] -= (sc); \
-  (va)[2] -= (sc); \
-  (va)[3] -= (sc); \
-}
-#define vec_SUBSC4x(va, vr, sc) \
-{ \
-  (vr)[0] = (va)[0] - (sc); \
-  (vr)[1] = (va)[1] - (sc); \
-  (vr)[2] = (va)[2] - (sc); \
-  (vr)[3] = (va)[3] - (sc); \
-}
+float *vec_subscNf(float *, float, unsigned int);
+float *vec_subscNfx(const float *, float *, float, unsigned int);
+double *vec_subscNd(double *, double, unsigned int);
+double *vec_subscNdx(const double *, double *, double, unsigned int);
+
+#define vec_subsc2f(v,sc) vec_subscNf((v),(sc),2)
+#define vec_subsc3f(v,sc) vec_subscNf((v),(sc),3)
+#define vec_subsc4f(v,sc) vec_subscNf((v),(sc),4)
+#define vec_subsc2fx(v,vr,sc) vec_subscNfx((v),(vr),(sc),2)
+#define vec_subsc3fx(v,vr,sc) vec_subscNfx((v),(vr),(sc),3)
+#define vec_subsc4fx(v,vr,sc) vec_subscNfx((v),(vr),(sc),4)
+
+#define vec_subsc2d(v,sc) vec_subscNd((v),(sc),2)
+#define vec_subsc3d(v,sc) vec_subscNd((v),(sc),3)
+#define vec_subsc4d(v,sc) vec_subscNd((v),(sc),4)
+#define vec_subsc2dx(v,vr,sc) vec_subscNdx((v),(vr),(sc),2)
+#define vec_subsc3dx(v,vr,sc) vec_subscNdx((v),(vr),(sc),3)
+#define vec_subsc4dx(v,vr,sc) vec_subscNdx((v),(vr),(sc),4)
 
 #endif

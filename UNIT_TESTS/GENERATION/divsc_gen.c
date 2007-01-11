@@ -18,9 +18,9 @@ void print(float f[4], float sc, unsigned int sz)
 {
   printf("  {\n");
   printf("    {%f, %f, %f, %f},\n", f[0], f[1], f[2], f[3]);
-  printf("    %f,\n", sc);
   printf("    {%f, %f, %f, %f},\n",
           f[0] / sc, f[1] / sc, f[2] / sc, f[3] / sc);
+  printf("    %f,\n", sc);
   printf("    %u,\n", sz);
   printf("  },\n");
 }

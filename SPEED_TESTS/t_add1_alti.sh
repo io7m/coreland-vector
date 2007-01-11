@@ -3,7 +3,7 @@
 . ./test-subs
 
 ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
-  -o t_add1_pure -DNO_VECTOR_SIMD t_add1.c ../vec_add.c ../vec_simd.c
+  -o t_add1_pure -DVECTOR_NO_SIMD t_add1.c ../vec_add.c ../vec_simd.c
 ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
   -o t_add1_alti t_add1.c ../vec_add.c ../vec_simd.c
 

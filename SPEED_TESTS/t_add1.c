@@ -17,7 +17,6 @@ struct test {
   float *va;
   float *vb;
   float *vr;
-  char x[4];
 };
 
 struct test test;

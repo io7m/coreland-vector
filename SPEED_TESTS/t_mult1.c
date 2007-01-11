@@ -1,7 +1,8 @@
+#include <stdio.h>
 #include <time.h>
 #include "vector.h"
 
-#define VEC_SIZE 32
+#define VEC_SIZE 128
 #define TEST_ITER 20000000
 
 union align16 {
@@ -61,7 +62,7 @@ int main()
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
-    vec_subNfx(test.va, test.vb, test.vr, VEC_SIZE);
+    vec_multNfx(test.va, test.vb, test.vr, VEC_SIZE);
   t2 = clock();
 
   t = (float) t2 - t1;

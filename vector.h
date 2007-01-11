@@ -28,32 +28,6 @@ double *vec_div3dx(const double [3], const double [3], double [3]);
 double *vec_div4d(double [4], const double [4]);
 double *vec_div4dx(const double [4], const double [4], double [4]);
 
-float *vec_mult2f(float [2], const float [2]);
-float *vec_mult2fx(const float [2], const float [2], float [2]);
-float *vec_mult3f(float [3], const float [3]);
-float *vec_mult3fx(const float [3], const float [3], float [3]);
-float *vec_mult4f(float [4], const float [4]);
-float *vec_mult4fx(const float [4], const float [4], float [4]);
-double *vec_mult2d(double [2], const double [2]);
-double *vec_mult2dx(const double [2], const double [2], double [2]);
-double *vec_mult3d(double [3], const double [3]);
-double *vec_mult3dx(const double [3], const double [3], double [3]);
-double *vec_mult4d(double [4], const double [4]);
-double *vec_mult4dx(const double [4], const double [4], double [4]);
-
-float *vec_subsc2f(float [2], float);
-float *vec_subsc2fx(const float [2], float [2], float);
-float *vec_subsc3f(float [3], float);
-float *vec_subsc3fx(const float [3], float [3], float);
-float *vec_subsc4f(float [4], float);
-float *vec_subsc4fx(const float [4], float [4], float);
-double *vec_subsc2d(double [2], double);
-double *vec_subsc2dx(const double [2], double [2], double);
-double *vec_subsc3d(double [3], double);
-double *vec_subsc3dx(const double [3], double [3], double);
-double *vec_subsc4d(double [4], double);
-double *vec_subsc4dx(const double [4], double [4], double);
-
 float *vec_divsc2f(float [2], float);
 float *vec_divsc2fx(const float [2], float [2], float);
 float *vec_divsc3f(float [3], float);
@@ -79,13 +53,6 @@ double *vec_multsc3d(double [3], double);
 double *vec_multsc3dx(const double [3], double [3], double);
 double *vec_multsc4d(double [4], double);
 double *vec_multsc4dx(const double [4], double [4], double);
-
-float *vec_assign2f(float [2], const float [2]);
-float *vec_assign3f(float [3], const float [3]);
-float *vec_assign4f(float [4], const float [4]);
-double *vec_assign2d(double [2], const double [2]);
-double *vec_assign3d(double [3], const double [3]);
-double *vec_assign4d(double [4], const double [4]);
 
 float *vec_zero2f(float [2]);
 float *vec_zero3f(float [3]);

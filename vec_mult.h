@@ -1,41 +1,23 @@
 #ifndef VEC_MULT_H
 #define VEC_MULT_H
 
-#define vec_MULT2(va, vb) \
-{ \
-  (va)[0] *= (vb)[0]; \
-  (va)[1] *= (vb)[1]; \
-}
-#define vec_MULT2x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] * (vb)[0]; \
-  (vr)[1] = (va)[1] * (vb)[1]; \
-}
-#define vec_MULT3(va, vb) \
-{ \
-  (va)[0] *= (vb)[0]; \
-  (va)[1] *= (vb)[1]; \
-  (va)[2] *= (vb)[2]; \
-}
-#define vec_MULT3x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] * (vb)[0]; \
-  (vr)[1] = (va)[1] * (vb)[1]; \
-  (vr)[2] = (va)[2] * (vb)[2]; \
-}
-#define vec_MULT4(va, vb) \
-{ \
-  (va)[0] *= (vb)[0]; \
-  (va)[1] *= (vb)[1]; \
-  (va)[2] *= (vb)[2]; \
-  (va)[3] *= (vb)[3]; \
-}
-#define vec_MULT4x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] * (vb)[0]; \
-  (vr)[1] = (va)[1] * (vb)[1]; \
-  (vr)[2] = (va)[2] * (vb)[2]; \
-  (vr)[3] = (va)[3] * (vb)[3]; \
-}
+float *vec_multNf(float *, const float *, unsigned int);
+float *vec_multNfx(const float *, const float *, float *, unsigned int);
+double *vec_multNd(double *, const double *, unsigned int);
+double *vec_multNdx(const double *, const double *, double *, unsigned int);
+
+#define vec_mult2f(va,vb) vec_multNf((va),(vb),2)
+#define vec_mult3f(va,vb) vec_multNf((va),(vb),3)
+#define vec_mult4f(va,vb) vec_multNf((va),(vb),4)
+#define vec_mult2fx(va,vb,vr) vec_multNfx((va),(vb),(vr),2)
+#define vec_mult3fx(va,vb,vr) vec_multNfx((va),(vb),(vr),3)
+#define vec_mult4fx(va,vb,vr) vec_multNfx((va),(vb),(vr),4)
+
+#define vec_mult2d(va,vb) vec_multNd((va),(vb),2)
+#define vec_mult3d(va,vb) vec_multNd((va),(vb),3)
+#define vec_mult4d(va,vb) vec_multNd((va),(vb),4)
+#define vec_mult2dx(va,vb,vr) vec_multNdx((va),(vb),(vr),2)
+#define vec_mult3dx(va,vb,vr) vec_multNdx((va),(vb),(vr),3)
+#define vec_mult4dx(va,vb,vr) vec_multNdx((va),(vb),(vr),4)
 
 #endif

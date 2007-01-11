@@ -350,14 +350,11 @@ mk-ctxt:\
 	./ld mk-ctxt mk-ctxt.o
 mk-slib: conf-systype 
 mk-sosuffix: conf-systype 
-t.o:\
-	cc t.c vector.h 
-	./cc t.c
 vec_add.o:\
 	cc vec_add.c sysinfo.h vector.h vec_add.h vec_simd.h 
 	./cc vec_add.c
 vec_addsc.o:\
-	cc vec_addsc.c vector.h vec_addsc.h 
+	cc vec_addsc.c sysinfo.h vector.h vec_addsc.h vec_simd.h 
 	./cc vec_addsc.c
 vec_angle.o:\
 	cc vec_angle.c vector.h 
@@ -366,7 +363,7 @@ vec_anglen.o:\
 	cc vec_anglen.c vector.h 
 	./cc vec_anglen.c
 vec_assi.o:\
-	cc vec_assi.c vector.h vec_assi.h 
+	cc vec_assi.c sysinfo.h vector.h vec_assi.h vec_simd.h 
 	./cc vec_assi.c
 vec_dist.o:\
 	cc vec_dist.c vector.h 
@@ -399,7 +396,7 @@ vec_simd.o:\
 	cc vec_simd.c vec_simd.h 
 	./cc vec_simd.c
 vec_sub.o:\
-	cc vec_sub.c vector.h vec_sub.h 
+	cc vec_sub.c sysinfo.h vector.h vec_sub.h vec_simd.h 
 	./cc vec_sub.c
 vec_subsc.o:\
 	cc vec_subsc.c vector.h vec_subsc.h 
@@ -450,10 +447,10 @@ clean: sysdeps_clean tests_clean
 	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
 	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
 	installer installer.o instchk instchk.o insthier.o mk-ctxt mk-ctxt.o \
-	t.o vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o \
-	vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o \
-	vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o \
-	vec_xprod.o vec_zero.o vector-conf vector-conf.o vector.a 
+	vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o \
+	vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o \
+	vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o \
+	vec_zero.o vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

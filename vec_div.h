@@ -1,41 +1,23 @@
 #ifndef VEC_DIV_H
 #define VEC_DIV_H
 
-#define vec_DIV2(va, vb) \
-{ \
-  (va)[0] /= (vb)[0]; \
-  (va)[1] /= (vb)[1]; \
-}
-#define vec_DIV2x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] / (vb)[0]; \
-  (vr)[1] = (va)[1] / (vb)[1]; \
-}
-#define vec_DIV3(va, vb) \
-{ \
-  (va)[0] /= (vb)[0]; \
-  (va)[1] /= (vb)[1]; \
-  (va)[2] /= (vb)[2]; \
-}
-#define vec_DIV3x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] / (vb)[0]; \
-  (vr)[1] = (va)[1] / (vb)[1]; \
-  (vr)[2] = (va)[2] / (vb)[2]; \
-}
-#define vec_DIV4(va, vb) \
-{ \
-  (va)[0] /= (vb)[0]; \
-  (va)[1] /= (vb)[1]; \
-  (va)[2] /= (vb)[2]; \
-  (va)[3] /= (vb)[3]; \
-}
-#define vec_DIV4x(va, vb, vr) \
-{ \
-  (vr)[0] = (va)[0] / (vb)[0]; \
-  (vr)[1] = (va)[1] / (vb)[1]; \
-  (vr)[2] = (va)[2] / (vb)[2]; \
-  (vr)[3] = (va)[3] / (vb)[3]; \
-}
+float *vec_divNf(float *, const float *, unsigned int);
+float *vec_divNfx(const float *, const float *, float *, unsigned int);
+double *vec_divNd(double *, const double *, unsigned int);
+double *vec_divNdx(const double *, const double *, double *, unsigned int);
+
+#define vec_div2f(va,vb) vec_divNf((va),(vb),2)
+#define vec_div3f(va,vb) vec_divNf((va),(vb),3)
+#define vec_div4f(va,vb) vec_divNf((va),(vb),4)
+#define vec_div2fx(va,vb,vr) vec_divNfx((va),(vb),(vr),2)
+#define vec_div3fx(va,vb,vr) vec_divNfx((va),(vb),(vr),3)
+#define vec_div4fx(va,vb,vr) vec_divNfx((va),(vb),(vr),4)
+
+#define vec_div2d(va,vb) vec_divNd((va),(vb),2)
+#define vec_div3d(va,vb) vec_divNd((va),(vb),3)
+#define vec_div4d(va,vb) vec_divNd((va),(vb),4)
+#define vec_div2dx(va,vb,vr) vec_divNdx((va),(vb),(vr),2)
+#define vec_div3dx(va,vb,vr) vec_divNdx((va),(vb),(vr),3)
+#define vec_div4dx(va,vb,vr) vec_divNdx((va),(vb),(vr),4)
 
 #endif

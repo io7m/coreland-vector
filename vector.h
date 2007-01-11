@@ -15,52 +15,6 @@
 #include "vec_xprod.h"
 #include "vec_zero.h"
 
-float *vec_div2f(float [2], const float [2]);
-float *vec_div2fx(const float [2], const float [2], float [2]);
-float *vec_div3f(float [3], const float [3]);
-float *vec_div3fx(const float [3], const float [3], float [3]);
-float *vec_div4f(float [4], const float [4]);
-float *vec_div4fx(const float [4], const float [4], float [4]);
-double *vec_div2d(double [2], const double [2]);
-double *vec_div2dx(const double [2], const double [2], double [2]);
-double *vec_div3d(double [3], const double [3]);
-double *vec_div3dx(const double [3], const double [3], double [3]);
-double *vec_div4d(double [4], const double [4]);
-double *vec_div4dx(const double [4], const double [4], double [4]);
-
-float *vec_divsc2f(float [2], float);
-float *vec_divsc2fx(const float [2], float [2], float);
-float *vec_divsc3f(float [3], float);
-float *vec_divsc3fx(const float [3], float [3], float);
-float *vec_divsc4f(float [4], float);
-float *vec_divsc4fx(const float [4], float [4], float);
-double *vec_divsc2d(double [2], double);
-double *vec_divsc2dx(const double [2], double [2], double);
-double *vec_divsc3d(double [3], double);
-double *vec_divsc3dx(const double [3], double [3], double);
-double *vec_divsc4d(double [4], double);
-double *vec_divsc4dx(const double [4], double [4], double);
-
-float *vec_multsc2f(float [2], float);
-float *vec_multsc2fx(const float [2], float [2], float);
-float *vec_multsc3f(float [3], float);
-float *vec_multsc3fx(const float [3], float [3], float);
-float *vec_multsc4f(float [4], float);
-float *vec_multsc4fx(const float [4], float [4], float);
-double *vec_multsc2d(double [2], double);
-double *vec_multsc2dx(const double [2], double [2], double);
-double *vec_multsc3d(double [3], double);
-double *vec_multsc3dx(const double [3], double [3], double);
-double *vec_multsc4d(double [4], double);
-double *vec_multsc4dx(const double [4], double [4], double);
-
-float *vec_zero2f(float [2]);
-float *vec_zero3f(float [3]);
-float *vec_zero4f(float [4]);
-double *vec_zero2d(double [2]);
-double *vec_zero3d(double [3]);
-double *vec_zero4d(double [4]);
-
 float *vec_nega2f(float [2]);
 float *vec_nega2fx(const float [2], float [2]);
 float *vec_nega3f(float [3]);

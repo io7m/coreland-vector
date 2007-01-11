@@ -22,7 +22,7 @@ void vec_simd_segments(unsigned int *pd16, unsigned int *pd8,
 #ifdef VECTOR_VERBOSE_UNALIGNED
 #include <stdio.h>
 
-int vec_unaligned(void *vp)
+int vec_unaligned(const void *vp)
 {
   if (((unsigned long) vp) & 15) {
     fprintf(stderr, "warn: %p unaligned vector access\n", vp);

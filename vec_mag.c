@@ -1,5 +1,4 @@
 #include <math.h>
-#include "vector.h"
 
 float vec_mag2f(const float v[2])
 {

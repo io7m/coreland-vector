@@ -22,6 +22,7 @@ void print(float f[4], float g[4], unsigned int sz)
   printf("    {%f, %f, %f, %f},\n",
           f[0] * g[0], f[1] * g[1], f[2] * g[2], f[3] * g[3]);
   printf("    %u,\n", sz);
+  printf("    {0},\n");
   printf("  },\n");
 }
 
@@ -44,7 +45,7 @@ int main()
 
   srandom(time(0));
 
-  printf("  /* tools/mult_gen.c */\n");
+  printf("  /* GENERATION/mult_gen.c */\n");
   print(f, g, 4);
 
   while (--ind) {

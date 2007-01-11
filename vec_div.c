@@ -1,5 +1,3 @@
-#include "sysinfo.h"
-#include "vector.h"
 #include "vec_div.h"
 #include "vec_simd.h"
 

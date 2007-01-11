@@ -16,8 +16,12 @@
 void vec_simd_segments(unsigned int *, unsigned int *,
                        unsigned int *, unsigned int *, unsigned int); 
 
-#ifndef VECTOR_VERBOSE_UNALIGNED
+#ifdef VECTOR_VERBOSE_UNALIGNED
+int vec_unaligned(const void *);
+#else
 #define vec_unaligned(p) (((unsigned long)(p)) & 0xF)
 #endif
+
+#define vec_align(n) ((16 + (n) - ((n) & 15)) - (n))
 
 #endif

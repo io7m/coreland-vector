@@ -1,6 +1,5 @@
 #include "sysinfo.h"
-#include "vector.h"
-#include "vec_addsc.h"
+#include "vec_add.h"
 #include "vec_simd.h"
 
 #ifdef SYSINFO_HAVE_CPU_EXT_SSE
@@ -8,8 +7,6 @@ static float *vec_addscNf_sse(float *va, float sc, unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;
-  __m128 mvb1;
-  __m128 mvb2;
   __m128 vsc;
   float *pva;
   unsigned int d16;

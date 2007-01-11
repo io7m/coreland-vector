@@ -48,7 +48,7 @@ int main()
 
   srandom(time(0));
 
-  printf("  /* tools/xprod_gen.c */\n");
+  printf("  /* GENERATION/xprod_gen.c */\n");
   print(f, g);
 
   while (--ind) {

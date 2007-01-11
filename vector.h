@@ -10,10 +10,12 @@
 #include "vec_mult.h"
 #include "vec_multsc.h"
 #include "vec_nega.h"
+#include "vec_norm.h"
 #include "vec_sub.h"
 #include "vec_subsc.h"
 #include "vec_xprod.h"
 #include "vec_zero.h"
+#include "vec_simd.h"
 
 float *vec_nega2f(float [2]);
 float *vec_nega2fx(const float [2], float [2]);
@@ -34,26 +36,6 @@ float vec_mag4f(const float [4]);
 double vec_mag2d(const double [2]);
 double vec_mag3d(const double [3]);
 double vec_mag4d(const double [4]);
-
-float *vec_norm2f(float [2]);
-float *vec_norm2fx(const float [2], float [2]);
-float *vec_norm3f(float [3]);
-float *vec_norm3fx(const float [3], float [3]);
-float *vec_norm4f(float [4]);
-float *vec_norm4fx(const float [4], float [4]);
-double *vec_norm2d(double [2]);
-double *vec_norm2dx(const double [2], double [2]);
-double *vec_norm3d(double [3]);
-double *vec_norm3dx(const double [3], double [3]);
-double *vec_norm4d(double [4]);
-double *vec_norm4dx(const double [4], double [4]);
-
-float vec_dotprod2f(const float [2], const float [2]);
-float vec_dotprod3f(const float [3], const float [3]);
-float vec_dotprod4f(const float [4], const float [4]);
-double vec_dotprod2d(const double [2], const double [2]);
-double vec_dotprod3d(const double [3], const double [3]);
-double vec_dotprod4d(const double [4], const double [4]);
 
 float *vec_crossprod3fx(const float [3], const float [3], float [3]);
 double *vec_crossprod3dx(const double [3], const double [3], double [3]);

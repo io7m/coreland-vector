@@ -1,5 +1,3 @@
-#include "sysinfo.h"
-#include "vector.h"
 #include "vec_assi.h"
 #include "vec_simd.h"
 

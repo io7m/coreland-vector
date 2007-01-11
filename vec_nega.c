@@ -1,4 +1,3 @@
-#include "vector.h"
 #include "vec_nega.h"
 
 float *vec_nega2f(float v[2])

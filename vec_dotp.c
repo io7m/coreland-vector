@@ -1,33 +1,42 @@
-#include "vector.h"
 #include "vec_dotp.h"
+#include "vec_simd.h"
 
-float vec_dotprod2f(const float va[2], const float vb[2])
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+static double vec_dotprodNd_sse3(const double *va, const double *vb,
+                                 unsigned int n)
 {
-  return vec_DOTPROD2(va, vb);
+  float res;
+  return res;
 }
+#endif
 
-float vec_dotprod3f(const float va[3], const float vb[3])
+/* interface */
+
+float vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 {
-  return vec_DOTPROD3(va, vb);
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+  if (!vec_unaligned(va) && !vec_unaligned(vb))
+    return vec_dotprodNf_sse3(va, vb, n);
+#endif
+  {
+    float f = 0;
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      f += va[ind] * vb[ind]; 
+    return f;
+  }
 }
-
-float vec_dotprod4f(const float va[4], const float vb[4])
+double vec_dotprodNd(const double *va, const double *vb, unsigned int n)
 {
-  return vec_DOTPROD4(va, vb);
+#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+  if (!vec_unaligned(va) && !vec_unaligned(vb))
+    return vec_dotprodNd_sse3(va, vb, n);
+#endif
+  {
+    double d = 0;
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      d += va[ind] * vb[ind];
+    return d;
+  }
 }
-
-double vec_dotprod2d(const double va[2], const double vb[2])
-{
-  return vec_DOTPROD2(va, vb);
-}
-
-double vec_dotprod3d(const double va[3], const double vb[3])
-{
-  return vec_DOTPROD3(va, vb);
-}
-
-double vec_dotprod4d(const double va[4], const double vb[4])
-{
-  return vec_DOTPROD4(va, vb);
-}
-

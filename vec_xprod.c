@@ -1,4 +1,3 @@
-#include "vector.h"
 #include "vec_xprod.h"
 
 float *vec_crossprod3fx(const float va[3], const float vb[3], float vr[3])

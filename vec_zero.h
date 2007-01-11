@@ -11,4 +11,11 @@ double *vec_zeroNd(double *, unsigned int);
 #define vec_zero3fx(va) vec_zeroNfx((va),3)
 #define vec_zero4fx(va) vec_zeroNfx((va),4)
 
+#define vec_zero2d(va) vec_zeroNd((va),2)
+#define vec_zero3d(va) vec_zeroNd((va),3)
+#define vec_zero4d(va) vec_zeroNd((va),4)
+#define vec_zero2dx(va) vec_zeroNdx((va),2)
+#define vec_zero3dx(va) vec_zeroNdx((va),3)
+#define vec_zero4dx(va) vec_zeroNdx((va),4)
+
 #endif

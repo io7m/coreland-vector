@@ -1,5 +1,4 @@
 #include "sysinfo.h"
-#include "vector.h"
 #include "vec_subsc.h"
 #include "vec_simd.h"
 
@@ -8,8 +7,6 @@ static float *vec_subscNf_sse(float *va, float sc, unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;
-  __m128 mvb1;
-  __m128 mvb2;
   __m128 vsc;
   float *pva;
   unsigned int d16;

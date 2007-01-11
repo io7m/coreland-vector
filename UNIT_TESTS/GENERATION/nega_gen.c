@@ -20,6 +20,7 @@ void print(float f[4], unsigned int sz)
   printf("    {%f, %f, %f, %f},\n",
               -f[0], -f[1], -f[2], -f[3]);
   printf("    %u,\n", sz);
+  printf("    {0},\n");
   printf("  },\n");
 }
 
@@ -39,7 +40,7 @@ int main()
 
   srandom(time(0));
 
-  printf("  /* tools/nega_gen.c */\n");
+  printf("  /* GENERATION/nega_gen.c */\n");
   print(f, 4);
 
   while (--ind) {

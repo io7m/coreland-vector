@@ -1,5 +1,4 @@
 #include "sysinfo.h"
-#include "vector.h"
 #include "vec_zero.h"
 #include "vec_simd.h"
 
@@ -17,7 +16,7 @@ static float *vec_zeroNf_sse(float *va, unsigned int ne)
   pva = va;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
-  mvz = _mm_set_ss(0.0);
+  mvz = _mm_setzero_ps();
   for (ind = 0; ind < d8; ++ind) {
     _mm_store_ps(pva, mvz);
     _mm_store_ps(pva + 4, mvz);

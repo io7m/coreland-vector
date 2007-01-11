@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <time.h>
 #include "vector.h"
-
-#define VEC_SIZE 128
-#define TEST_ITER 20000000
+#include "test_const.h"
 
 union align16 {
   char x[16];
-  float f[VEC_SIZE];
+  float f[TEST_VEC_SIZE];
 };
 
 struct test {
@@ -37,7 +35,7 @@ void fill()
   test.va = (float *) &test.xva;
   test.vb = (float *) &test.xvb;
   test.vr = (float *) &test.xvr;
-  for (ind = 0; ind < VEC_SIZE; ++ind) {
+  for (ind = 0; ind < TEST_VEC_SIZE; ++ind) {
     test.va[ind] = frand();
     test.vb[ind] = frand();
     test.vr[ind] = frand();
@@ -62,7 +60,7 @@ int main()
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
-    vec_multNfx(test.va, test.vb, test.vr, VEC_SIZE);
+    vec_multNfx(test.va, test.vb, test.vr, TEST_VEC_SIZE);
   t2 = clock();
 
   t = (float) t2 - t1;

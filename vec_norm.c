@@ -99,7 +99,7 @@ static double *vec_normNdx_sse2(const double *va, double *vr, double mag,
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-static float *vec_normNf_altivec(float *va, const float *vb, unsigned int ne)
+static float *vec_normNf_altivec(float *va, float mag, unsigned int ne)
 {
   vector float vva1;
   vector float vva2;
@@ -109,7 +109,6 @@ static float *vec_normNf_altivec(float *va, const float *vb, unsigned int ne)
   vector float vvb2;
   vector float vvb3;
   vector float vvb4;
-  const float *pvb;
   float *pva;
   unsigned int d16;
   unsigned int d8;
@@ -118,13 +117,12 @@ static float *vec_normNf_altivec(float *va, const float *vb, unsigned int ne)
   unsigned int ind;
 
   pva = va;
-  pvb = vb;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
   return va;
 }
-static float *vec_normNfx_altivec(const float *va, const float *vb,
-                                 float *vr, unsigned int ne)
+static float *vec_normNfx_altivec(const float *va, float *vr,
+                                  float mag, unsigned int ne)
 {
   vector float vva1;
   vector float vva2;
@@ -135,7 +133,6 @@ static float *vec_normNfx_altivec(const float *va, const float *vb,
   vector float vvb3;
   vector float vvb4;
   vector float vvr;
-  const float *pvb;
   const float *pva;
   float *pvr;
   unsigned int d16;
@@ -145,7 +142,6 @@ static float *vec_normNfx_altivec(const float *va, const float *vb,
   unsigned int ind;
 
   pva = va;
-  pvb = vb;
   pvr = vr;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 

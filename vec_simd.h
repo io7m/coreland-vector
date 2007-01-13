@@ -13,6 +13,13 @@
 #include <xmmintrin.h>
 #endif
 
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+union align16v {
+  float f[4];
+  vector float v;
+};
+#endif
+
 void vec_simd_segments(unsigned int *, unsigned int *,
                        unsigned int *, unsigned int *, unsigned int); 
 

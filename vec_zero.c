@@ -47,7 +47,6 @@ static float *vec_zeroNf_altivec(float *va, unsigned int ne)
   vector float vvb2;
   vector float vvb3;
   vector float vvb4;
-  const float *pvb;
   float *pva;
   unsigned int d16;
   unsigned int d8;
@@ -56,7 +55,6 @@ static float *vec_zeroNf_altivec(float *va, unsigned int ne)
   unsigned int ind;
 
   pva = va;
-  pvb = vb;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
   return va;

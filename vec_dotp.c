@@ -1,7 +1,7 @@
 #include "vec_dotp.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+#ifdef SYS_HAVE_CPU_EXT_SSE3
 static double vec_dotprodNd_sse3(const double *va, const double *vb,
                                  unsigned int n)
 {
@@ -14,7 +14,7 @@ static double vec_dotprodNd_sse3(const double *va, const double *vb,
 
 float vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+#ifdef SYS_HAVE_CPU_EXT_SSE3
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_dotprodNf_sse3(va, vb, n);
 #endif
@@ -28,7 +28,7 @@ float vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 }
 double vec_dotprodNd(const double *va, const double *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE3
+#ifdef SYS_HAVE_CPU_EXT_SSE3
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_dotprodNd_sse3(va, vb, n);
 #endif

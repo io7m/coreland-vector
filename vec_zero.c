@@ -2,7 +2,7 @@
 #include "vec_zero.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_zeroNf_sse(float *va, unsigned int ne)
 {
   __m128 mvz;
@@ -33,14 +33,14 @@ static float *vec_zeroNf_sse(float *va, unsigned int ne)
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_zeroNd_sse2(double *va, unsigned int n)
 {
   return va;
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_zeroNf_altivec(float *va, unsigned int ne)
 {
   vector float vvb1;
@@ -67,11 +67,11 @@ static float *vec_zeroNf_altivec(float *va, unsigned int ne)
 
 float *vec_zeroNf(float *va, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va))
     return vec_zeroNf_sse(va, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va))
     return vec_zeroNf_altivec(va, n);
 #endif
@@ -84,7 +84,7 @@ float *vec_zeroNf(float *va, unsigned int n)
 }
 double *vec_zeroNd(double *va, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va))
     return vec_zeroNd_sse2(va, n);
 #endif

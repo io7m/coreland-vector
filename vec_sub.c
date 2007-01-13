@@ -2,7 +2,7 @@
 #include "vec_sub.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_subNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mva1;
@@ -97,7 +97,7 @@ static float *vec_subNfx_sse(const float *va, const float *vb,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_subNd_sse2(double *va, const double *vb, unsigned int n)
 {
   return va;
@@ -109,7 +109,7 @@ static double *vec_subNdx_sse2(const double *va, const double *vb,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_subNf_altivec(float *va, const float *vb, unsigned int ne)
 {
   vector float vva1;
@@ -255,10 +255,10 @@ static float *vec_subNfx_altivec(const float *va, const float *vb,
 
 float *vec_subNf(float *va, const float *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   return vec_subNf_sse(va, vb, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   return vec_subNf_altivec(va, vb, n);
 #endif
   {
@@ -270,10 +270,10 @@ float *vec_subNf(float *va, const float *vb, unsigned int n)
 }
 float *vec_subNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   return vec_subNfx_sse(va, vb, vr, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   return vec_subNfx_altivec(va, vb, vr, n);
 #endif
   {
@@ -285,7 +285,7 @@ float *vec_subNfx(const float *va, const float *vb, float *vr, unsigned int n)
 }
 double *vec_subNd(double *va, const double *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   return vec_subNd_sse2(va, vb, n);
 #endif
   {
@@ -297,7 +297,7 @@ double *vec_subNd(double *va, const double *vb, unsigned int n)
 }
 double *vec_subNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   return vec_subNdx_sse2(va, vb, vr, n);
 #endif
   {

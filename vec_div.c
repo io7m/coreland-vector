@@ -1,7 +1,7 @@
 #include "vec_div.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_divNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mva1;
@@ -96,7 +96,7 @@ static float *vec_divNfx_sse(const float *va, const float *vb,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_divNd_sse2(double *va, const double *vb, unsigned int n)
 {
   return va;
@@ -108,7 +108,7 @@ static double *vec_divNdx_sse2(const double *va, const double *vb,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_divNf_altivec(float *va, const float *vb, unsigned int ne)
 {
   vector float vva1;
@@ -167,11 +167,11 @@ static float *vec_divNfx_altivec(const float *va, const float *vb,
 
 float *vec_divNf(float *va, const float *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNf_sse(va, vb, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNf_altivec(va, vb, n);
 #endif
@@ -184,11 +184,11 @@ float *vec_divNf(float *va, const float *vb, unsigned int n)
 }
 float *vec_divNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNfx_sse(va, vb, vr, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNfx_altivec(va, vb, vr, n);
 #endif
@@ -201,7 +201,7 @@ float *vec_divNfx(const float *va, const float *vb, float *vr, unsigned int n)
 }
 double *vec_divNd(double *va, const double *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNd_sse2(va, vb, n);
 #endif
@@ -214,7 +214,7 @@ double *vec_divNd(double *va, const double *vb, unsigned int n)
 }
 double *vec_divNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNdx_sse2(va, vb, vr, n);
 #endif

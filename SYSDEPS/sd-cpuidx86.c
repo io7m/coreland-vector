@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 
 /* based on x86info by Dave Jones but sharing no code */
@@ -128,8 +129,9 @@ static const struct vendordesc vendors[] = {
 
 static int cpuid_sup()
 {
-  long eax;
-  long ecx;
+  unsigned long eax = 0;
+  unsigned long ecx = 0;
+#ifdef __GNUC__
   __asm__ __volatile__(
     "pushf\n\t"
     "pop %0\n\t"
@@ -143,18 +145,35 @@ static int cpuid_sup()
     :
     : "cc" 
   );
+#endif
   return (eax != ecx);
 }
 static void cpuid(unsigned long val, unsigned long *eax, unsigned long *ebx,
                                      unsigned long *ecx, unsigned long *edx)
 {
+#ifdef __SUNPRO_C
+  asm("movl 8(%ebp), %eax");
+  asm("cpuid");
+  asm("movl 12(%ebp), %esp");
+  asm("movl %eax, 0(%esp)");
+  asm("movl 16(%ebp), %esp");
+  asm("movl %ebx, 0(%esp)");
+  asm("movl 20(%ebp), %esp");
+  asm("movl %ecx, 0(%esp)");
+  asm("movl 24(%ebp), %esp");
+  asm("movl %edx, 0(%esp)");
+#endif
+
+#ifdef __GNUC__
   __asm __volatile__(
     "mov %%ebx, %%esi\n\t"
     "cpuid\n\t"
     "xchg %%ebx, %%esi"
     : "=a" (*eax), "=S" (*ebx), 
       "=c" (*ecx), "=d" (*edx)
-    : "0" (val));
+    : "0" (val)
+  );
+#endif
 }
 static void cachesize(const struct cachedesc *ctab, unsigned long cpunum,
                       unsigned int *sz, unsigned int *ls)
@@ -175,7 +194,7 @@ static void cachesize(const struct cachedesc *ctab, unsigned long cpunum,
     for (ind = 0; ind < max; ++ind) {
       cpuid(cpunum, &regs[0], &regs[1], &regs[2], &regs[3]);
       for (jnd = 0; jnd < 3; ++jnd)
-        regs[jnd] = (regs[jnd] & 0xfffffffe) ? 0 : regs[jnd];  
+        regs[jnd] = (regs[jnd] & 0x80000000) ? 0 : regs[jnd];  
       for (jnd = 1; jnd < 16; ++jnd) {
         ch = ptr[jnd];
         if (ch) {
@@ -202,10 +221,11 @@ static void vendor_intel()
   cpu.type = (eax >> 12) & 0x3;
   cpu.brand = ebx & 0xf;
 
-  if (edx & 0x800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
-  if (edx & 0x2000000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-  if (edx & 0x2000000) cpu.flags |= SYSDEP_CPU_EXT_SSE;
-  if (edx & 0x4000000) cpu.flags |= SYSDEP_CPU_EXT_SSE2;
+  if (edx & 0x00800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
+  if (edx & 0x02000000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
+  if (edx & 0x02000000) cpu.flags |= SYSDEP_CPU_EXT_SSE;
+  if (edx & 0x04000000) cpu.flags |= SYSDEP_CPU_EXT_SSE2;
+  if (ecx & 0x00000001) cpu.flags |= SYSDEP_CPU_EXT_SSE3;
 
   cachesize(intel_l1i_caches, 0x00000002, &cpu.cache_l1i, &cpu.cacheline);
   cachesize(intel_l1d_caches, 0x00000002, &cpu.cache_l1d, &cpu.cacheline);
@@ -220,7 +240,7 @@ static void vendor_amd()
   cpu.model = (eax >> 4) & 0xf;
   cpu.family = (eax >> 8) & 0xf;
   cpu.ext_model = (eax >> 16) & 0xff;
-  cpu.ext_family= (eax >> 20) & 0xf;
+  cpu.ext_family = (eax >> 20) & 0xf;
 
   if (cpu.maxi2 >= 0x80000005) {
     cpuid(0x80000005, &eax, &ebx, &ecx, &edx);
@@ -256,7 +276,7 @@ int main(int argc, char *argv[])
   cpu.maxi2 = eax;
 
   cpuid(0xC0000000, &eax, &ebx, &ecx, &edx);
-  cpu.maxi2 = eax;
+  cpu.maxi3 = eax;
 
   cpuid(0x00000000, &eax, &ebx, &ecx, &edx);
 
@@ -275,15 +295,13 @@ int main(int argc, char *argv[])
     default: break;
   }
 
-  if (cpu.vendor != CPU_VENDOR_INTEL) {
-    cpuid(0x80000000, &eax, &ebx, &ecx, &edx);
-    if (eax >= 0x80000001) {
-      cpuid(0x80000001, &eax, &ebx, &ecx, &edx);
-      if (edx & 0x800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
-      if (edx & 0x400000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-      if (edx & 0x80000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOW;
-      if (edx & 0x40000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOWEXT;
-    }
+  cpuid(0x80000000, &eax, &ebx, &ecx, &edx);
+  if (eax >= 0x80000001) {
+    cpuid(0x80000001, &eax, &ebx, &ecx, &edx);
+    if (edx & 0x00800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
+    if (edx & 0x00400000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
+    if (edx & 0x80000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOW;
+    if (edx & 0x40000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOWEXT;
   }
 
   if (strcmp(arg, "mmx") == 0)

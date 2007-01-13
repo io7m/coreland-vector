@@ -26,14 +26,33 @@ then
   ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
   ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
 fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-arch ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
+  ${SYSDEP_DIR_RELATIVE}/sd-arch.c 2>/dev/null
+fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
+  ${SYSDEP_DIR_RELATIVE}/sd-cctype.c 2>/dev/null
+fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-os ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
+  ${SYSDEP_DIR_RELATIVE}/sd-os.c 2>/dev/null
+fi
 
 # find system type
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
 export SYSDEP_OS
 
 # find system architecture
-SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch ${SYSDEP_OS}`"
+SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`"
 export SYSDEP_ARCH
+
+# find compiler type
+SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`"
+export SYSDEP_CCTYPE
 
 # find cpu features
 SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
@@ -102,11 +121,3 @@ case ${SYSDEP_OS} in
 esac
 export SYSDEP_LIBSUFFIX
 
-SYSDEP_TRY_CONFIG_BIN=${SYSDEP_DIR_RELATIVE}/sd-configbin
-SYSDEP_TRY_PKG_CONFIG=${SYSDEP_DIR_RELATIVE}/sd-configpkg
-SYSDEP_TRY_MANUAL=${SYSDEP_DIR_RELATIVE}/sd-configman
-SYSDEP_ERROR=${SYSDEP_DIR_RELATIVE}/sd-error
-
-export SYSDEP_TRY_CONFIG_BIN
-export SYSDEP_TRY_PKG_CONFIG
-export SYSDEP_TRY_MANUAL

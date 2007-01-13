@@ -1,7 +1,7 @@
 #include "vec_assi.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_assignNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mvb1;
@@ -39,14 +39,14 @@ static float *vec_assignNf_sse(float *va, const float *vb, unsigned int ne)
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_assignNd_sse2(double *va, const double *vb, unsigned int n)
 {
   return va;
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
 {
   vector float vvb1;
@@ -102,11 +102,11 @@ static float *vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
 
 float *vec_assignNf(float *va, const float *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_assignNf_sse(va, vb, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_assignNf_altivec(va, vb, n);
 #endif
@@ -119,7 +119,7 @@ float *vec_assignNf(float *va, const float *vb, unsigned int n)
 }
 double *vec_assignNd(double *va, const double *vb, unsigned int n)
 {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_assignNd_sse2(va, vb, n);
 #endif

@@ -2,7 +2,7 @@
 #include "vec_norm.h"
 #include "vec_simd.h"
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_normNf_sse(float *va, float mag, unsigned int ne)
 {
   __m128 mva1;
@@ -86,7 +86,7 @@ static float *vec_normNfx_sse(const float *va, float *vr, float mag,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_normNd_sse2(double *va, const double *vb, unsigned int n)
 {
   return va;
@@ -98,7 +98,7 @@ static double *vec_normNdx_sse2(const double *va, const double *vb,
 }
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_normNf_altivec(float *va, const float *vb, unsigned int ne)
 {
   vector float vva1;
@@ -166,11 +166,11 @@ float *vec_normNf(float *va, unsigned int n)
     mag += va[ind] * va[ind];
 
   if (mag) {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va))
     return vec_normNf_sse(va, mag, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va))
     return vec_normNf_altivec(va, mag, n);
 #endif
@@ -191,11 +191,11 @@ float *vec_normNfx(const float *va, float *vr, unsigned int n)
     mag += va[ind] * va[ind];
 
   if (mag) {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_normNfx_sse(va, vr, mag, n);
 #endif
-#ifdef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_normNfx_altivec(va, vr, mag, n);
 #endif
@@ -216,7 +216,7 @@ double *vec_normNd(double *va, unsigned int n)
     mag += va[ind] * va[ind];
 
   if (mag) {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va))
       return vec_normNd_sse2(va, n);
 #endif
@@ -237,7 +237,7 @@ double *vec_normNdx(const double *va, double *vr, unsigned int n)
     mag += va[ind] * va[ind];
 
   if (mag) {
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE2
+#ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va) && !vec_unaligned(vr))
       return vec_normNdx_sse2(va, vr, n);
 #endif

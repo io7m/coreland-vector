@@ -4,12 +4,12 @@
 #include "sysinfo.h"
 
 #ifdef VECTOR_NO_SIMD
-#undef SYSINFO_HAVE_CPU_EXT_SSE
-#undef SYSINFO_HAVE_CPU_EXT_SSE2
-#undef SYSINFO_HAVE_CPU_EXT_ALTIVEC
+#undef SYS_HAVE_CPU_EXT_SSE
+#undef SYS_HAVE_CPU_EXT_SSE2
+#undef SYS_HAVE_CPU_EXT_ALTIVEC
 #endif
 
-#ifdef SYSINFO_HAVE_CPU_EXT_SSE
+#ifdef SYS_HAVE_CPU_EXT_SSE
 #include <xmmintrin.h>
 #endif
 
@@ -22,6 +22,7 @@ int vec_unaligned(const void *);
 #define vec_unaligned(p) (((unsigned long)(p)) & 0xF)
 #endif
 
+/* next multiple of 16 */
 #define vec_align(n) ((16 + (n) - ((n) & 15)) - (n))
 
 #endif

@@ -83,7 +83,7 @@ static float *vec_divscNfx_sse(const float *va, float *vr, float sc,
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_divscNd_sse2(double *va, double *sc, unsigned int ne)
+static double *vec_divscNd_sse2(double *va, double sc, unsigned int ne)
 {
   return va;
 }
@@ -192,7 +192,7 @@ double *vec_divscNd(double *va, double sc, unsigned int n)
 double *vec_divscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va)) return vec_divscNdx_sse2(vr, va, sc, n);
+  if (!vec_unaligned(va)) return vec_divscNdx_sse2(va, vr, sc, n);
 #endif
   {
     unsigned int ind;

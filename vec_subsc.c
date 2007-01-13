@@ -88,7 +88,7 @@ static double *vec_subscNd_sse2(double *va, double sc, unsigned int ne)
 {
   return va;
 }
-static double *vec_subscNdx_sse2(const double *vr, double *va, double sc,
+static double *vec_subscNdx_sse2(const double *va, double *vr, double sc,
                                  unsigned int ne)
 {
   return vr;
@@ -193,7 +193,7 @@ double *vec_subscNd(double *va, double sc, unsigned int n)
 double *vec_subscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va)) return vec_subscNdx_sse2(vr, va, sc, n);
+  if (!vec_unaligned(va)) return vec_subscNdx_sse2(va, vr, sc, n);
 #endif
   {
     unsigned int ind;

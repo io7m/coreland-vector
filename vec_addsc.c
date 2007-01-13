@@ -84,12 +84,12 @@ static float *vec_addscNfx_sse(const float *va, float *vr, float sc,
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_addscNd_sse2(double *va, const double *vb, unsigned int n)
+static double *vec_addscNd_sse2(double *va, double sc, unsigned int ne)
 {
   return va;
 }
-static double *vec_addscNdx_sse2(const double *va, const double *vb,
-                                 double *vr, unsigned int n)
+static double *vec_addscNdx_sse2(const double *va, double *vr, double sc,
+                                 unsigned int ne)
 {
   return vr;
 }

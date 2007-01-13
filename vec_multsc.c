@@ -40,7 +40,7 @@ static float *vec_multscNf_sse(float *va, float sc, unsigned int ne)
   return va;
 }
 static float *vec_multscNfx_sse(const float *va, float *vr, float sc,
-                               unsigned int ne)
+                                unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;
@@ -84,12 +84,12 @@ static float *vec_multscNfx_sse(const float *va, float *vr, float sc,
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_multscNd_sse2(double *va, const double *vb, unsigned int n)
+static double *vec_multscNd_sse2(double *va, double sc, unsigned int ne)
 {
   return va;
 }
-static double *vec_multscNdx_sse2(const double *va, const double *vb,
-                                 double *vr, unsigned int n)
+static double *vec_multscNdx_sse2(const double *va, double *vr, double sc,
+                                  unsigned int ne)
 {
   return vr;
 }
@@ -193,7 +193,7 @@ double *vec_multscNd(double *va, double sc, unsigned int n)
 double *vec_multscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va)) return vec_multscNdx_sse2(vr, va, sc, n);
+  if (!vec_unaligned(va)) return vec_multscNdx_sse2(va, vr, sc, n);
 #endif
   {
     unsigned int ind;

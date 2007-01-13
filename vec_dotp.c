@@ -1,6 +1,16 @@
 #include "vec_dotp.h"
 #include "vec_simd.h"
 
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+static float vec_dotprodNd_altivec(const float *va, const float *vb,
+                                   unsigned int n)
+{
+  float res;
+
+  return res;
+}
+#endif
+
 #ifdef SYS_HAVE_CPU_EXT_SSE3
 static double vec_dotprodNd_sse3(const double *va, const double *vb,
                                  unsigned int n)
@@ -14,6 +24,10 @@ static double vec_dotprodNd_sse3(const double *va, const double *vb,
 
 float vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 {
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+  if (!vec_unaligned(va) && !vec_unaligned(vb))
+    return vec_dotprodNf_altivec(va, vb, n);
+#endif
 #ifdef SYS_HAVE_CPU_EXT_SSE3
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_dotprodNf_sse3(va, vb, n);

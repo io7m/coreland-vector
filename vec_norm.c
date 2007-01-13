@@ -87,12 +87,12 @@ static float *vec_normNfx_sse(const float *va, float *vr, float mag,
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_normNd_sse2(double *va, const double *vb, unsigned int n)
+static double *vec_normNd_sse2(double *va, double mag, unsigned int ne)
 {
   return va;
 }
-static double *vec_normNdx_sse2(const double *va, const double *vb,
-                               double *vr, unsigned int n)
+static double *vec_normNdx_sse2(const double *va, double *vr, double mag,
+                                unsigned int ne)
 {
   return vr;
 }
@@ -218,7 +218,7 @@ double *vec_normNd(double *va, unsigned int n)
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va))
-      return vec_normNd_sse2(va, n);
+      return vec_normNd_sse2(va, mag, n);
 #endif
     rcp = 1 / sqrt(mag);
     for (ind = 0; ind < n; ++ind)
@@ -239,7 +239,7 @@ double *vec_normNdx(const double *va, double *vr, unsigned int n)
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va) && !vec_unaligned(vr))
-      return vec_normNdx_sse2(va, vr, n);
+      return vec_normNdx_sse2(va, vr, mag, n);
 #endif
     rcp = 1 / sqrt(mag);
     for (ind = 0; ind < n; ++ind)

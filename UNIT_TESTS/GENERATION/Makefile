@@ -60,16 +60,16 @@ mag_gen.o:\
 mk-cctype: conf-cc conf-systype 
 mk-slib: conf-systype 
 mult_gen:\
-	ld mult_gen.ld mult_gen.o 
-	./ld mult_gen mult_gen.o 
+	ld mult_gen.ld mult_gen.o frand.a 
+	./ld mult_gen mult_gen.o frand.a 
 mult_gen.o:\
-	cc mult_gen.c 
+	cc mult_gen.c frand.h 
 	./cc mult_gen.c
 multsc_gen:\
-	ld multsc_gen.ld multsc_gen.o 
-	./ld multsc_gen multsc_gen.o 
+	ld multsc_gen.ld multsc_gen.o frand.a 
+	./ld multsc_gen multsc_gen.o frand.a 
 multsc_gen.o:\
-	cc multsc_gen.c 
+	cc multsc_gen.c frand.h 
 	./cc multsc_gen.c
 nega_gen:\
 	ld nega_gen.ld nega_gen.o 

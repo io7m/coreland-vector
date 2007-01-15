@@ -25,7 +25,7 @@ int main()
     vec_divscNf(fpa, fsc, tests_f[ind].sz);
 
     for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
-      if (!approx_equalf(fpr[jnd], fpa[jnd], APPROX_MAX_ERRORF)) {
+      if (!approx_equalf(fpr[jnd], fpa[jnd], APPROX_MAX_ERRORF * 100)) {
         printf("fail: tests_f[%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, fpr[jnd], jnd, fpa[jnd]);
         return 1;
@@ -45,7 +45,7 @@ int main()
     vec_divscNd(dpa, dsc, tests_d[ind].sz);
 
     for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
-      if (!approx_equald(dpr[jnd], dpa[jnd], APPROX_MAX_ERRORD)) {
+      if (!approx_equald(dpr[jnd], dpa[jnd], APPROX_MAX_ERRORD * 100)) {
         printf("fail: tests_d[%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, dpr[jnd], jnd, dpa[jnd]);
         return 1;

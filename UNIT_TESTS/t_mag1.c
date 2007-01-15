@@ -27,7 +27,7 @@ int main()
         return 2;
     }
     for (jnd = 0; jnd < tests[ind].sz; ++jnd) {
-      if (!approx_equalf(tests[ind].vr, mag, APPROX_MAX_ERROR)) {
+      if (!approx_equalf(tests[ind].vr, mag, APPROX_MAX_ERRORF)) {
         printf("fail: [%u] vr %f != mag %f\n",
                 ind, tests[ind].vr, mag);
         return 1;

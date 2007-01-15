@@ -28,7 +28,7 @@ int main()
     vec_multNfx(fpa, fpb, ftmp, tests_f[ind].sz);
 
     for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
-      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF)) {
+      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF * 10)) {
         printf("fail: tests_f[%u] vr[%u] %f != ftmp[%u] %f\n",
                 ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
         return 1;
@@ -48,7 +48,7 @@ int main()
     vec_multNdx(dpa, dpb, dtmp, tests_d[ind].sz);
 
     for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
-      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
+      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD * 10)) {
         printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",
                 ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
         return 1;

@@ -5,10 +5,11 @@
 
 #include "t_divsc_data.c"
 
+float ftmp[16];
+double dtmp[16];
+
 int main()
 {
-  float ftmp[4] = {0, 0, 0, 0};
-  double dtmp[4] = {0, 0, 0, 0};
   double *dpa;
   double *dpr;
   double dsc;
@@ -23,22 +24,11 @@ int main()
     fpa = (float *) &tests_f[ind].vva;
     fpr = (float *) &tests_f[ind].vvr;
     fsc = tests_f[ind].sc;
-    switch (tests_f[ind].sz) {
-      case 4:
-        vec_divsc4fx(fpa, ftmp, fsc);
-        break;
-      case 3:
-        vec_divsc3fx(fpa, ftmp, fsc);
-        break;
-      case 2:
-        vec_divsc2fx(fpa, ftmp, fsc);
-        break;
-      default:
-        printf("error: ended up in default switch statement\n");
-        return 2;
-    }
+
+    vec_divscNfx(fpa, ftmp, fsc, tests_f[ind].sz);
+
     for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
-      if (!approx_equalf(fpr[jnd], dtmp[jnd], APPROX_MAX_ERRORF)) {
+      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF * 100)) {
         printf("fail: tests_f[%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
         return 1;
@@ -54,22 +44,11 @@ int main()
     dpa = (double *) &tests_d[ind].vva;
     dpr = (double *) &tests_d[ind].vvr;
     dsc = tests_d[ind].sc;
-    switch (tests_d[ind].sz) {
-      case 4:
-        vec_divsc4dx(dpa, dtmp, dsc);
-        break;
-      case 3:
-        vec_divsc3dx(dpa, dtmp, dsc);
-        break;
-      case 2:
-        vec_divsc2dx(dpa, dtmp, dsc);
-        break;
-      default:
-        printf("error: ended up in default switch statement\n");
-        return 2;
-    }
+
+    vec_divscNdx(dpa, dtmp, dsc, tests_d[ind].sz);
+
     for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
-      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
+      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD * 100)) {
         printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",
                 ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
         return 1;

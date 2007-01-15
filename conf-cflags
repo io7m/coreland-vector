@@ -1,5 +1,3 @@
--O -DVECTOR_NO_SIMD
-
--g -DVECTOR_VERBOSE_UNALIGNED -pedantic -ansi -W -Wall
+-DVECTOR_NO_SIMD -g -pedantic -ansi -W -Wall
 
 These are passed to the C compiler.

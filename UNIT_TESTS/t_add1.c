@@ -5,10 +5,11 @@
 
 #include "t_add_data.c"
 
+float ftmp[16];
+double dtmp[16];
+ 
 int main()
 {
-  float ftmp[4] = {0, 0, 0, 0};
-  double dtmp[4] = {0, 0, 0, 0};
   double *dpa;
   double *dpb;
   double *dpr;
@@ -23,20 +24,9 @@ int main()
     fpa = (float *) &tests_f[ind].vva;
     fpb = (float *) &tests_f[ind].vvb;
     fpr = (float *) &tests_f[ind].vvr;
-    switch (tests_f[ind].sz) {
-      case 4:
-        vec_add4fx(fpa, fpb, ftmp);
-        break;
-      case 3:
-        vec_add3fx(fpa, fpb, ftmp);
-        break;
-      case 2:
-        vec_add2fx(fpa, fpb, ftmp);
-        break;
-      default:
-        printf("error: ended up in default switch statement\n");
-        return 2;
-    }
+
+    vec_addNfx(fpa, fpb, ftmp, tests_f[ind].sz);
+
     for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
       if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF)) {
         printf("fail: tests_f[%u] vr[%u] %f != ftmp[%u] %f\n",
@@ -54,20 +44,9 @@ int main()
     dpa = (double *) &tests_d[ind].vva;
     dpb = (double *) &tests_d[ind].vvb;
     dpr = (double *) &tests_d[ind].vvr;
-    switch (tests_d[ind].sz) {
-      case 4:
-        vec_add4dx(dpa, dpb, dtmp);
-        break;
-      case 3:
-        vec_add3dx(dpa, dpb, dtmp);
-        break;
-      case 2:
-        vec_add2dx(dpa, dpb, dtmp);
-        break;
-      default:
-        printf("error: ended up in default switch statement\n");
-        return 2;
-    }
+
+    vec_addNdx(dpa, dpb, dtmp, tests_d[ind].sz);
+
     for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
       if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
         printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",

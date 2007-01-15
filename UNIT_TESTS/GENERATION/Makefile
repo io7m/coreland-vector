@@ -26,16 +26,16 @@ conf-systype:\
 	mk-systype 
 	./mk-systype > conf-systype
 div_gen:\
-	ld div_gen.ld div_gen.o 
-	./ld div_gen div_gen.o 
+	ld div_gen.ld div_gen.o frand.a 
+	./ld div_gen div_gen.o frand.a 
 div_gen.o:\
-	cc div_gen.c 
+	cc div_gen.c frand.h 
 	./cc div_gen.c
 divsc_gen:\
-	ld divsc_gen.ld divsc_gen.o 
-	./ld divsc_gen divsc_gen.o 
+	ld divsc_gen.ld divsc_gen.o frand.a 
+	./ld divsc_gen divsc_gen.o frand.a 
 divsc_gen.o:\
-	cc divsc_gen.c 
+	cc divsc_gen.c frand.h 
 	./cc divsc_gen.c
 dotprod_gen:\
 	ld dotprod_gen.ld dotprod_gen.o 

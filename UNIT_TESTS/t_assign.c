@@ -5,8 +5,10 @@
 
 int main()
 {
-  float va[4];
-  float vb[4];
+  vector_4f vva;
+  vector_4f vvb;
+  float *va = (float *) &vva;
+  float *vb = (float *) &vvb;
 
   va[0] = 123.0f;
   va[1] = 456.0f;

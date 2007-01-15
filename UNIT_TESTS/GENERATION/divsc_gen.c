@@ -1,55 +1,107 @@
-#include <time.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "frand.h"
 
-float f[4] = {1.0, 1.0, 1.0, 1.0};
-float sc = 1.0;
- 
-float frand()
-{
-  float f;
-  float div;
-  div = (random() % 1000);
-  f = (random() % 10000) - 5000; 
-  return f / div;
-}
+float fa[16];
+double da[16];
+double sc;
 
-void print(float f[4], float sc, unsigned int sz)
-{
-  printf("  {\n");
-  printf("    {%f, %f, %f, %f},\n", f[0], f[1], f[2], f[3]);
-  printf("    {%f, %f, %f, %f},\n",
-          f[0] / sc, f[1] / sc, f[2] / sc, f[3] / sc);
-  printf("    %f,\n", sc);
-  printf("    %u,\n", sz);
-  printf("    {0},\n");
-  printf("  },\n");
-}
-
-void gen(float f[4], float *sc, unsigned int sz)
+void divset()
 {
   unsigned int ind;
+  for (ind = 0; ind < sizeof(fa) / sizeof(float); ++ind) fa[ind] = 1.0f;
+  for (ind = 0; ind < sizeof(da) / sizeof(double); ++ind) da[ind] = 1.0f;
+}
 
-  f[0] = f[1] = f[2] = f[3] = 1.0f;
-  for (ind = 0; ind < sz; ++ind)
-    f[ind] = frand();
+void out(unsigned int sz, void *a, unsigned int es, double sc)
+{
+  unsigned int ind;
+  float *pfa;
+  float *pfb;
+  double *pda;
+  double *pdb;
+
+  if (es == sizeof(float))
+    pfa = (float *) a;
+  else
+    pda = (double *) a;
+
+  printf("{\n");
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", pfa[ind]);
+    else
+      printf("%lf, ", pda[ind]);
+  printf("}},\n");
+
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", pfa[ind] / sc);
+    else
+      printf("%lf, ", pda[ind] / sc);
+  printf("}},\n");
+
+  printf("  %lf,\n", sc);
+  printf("  %u,\n", sz);
+  printf("},\n");
+}
+
+void gen(unsigned int sz, void *a, unsigned int es, double *sc)
+{
+  unsigned int ind;
+  float *pfa;
+  float *pfb;
+  double *pda;
+  double *pdb;
+
+  divset();
+  if (es == sizeof(float))
+    pfa = (float *) a;
+  else
+    pda = (double *) a;
+
+  for (ind = 0; ind < sz; ++ind) {
+    if (es == sizeof(float))
+      fa[ind] = (float) frand();
+    else
+      da[ind] = frand();
+  }
   *sc = frand();
 }
 
 int main()
 {
-  unsigned int ind = 30;
-  unsigned int sz = 2;
+  unsigned int ind;
+  unsigned int jnd;
+  unsigned int sz;
 
   srandom(time(0));
 
-  printf("  /* GENERATION/divsc_gen.c */\n");
-  print(f, sc, 4);
-
-  while (--ind) {
+  divset();
+  sc = 1.0f;
+  sz = 2;
+  printf("struct divsc_testf tests_f[] = {\n");
+  out(16, fa, sizeof(float), sc);
+  for (ind = 1; ind < 150; ++ind) {
     if (ind && !(ind % 10)) ++sz;
-    gen(f, &sc, sz);
-    print(f, sc, sz);
+    gen(sz, fa, sizeof(float), &sc);
+    out(sz, fa, sizeof(float), sc);
   }
+  printf("};\n");
+
+  divset();
+  sc = 1.0f;
+  sz = 2;
+  printf("struct divsc_testd tests_d[] = {\n");
+  out(16, da, sizeof(double), sc);
+  for (ind = 1; ind < 150; ++ind) {
+    if (ind && !(ind % 10)) ++sz;
+    gen(sz, da, sizeof(double), &sc);
+    out(sz, da, sizeof(double), sc);
+  }
+  printf("};\n");
   return 0;
 }

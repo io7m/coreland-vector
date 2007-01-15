@@ -1,10 +1,18 @@
 #include "frand.h"
 
+#define RANDOM_MAX 100000
+
 double frand()
 {
-  double f;
+  double num;
   double div;
-  div = (random() % 1000);
-  f = (random() % 10000) - 5000; 
-  return f / div;
+
+  for (;;) {
+    div = (random() % (RANDOM_MAX / 10));
+    num = (random() % RANDOM_MAX) - (RANDOM_MAX >> 1); 
+    num /= div;
+    if (!isinf(num) && !isnan(num)) break;
+  }
+
+  return num;
 }

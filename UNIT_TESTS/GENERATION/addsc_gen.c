@@ -1,61 +1,99 @@
-#include <time.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "frand.h"
 
-float fa[4];
-float fb[4];
-float sc;
-unsigned int ind;
-unsigned int sz;
+float fa[16];
+double da[16];
+double sc;
 
-void f_print(unsigned int sz, unsigned int ind)
-{
-  printf("  {\n");
-  printf("    {%f, %f, %f, %f},\n", fa[0], fa[1], fa[2], fa[3]);
-  printf("    {%f, %f, %f, %f},\n",
-          fa[0] + sc, fa[1] + sc, fa[2] + sc, fa[3] + sc);
-  printf("    %f,\n", sc);
-  printf("    %u,\n", sz);
-  printf("  },\n");
-}
-void f_gen(unsigned int sz)
+void out(unsigned int sz, void *a, unsigned int es, double sc)
 {
   unsigned int ind;
+  float *pfa;
+  float *pfb;
+  double *pda;
+  double *pdb;
 
-  fa[0] = fa[1] = fa[2] = fa[3] = 0;
-  fb[0] = fb[1] = fb[2] = fb[3] = 0;
-  for (ind = 0; ind < sz; ++ind) {
-    fa[ind] = frand();
-    fb[ind] = frand();
+  if (es == sizeof(float))
+    pfa = (float *) a;
+  else
+    pda = (double *) a;
+
+  printf("{\n");
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", pfa[ind]);
+    else
+      printf("%lf, ", pda[ind]);
+  printf("}},\n");
+
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", pfa[ind] + sc);
+    else
+      printf("%lf, ", pda[ind] + sc);
+  printf("}},\n");
+
+  printf("  %lf,\n", sc);
+  printf("  %u,\n", sz);
+  printf("},\n");
+}
+
+void gen(unsigned int sz, void *a, unsigned int es, double *sc)
+{
+  unsigned int ind;
+  float *pfa;
+  float *pfb;
+  double *pda;
+  double *pdb;
+
+  if (es == sizeof(float)) {
+    pfa = (float *) a;
+    memset(pfa, 0, sizeof(float) * 16);
+  } else {
+    pda = (double *) a;
+    memset(pda, 0, sizeof(double) * 16);
   }
-  sc = frand();
+
+  for (ind = 0; ind < sz; ++ind) {
+    if (es == sizeof(float))
+      fa[ind] = (float) frand();
+    else
+      da[ind] = frand();
+  }
+  *sc = frand();
 }
 
 int main()
 {
+  unsigned int ind;
+  unsigned int jnd;
+  unsigned int sz;
+
   srandom(time(0));
 
+  memset(fa, 0, sizeof(float) * 16);
   sz = 2;
   printf("struct addsc_testf tests_f[] = {\n");
-  f_print(4, 0);
-  for (ind = 1; ind < 30; ++ind) {
+  out(16, fa, sizeof(float), sc);
+  for (ind = 1; ind < 150; ++ind) {
     if (ind && !(ind % 10)) ++sz;
-    f_gen(sz);
-    f_print(sz, ind);
+    gen(sz, fa, sizeof(float), &sc);
+    out(sz, fa, sizeof(float), sc);
   }
   printf("};\n");
 
-  fa[0] = fa[1] = fa[2] = fa[3] = 0;
-  fb[0] = fb[1] = fb[2] = fb[3] = 0;
-  sc = 0;
+  memset(da, 0, sizeof(double) * 16);
   sz = 2;
   printf("struct addsc_testd tests_d[] = {\n");
-  f_print(4, 0);
-  for (ind = 1; ind < 30; ++ind) {
+  out(16, da, sizeof(double), sc);
+  for (ind = 1; ind < 150; ++ind) {
     if (ind && !(ind % 10)) ++sz;
-    f_gen(sz);
-    f_print(sz, ind);
+    gen(sz, da, sizeof(double), &sc);
+    out(sz, da, sizeof(double), sc);
   }
   printf("};\n");
   return 0;

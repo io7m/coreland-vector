@@ -13,10 +13,10 @@ add_gen.o:\
 	cc add_gen.c frand.h 
 	./cc add_gen.c
 addsc_gen:\
-	ld addsc_gen.ld addsc_gen.o 
-	./ld addsc_gen addsc_gen.o 
+	ld addsc_gen.ld addsc_gen.o frand.a 
+	./ld addsc_gen addsc_gen.o frand.a 
 addsc_gen.o:\
-	cc addsc_gen.c 
+	cc addsc_gen.c frand.h 
 	./cc addsc_gen.c
 cc: conf-cc conf-cctype conf-cflags 
 conf-cctype:\

@@ -39,7 +39,7 @@ int main()
     }
     for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
       if (!approx_equalf(fpr[jnd], fpa[jnd], APPROX_MAX_ERRORF)) {
-        printf("fail: [%u] vr[%u] %f != va[%u] %f\n",
+        printf("fail: tests_f[%u] vr[%u] %f != va[%u] %f\n",
                 ind, jnd, fpr[jnd], jnd, fpa[jnd]);
         return 1;
       }

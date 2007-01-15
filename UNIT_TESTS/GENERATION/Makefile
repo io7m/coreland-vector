@@ -3,14 +3,14 @@
 default: all
 
 all:\
-	add_gen addsc_gen div_gen divsc_gen dotprod_gen mag_gen mult_gen \
-	multsc_gen nega_gen norm_gen sub_gen subsc_gen xprod_gen 
+	add_gen addsc_gen div_gen divsc_gen dotprod_gen frand.a mag_gen \
+	mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen xprod_gen 
 
 add_gen:\
-	ld add_gen.ld add_gen.o 
-	./ld add_gen add_gen.o 
+	ld add_gen.ld add_gen.o frand.a 
+	./ld add_gen add_gen.o frand.a 
 add_gen.o:\
-	cc add_gen.c 
+	cc add_gen.c frand.h 
 	./cc add_gen.c
 addsc_gen:\
 	ld addsc_gen.ld addsc_gen.o 
@@ -43,6 +43,12 @@ dotprod_gen:\
 dotprod_gen.o:\
 	cc dotprod_gen.c 
 	./cc dotprod_gen.c
+frand.a:\
+	mk-slib frand.sld frand.o 
+	./mk-slib frand frand.o 
+frand.o:\
+	cc frand.c frand.h 
+	./cc frand.c
 ld: conf-ld 
 mag_gen:\
 	ld mag_gen.ld mag_gen.lff mag_gen.o 
@@ -97,11 +103,11 @@ xprod_gen.o:\
 	cc xprod_gen.c 
 	./cc xprod_gen.c
 clean: 
-	rm -f add_gen add_gen.o addsc_gen addsc_gen.o div_gen div_gen.o \
-	divsc_gen divsc_gen.o dotprod_gen dotprod_gen.o mag_gen mag_gen.o \
-	mult_gen mult_gen.o multsc_gen multsc_gen.o nega_gen nega_gen.o \
-	norm_gen norm_gen.o sub_gen sub_gen.o subsc_gen subsc_gen.o \
-	xprod_gen xprod_gen.o 
+	rm -f add_gen add_gen.o addsc_gen addsc_gen.o conf-cctype \
+	conf-systype div_gen div_gen.o divsc_gen divsc_gen.o dotprod_gen \
+	dotprod_gen.o frand.a frand.o mag_gen mag_gen.o mult_gen mult_gen.o \
+	multsc_gen multsc_gen.o nega_gen nega_gen.o norm_gen norm_gen.o \
+	sub_gen sub_gen.o subsc_gen subsc_gen.o xprod_gen xprod_gen.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

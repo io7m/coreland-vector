@@ -3,10 +3,10 @@ struct multsc_test {
   float vr[4];
   float sc;
   unsigned int sz;
-  char x[vec_align(sizeof(float) * 8 + sizeof(float) + sizeof(unsigned int))];
+  char x[vec_pad(sizeof(float) * 8 + sizeof(float) + sizeof(unsigned int))];
 };
 
-struct multsc_test tests[] = {
+vec_align(16) struct multsc_test tests[] = {
   /* GENERATION/multsc_gen.c */
   {
     {0.000000, 0.000000, 0.000000, 0.000000},

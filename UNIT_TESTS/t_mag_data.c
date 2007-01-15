@@ -2,10 +2,10 @@ struct mag_test {
   float va[4];
   float vr;
   unsigned int sz;
-  char x[vec_align(sizeof(float) * 4 + sizeof(float) + sizeof(unsigned int))];
+  char x[vec_pad(sizeof(float) * 4 + sizeof(float) + sizeof(unsigned int))];
 };
 
-struct mag_test tests[] = {
+vec_align(16) struct mag_test tests[] = {
   /* GENERATION/mag_gen.c */
   {
     {0.000000, 0.000000, 0.000000, 0.000000},

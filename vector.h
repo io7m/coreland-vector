@@ -16,6 +16,7 @@
 #include "vec_xprod.h"
 #include "vec_zero.h"
 #include "vec_simd.h"
+#include "vec_types.h"
 
 float *vec_nega2f(float [2]);
 float *vec_nega2fx(const float [2], float [2]);

@@ -3,10 +3,10 @@ struct div_test {
   float vb[4];
   float vr[4];
   unsigned int sz;
-  char x[vec_align(sizeof(float) * 12 + sizeof(unsigned int))];
+  char x[vec_pad(sizeof(float) * 12 + sizeof(unsigned int))];
 };
 
-struct div_test tests[] = {
+vec_align(16) struct div_test tests[] = {
   /* GENERATION/div_gen.c */
   {
     {1.000000, 1.000000, 1.000000, 1.000000},

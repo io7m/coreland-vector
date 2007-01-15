@@ -3,10 +3,10 @@ struct dotprod_test {
   float vb[4];
   float res;
   unsigned int sz;
-  char x[vec_align(sizeof(float) * 8 + sizeof(float) + sizeof(unsigned int))];
+  char x[vec_pad(sizeof(float) * 8 + sizeof(float) + sizeof(unsigned int))];
 };
 
-struct dotprod_test tests[] = {
+vec_align(16) struct dotprod_test tests[] = {
   /* GENERATION/dotprod_gen.c */
   {
     {0.000000, 0.000000, 0.000000, 0.000000},

@@ -19,6 +19,11 @@ int main()
   unsigned int ind;
   unsigned int jnd;
 
+  for (ind = 0; ind < 16; ++ind) {
+    ftmp[ind] = 1.0f;
+    dtmp[ind] = 1.0f;
+  }
+
   /* single precision */
   for (ind = 0; ind < sizeof(tests_f) / sizeof(struct div_testf); ++ind) {
     fpa = (float *) &tests_f[ind].vva;

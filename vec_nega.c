@@ -100,7 +100,6 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
   unsigned int ind;
 
   pva = va;
-  pvb = vb;
   pvr = vr;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
@@ -113,11 +112,11 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
 float *vec_negaNf(float *va, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va))
     return vec_negaNf_sse(va, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va))
     return vec_negaNf_altivec(va, n);
 #endif
   {
@@ -130,11 +129,11 @@ float *vec_negaNf(float *va, unsigned int n)
 float *vec_negaNfx(const float *va, float *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_negaNfx_sse(va, vr, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_negaNfx_altivec(va, vr, n);
 #endif
   {
@@ -160,7 +159,7 @@ double *vec_negaNd(double *va, unsigned int n)
 double *vec_negaNdx(const double *va, double *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_negaNdx_sse2(va, vr, n);
 #endif
   {

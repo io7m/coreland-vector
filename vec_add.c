@@ -235,6 +235,7 @@ static float *vec_addNfx_altivec(const float *va, const float *vb,
     vec_st(vvr, 0, pvr + 4);
     pva += 8;
     pvb += 8;
+    pvr += 8;
   }
   for (ind = 0; ind < d4; ++ind) {
     vva1 = vec_ld(0, pva);
@@ -243,6 +244,7 @@ static float *vec_addNfx_altivec(const float *va, const float *vb,
     vec_st(vvr, 0, pvr);
     pva += 4;
     pvb += 4;
+    pvr += 4;
   }
   for (ind = 0; ind < dr; ++ind)
     pvr[ind] = pva[ind] + pvb[ind];

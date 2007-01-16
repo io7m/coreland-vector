@@ -11,8 +11,8 @@ Do programs linking against the library need to use -msse?
 
 vec_add             csat
 vec_sub             csat
-vec_mult            csat
-vec_div             csat
+vec_mult            cst
+vec_div             cst
 vec_addsc           csat
 vec_subsc           cst
 vec_multsc          cst

@@ -1,7 +1,6 @@
-
-#include "sysinfo.h"
 #include "vec_nega.h"
 #include "vec_simd.h"
+#include "vec_types.h"
 
 #ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_negaNf_sse(float *va, unsigned int ne)
@@ -63,10 +62,7 @@ static float *vec_negaNf_altivec(float *va, unsigned int ne)
   vector float vva2;
   vector float vva3;
   vector float vva4;
-  vector float vvb1;
-  vector float vvb2;
-  vector float vvb3;
-  vector float vvb4;
+  vector float vz;
   float *pva;
   unsigned int d16;
   unsigned int d8;
@@ -74,8 +70,42 @@ static float *vec_negaNf_altivec(float *va, unsigned int ne)
   unsigned int dr;
   unsigned int ind;
 
+  vz = vec_ctf(vec_splat_u32(0), 0);
   pva = va;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d16; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vva1 = vec_sub(vz, vva1);
+    vva2 = vec_sub(vz, vva2);
+    vva3 = vec_sub(vz, vva3);
+    vva4 = vec_sub(vz, vva4); 
+    vec_st(vva1, 0, pva);
+    vec_st(vva2, 0, pva + 4);
+    vec_st(vva3, 0, pva + 8);
+    vec_st(vva4, 0, pva + 12);
+    pva += 16;
+  }
+  for (ind = 0; ind < d8; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva1 = vec_sub(vz, vva1);
+    vva2 = vec_sub(vz, vva2);
+    vec_st(vva1, 0, pva);
+    vec_st(vva2, 0, pva + 4);
+    pva += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva1 = vec_sub(vz, vva1);
+    vec_st(vva1, 0, pva);
+    pva += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pva[ind] = -pva[ind];
 
   return va;
 }
@@ -85,12 +115,8 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
   vector float vva2;
   vector float vva3;
   vector float vva4;
-  vector float vvb1;
-  vector float vvb2;
-  vector float vvb3;
-  vector float vvb4;
   vector float vvr;
-  const float *pvb;
+  vector float vz;
   const float *pva;
   float *pvr;
   unsigned int d16;
@@ -99,9 +125,46 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
   unsigned int dr;
   unsigned int ind;
 
+  vz = vec_ctf(vec_splat_u32(0), 0);
   pva = va;
   pvr = vr;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d16; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vvr = vec_sub(vz, vva1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_sub(vz, vva2);
+    vec_st(vvr, 0, pvr + 4);
+    vvr = vec_sub(vz, vva3);
+    vec_st(vvr, 0, pvr + 8);
+    vvr = vec_sub(vz, vva4); 
+    vec_st(vvr, 0, pvr + 12);
+    pva += 16;
+    pvr += 16;
+  }
+  for (ind = 0; ind < d8; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vvr = vec_sub(vz, vva1);
+    vec_st(vvr, 0, pvr);
+    vvr = vec_sub(vz, vva2);
+    vec_st(vvr, 0, pvr + 4);
+    pva += 8;
+    pvr += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vvr = vec_sub(vz, vva1);
+    vec_st(vvr, 0, pvr);
+    pva += 4;
+    pvr += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = -pva[ind];
 
   return vr;
 }

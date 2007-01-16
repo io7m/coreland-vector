@@ -16,12 +16,12 @@ vec_div             csat
 vec_addsc           csat
 vec_subsc           csat
 vec_multsc          csat
-vec_divsc           cst
-vec_nega            ct
+vec_divsc           csat
+vec_nega            cat
 vec_angle           
 vec_dist
 vec_assi            csa
 vec_dotp            c
 vec_mag
 vec_xprod
-vec_zero            cs
+vec_zero            csa

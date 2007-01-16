@@ -1,4 +1,3 @@
-#include "sysinfo.h"
 #include "vec_sub.h"
 #include "vec_simd.h"
 

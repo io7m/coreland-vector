@@ -12,7 +12,7 @@ Do programs linking against the library need to use -msse?
 vec_add             csat
 vec_sub             csat
 vec_mult            csat
-vec_div             cst
+vec_div             csat
 vec_addsc           csat
 vec_subsc           csat
 vec_multsc          csat

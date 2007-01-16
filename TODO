@@ -17,6 +17,7 @@ vec_addsc           csat
 vec_subsc           cst
 vec_multsc          cst
 vec_divsc           cst
+vec_nega            ct
 vec_angle           
 vec_dist
 vec_assi            csa

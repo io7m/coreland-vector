@@ -2,7 +2,7 @@
 #include "vec_simd.h"
 
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-static float vec_dotprodNd_altivec(const float *va, const float *vb,
+static float vec_dotprodNf_altivec(const float *va, const float *vb,
                                    unsigned int n)
 {
   float res;

@@ -2,3 +2,25 @@ Work out acceptable error margin for unit tests (one static
 APPROX_ERROR) value isn't enough.
 
 Do programs linking against the library need to use -msse?
+
+  c = converted
+  s = sse
+  S = sse2
+  a = altivec
+  t = tests
+
+vec_add             csat
+vec_sub             csat
+vec_mult            csat
+vec_div             csat
+vec_addsc           csat
+vec_subsc           cst
+vec_multsc          cst
+vec_divsc           cst
+vec_angle           
+vec_dist
+vec_assi            csa
+vec_dotp            c
+vec_mag
+vec_xprod
+vec_zero            cs

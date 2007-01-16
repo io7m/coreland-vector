@@ -98,23 +98,7 @@ static double *vec_multscNdx_sse2(const double *va, double *vr, double sc,
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_multscNf_altivec(float *va, float sc, unsigned int ne)
 {
-  vector float vva1;
-  vector float vva2;
-  vector float vva3;
-  vector float vva4;
-  vector float vvb1;
-  vector float vvb2;
-  vector float vvb3;
-  vector float vvb4;
-  float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
-  unsigned int ind;
 
-  pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
 
   return va;
 }

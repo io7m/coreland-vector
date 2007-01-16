@@ -18,19 +18,6 @@
 #include "vec_simd.h"
 #include "vec_types.h"
 
-float *vec_nega2f(float [2]);
-float *vec_nega2fx(const float [2], float [2]);
-float *vec_nega3f(float [3]);
-float *vec_nega3fx(const float [3], float [3]);
-float *vec_nega4f(float [4]);
-float *vec_nega4fx(const float [4], float [4]);
-double *vec_nega2d(double [2]);
-double *vec_nega2dx(const double [2], double [2]);
-double *vec_nega3d(double [3]);
-double *vec_nega3dx(const double [3], double [3]);
-double *vec_nega4d(double [4]);
-double *vec_nega4dx(const double [4], double [4]);
-
 float vec_mag2f(const float [2]);
 float vec_mag3f(const float [3]);
 float vec_mag4f(const float [4]);

@@ -5,38 +5,54 @@
 
 #include "t_nega_data.c"
 
+float ftmp[16];
+double dtmp[16];
+ 
 int main()
 {
-  float tmp[4] = {0, 0, 0, 0};
+  double *dpa;
+  double *dpr;
+  float *fpa;
+  float *fpr;
   unsigned int ind;
   unsigned int jnd;
 
-  for (ind = 0; ind < sizeof(tests) / sizeof(struct nega_test); ++ind) {
-    switch (tests[ind].sz) {
-      case 4:
-        vec_nega4fx(tests[ind].va, tmp);
-        break;
-      case 3:
-        vec_nega3fx(tests[ind].va, tmp);
-        break;
-      case 2:
-        vec_nega2fx(tests[ind].va, tmp);
-        break;
-      default:
-        printf("error: ended up in default switch statement\n");
-        return 2;
-    }
-    for (jnd = 0; jnd < tests[ind].sz; ++jnd) {
-      if (!approx_equalf(tests[ind].vr[jnd], tmp[jnd], APPROX_MAX_ERROR)) {
-        printf("fail: [%u] vr[%u] %f != tmp[%u] %f\n",
-                ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
+  /* single precision */
+  for (ind = 0; ind < sizeof(tests_f) / sizeof(struct nega_testf); ++ind) {
+    fpa = (float *) &tests_f[ind].vva;
+    fpr = (float *) &tests_f[ind].vvr;
+
+    vec_negaNfx(fpa, ftmp, tests_f[ind].sz);
+
+    for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
+      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF)) {
+        printf("fail: tests_f[%u] vr[%u] %f != ftmp[%u] %f\n",
+                ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
         return 1;
       }
-      printf("[%u] vr[%u] %f ~ tmp[%u] %f\n",
-              ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
+      printf("[%u] vr[%u] %f ~ ftmp[%u] %f\n",
+             ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
     }
     printf("--\n");
   }
 
+  /* double precision */
+  for (ind = 0; ind < sizeof(tests_d) / sizeof(struct nega_testd); ++ind) {
+    dpa = (double *) &tests_d[ind].vva;
+    dpr = (double *) &tests_d[ind].vvr;
+
+    vec_negaNdx(dpa, dtmp, tests_d[ind].sz);
+
+    for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
+      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
+        printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",
+                ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+        return 1;
+      }
+      printf("[%u] vr[%u] %f ~ dtmp[%u] %f\n",
+             ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+    }
+    printf("--\n");
+  }
   return 0;
 } 

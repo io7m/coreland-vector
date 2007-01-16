@@ -72,29 +72,29 @@ multsc_gen.o:\
 	cc multsc_gen.c frand.h 
 	./cc multsc_gen.c
 nega_gen:\
-	ld nega_gen.ld nega_gen.o 
-	./ld nega_gen nega_gen.o 
+	ld nega_gen.ld nega_gen.o frand.a 
+	./ld nega_gen nega_gen.o frand.a 
 nega_gen.o:\
-	cc nega_gen.c 
+	cc nega_gen.c frand.h 
 	./cc nega_gen.c
 norm_gen:\
-	ld norm_gen.ld norm_gen.lff norm_gen.o 
-	./ld norm_gen norm_gen.o 
+	ld norm_gen.ld norm_gen.lff norm_gen.o frand.a 
+	./ld norm_gen norm_gen.o frand.a 
 norm_gen.lff: libs-sysmath 
 norm_gen.o:\
-	cc norm_gen.c 
+	cc norm_gen.c frand.h 
 	./cc norm_gen.c
 sub_gen:\
-	ld sub_gen.ld sub_gen.o 
-	./ld sub_gen sub_gen.o 
+	ld sub_gen.ld sub_gen.o frand.a 
+	./ld sub_gen sub_gen.o frand.a 
 sub_gen.o:\
-	cc sub_gen.c 
+	cc sub_gen.c frand.h 
 	./cc sub_gen.c
 subsc_gen:\
-	ld subsc_gen.ld subsc_gen.o 
-	./ld subsc_gen subsc_gen.o 
+	ld subsc_gen.ld subsc_gen.o frand.a 
+	./ld subsc_gen subsc_gen.o frand.a 
 subsc_gen.o:\
-	cc subsc_gen.c 
+	cc subsc_gen.c frand.h 
 	./cc subsc_gen.c
 xprod_gen:\
 	ld xprod_gen.ld xprod_gen.o 

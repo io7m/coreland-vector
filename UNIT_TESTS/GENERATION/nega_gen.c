@@ -1,52 +1,93 @@
-#include <time.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "frand.h"
 
-float f[4];
- 
-float frand()
-{
-  float f;
-  float div;
-  div = (random() % 1000);
-  f = (random() % 10000) - 5000; 
-  return f / div;
-}
+float fa[16];
+double da[16];
 
-void print(float f[4], unsigned int sz)
-{
-  printf("  {\n");
-  printf("    {%f, %f, %f, %f},\n", f[0], f[1], f[2], f[3]);
-  printf("    {%f, %f, %f, %f},\n",
-              -f[0], -f[1], -f[2], -f[3]);
-  printf("    %u,\n", sz);
-  printf("    {0},\n");
-  printf("  },\n");
-}
-
-void gen(float f[4], unsigned int sz)
+void out(unsigned int sz, void *a, unsigned int es)
 {
   unsigned int ind;
+  float *pfa;
+  double *pda;
 
-  f[0] = f[1] = f[2] = f[3] = 0;
-  for (ind = 0; ind < sz; ++ind)
-    f[ind] = frand();
+  if (es == sizeof(float))
+    pfa = (float *) a;
+  else
+    pda = (double *) a;
+
+  printf("{\n");
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", pfa[ind]);
+    else
+      printf("%lf, ", pda[ind]);
+  printf("}},\n");
+
+  printf("  {{");
+  for (ind = 0; ind < 16; ++ind)
+    if (es == sizeof(float))
+      printf("%lf, ", -pfa[ind]);
+    else
+      printf("%lf, ", -pda[ind]);
+  printf("}},\n");
+
+  printf("  %u,\n", sz);
+  printf("},\n");
+}
+
+void gen(unsigned int sz, void *a, unsigned int es)
+{
+  unsigned int ind;
+  float *pfa;
+  double *pda;
+
+  if (es == sizeof(float)) {
+    pfa = (float *) a;
+    memset(pfa, 0, sizeof(float) * 16);
+  } else {
+    pda = (double *) a;
+    memset(pda, 0, sizeof(double) * 16);
+  }
+
+  for (ind = 0; ind < sz; ++ind) {
+    if (es == sizeof(float))
+      pfa[ind] = (float) frand();
+    else
+      pda[ind] = frand();
+  }
 }
 
 int main()
 {
-  unsigned int ind = 30;
-  unsigned int sz = 2;
+  unsigned int ind;
+  unsigned int jnd;
+  unsigned int sz;
 
   srandom(time(0));
 
-  printf("  /* GENERATION/nega_gen.c */\n");
-  print(f, 4);
-
-  while (--ind) {
+  memset(fa, 0, sizeof(float) * 16);
+  sz = 2;
+  printf("struct nega_testf tests_f[] = {\n");
+  out(16, fa, sizeof(float));
+  for (ind = 1; ind < 150; ++ind) {
     if (ind && !(ind % 10)) ++sz;
-    gen(f, sz);
-    print(f, sz);
+    gen(sz, fa, sizeof(float));
+    out(sz, fa, sizeof(float));
   }
+  printf("};\n");
+
+  memset(da, 0, sizeof(double) * 16);
+  sz = 2;
+  printf("struct nega_testd tests_d[] = {\n");
+  out(16, da, sizeof(double));
+  for (ind = 1; ind < 150; ++ind) {
+    if (ind && !(ind % 10)) ++sz;
+    gen(sz, da, sizeof(double));
+    out(sz, da, sizeof(double));
+  }
+  printf("};\n");
   return 0;
 }

@@ -81,11 +81,11 @@ void gen(unsigned int sz, void *a, void *b, unsigned int es)
 
   for (ind = 0; ind < sz; ++ind) {
     if (es == sizeof(float)) {
-      fa[ind] = (float) frand();
-      fb[ind] = (float) frand();
+      pfa[ind] = (float) frand();
+      pfb[ind] = (float) frand();
     } else {
-      da[ind] = frand();
-      db[ind] = frand();
+      pda[ind] = frand();
+      pdb[ind] = frand();
     }
   }
 }

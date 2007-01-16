@@ -60,9 +60,9 @@ void gen(unsigned int sz, void *a, unsigned int es, double *sc)
 
   for (ind = 0; ind < sz; ++ind) {
     if (es == sizeof(float))
-      fa[ind] = (float) frand();
+      pfa[ind] = (float) frand();
     else
-      da[ind] = frand();
+      pda[ind] = frand();
   }
   *sc = frand();
 }

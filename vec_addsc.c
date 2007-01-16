@@ -1,6 +1,7 @@
 #include "sysinfo.h"
 #include "vec_add.h"
 #include "vec_simd.h"
+#include "vec_types.h"
 
 #ifdef SYS_HAVE_CPU_EXT_SSE
 static float *vec_addscNf_sse(float *va, float sc, unsigned int ne)
@@ -98,7 +99,7 @@ static double *vec_addscNdx_sse2(const double *va, double *vr, double sc,
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_addscNf_altivec(float *va, float sc, unsigned int ne)
 {
-  union align16v vs;
+  vector_4f vs;
   vector float vva1;
   vector float vva2;
   vector float vva3;
@@ -154,7 +155,7 @@ static float *vec_addscNf_altivec(float *va, float sc, unsigned int ne)
 static float *vec_addscNfx_altivec(const float *va, float *vr, float sc,
                                    unsigned int ne)
 {
-  union align16v vs;
+  vector_4f vs;
   vector float vvr1;
   vector float vvr2;
   vector float vvr3;

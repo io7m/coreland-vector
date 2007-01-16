@@ -11,17 +11,6 @@
 
 #ifdef SYS_HAVE_CPU_EXT_SSE
 #include <xmmintrin.h>
-union align16v {
-  float f[4];
-  __m128 v;
-};
-#endif
-
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-union align16v {
-  float f[4];
-  vector float v;
-};
 #endif
 
 void vec_simd_segments(unsigned int *, unsigned int *,

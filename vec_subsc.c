@@ -155,7 +155,7 @@ static float *vec_subscNf_altivec(float *va, float sc, unsigned int ne)
 static float *vec_subscNfx_altivec(const float *va, float *vr, float sc,
                                    unsigned int ne)
 {
-  union align16v vs;
+  vector_4f vs;
   vector float vvr1;
   vector float vvr2;
   vector float vvr3;

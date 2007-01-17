@@ -26,7 +26,7 @@ static float *vec_multscNf_sse(float *va, float sc, unsigned int ne)
     mva2 = _mm_mul_ps(mva2, vsc);
     _mm_store_ps(pva, mva1);
     _mm_store_ps(pva + 4, mva2);
-    pva += 4;
+    pva += 8;
   }
   for (ind = 0; ind < d4; ++ind) {
     mva1 = _mm_load_ps(pva);
@@ -64,10 +64,10 @@ static float *vec_multscNfx_sse(const float *va, float *vr, float sc,
     mva2 = _mm_load_ps(pva + 4);
     mvr1 = _mm_mul_ps(mva1, vsc);
     _mm_store_ps(pvr, mvr1);
-    mva2 = _mm_mul_ps(mva2, vsc);
+    mvr1 = _mm_mul_ps(mva2, vsc);
     _mm_store_ps(pvr + 4, mvr1);
-    pva += 4;
-    pvr += 4;
+    pva += 8;
+    pvr += 8;
   }
   for (ind = 0; ind < d4; ++ind) {
     mva1 = _mm_load_ps(pva);

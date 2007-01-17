@@ -13,6 +13,7 @@ long str_rchr(register const char *, register int);
 #define FLAG_VERSION 0x0010
 #define FLAG_COMPILE 0x0020
 #define FLAG_HELP    0x0040
+#define FLAG_FLAGS   0x0080
 
 struct flag { const char *flag; unsigned int val; const char *desc; };
 static const struct flag flags[] = {
@@ -20,6 +21,7 @@ static const struct flag flags[] = {
   { "dlibdir", FLAG_DLIBDIR, "print dynamic library directory" },
   { "slibdir", FLAG_SLIBDIR, "print static library directory" },
   { "compile", FLAG_COMPILE, "modify output for use as compiler flags" },
+  { "flags",   FLAG_FLAGS,   "output required compiler flags" },
   { "version", FLAG_VERSION, "print library version" },
   { "help",    FLAG_HELP, "this message" },
   { "newline", FLAG_NEWLINE, "print trailing newline" },
@@ -67,6 +69,12 @@ int main(int argc, char *argv[])
     } else {
       printf("%s ", ctxt_incdir);
     }
+  }
+  if (flag & FLAG_FLAGS) {
+    if (ctxt_flags_sse_len > 1) printf("%s ", ctxt_flags_sse);
+    if (ctxt_flags_sse2_len > 1) printf("%s ", ctxt_flags_sse2);
+    if (ctxt_flags_sse3_len > 1) printf("%s ", ctxt_flags_sse3);
+    if (ctxt_flags_altivec_len > 1) printf("%s ", ctxt_flags_altivec);
   }
   if (flag & FLAG_DLIBDIR) {
     if (flag & FLAG_COMPILE) printf("-L");

@@ -1,0 +1,3 @@
+ctxt/flags_altivec.c: mk-ctxt flags-altivec
+	rm -f ctxt/flags_altivec.c
+	./mk-ctxt ctxt_flags_altivec < flags-altivec > ctxt/flags_altivec.c

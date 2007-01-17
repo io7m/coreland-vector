@@ -176,7 +176,7 @@ int main()
        larger due to multiplication */
 
     for (jnd = 0; jnd < 3; ++jnd) {
-      if (!approx_equalf(tests[ind].vr[jnd], tmp[jnd], APPROX_MAX_ERROR * 10.0)) {
+      if (!approx_equalf(tests[ind].vr[jnd], tmp[jnd], APPROX_MAX_ERRORF * 10.0)) {
         printf("fail: [%u] vr[%u] %f != tmp[%u] %f\n",
                ind, jnd, tests[ind].vr[jnd], jnd, tmp[jnd]);
         return 1;

@@ -3,41 +3,55 @@
 #include "../vector.h"
 #include "t_util.h"
 
+#include "t_zero_data.c"
+
+vector_16f vftmp;
+vector_16d vdtmp;
+float *ftmp = (float *) &vftmp;
+double *dtmp = (double *) &vdtmp;
+
 int main()
 {
-  float va[4];
+  double *dpr;
+  float *fpr;
+  unsigned int ind;
+  unsigned int jnd;
 
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-  va[2] = 789.0f;
-  va[3] = 9.123f;
+  /* single precision */
+  for (ind = 0; ind < sizeof(tests_f) / sizeof(struct zero_testf); ++ind) {
+    fpr = (float *) &tests_f[ind].vvr;
 
-  vec_zero4f(va);
+    vec_zeroNf(ftmp, tests_f[ind].sz);
 
-  printf("zero4f\n");
-  if (va[0] != 0.0f) { printf("fail: va[0] ~ %f\n", va[0]); return 1; }
-  if (va[1] != 0.0f) { printf("fail: va[1] ~ %f\n", va[1]); return 1; }
-  if (va[2] != 0.0f) { printf("fail: va[2] ~ %f\n", va[2]); return 1; }
-  if (va[3] != 0.0f) { printf("fail: va[3] ~ %f\n", va[3]); return 1; }
+    for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
+      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF)) {
+        printf("fail: tests_f[%u] vr[%u] %f != ftmp[%u] %f\n",
+                ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
+        return 1;
+      }
+      printf("[%u] vr[%u] %f ~ ftmp[%u] %f\n",
+              ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
+    }
+    printf("--\n");
+  }
 
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-  va[2] = 789.0f;
+  /* double precision */
+  for (ind = 0; ind < sizeof(tests_d) / sizeof(struct zero_testd); ++ind) {
+    dpr = (double *) &tests_d[ind].vvr;
 
-  vec_zero3f(va);
+    vec_zeroNd(dtmp, tests_d[ind].sz);
 
-  printf("zero3f\n");
-  if (va[0] != 0.0f) { printf("fail: va[0] ~ %f\n", va[0]); return 1; }
-  if (va[1] != 0.0f) { printf("fail: va[1] ~ %f\n", va[1]); return 1; }
-  if (va[2] != 0.0f) { printf("fail: va[2] ~ %f\n", va[2]); return 1; }
+    for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
+      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
+        printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",
+                ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+        return 1;
+      }
+      printf("[%u] vr[%u] %f ~ dtmp[%u] %f\n",
+              ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+    }
+    printf("--\n");
+  }
 
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-
-  vec_zero2f(va);
-
-  printf("zero2f\n");
-  if (va[0] != 0.0f) { printf("fail: va[0] ~ %f\n", va[0]); return 1; }
-  if (va[1] != 0.0f) { printf("fail: va[1] ~ %f\n", va[1]); return 1; }
   return 0;
 } 

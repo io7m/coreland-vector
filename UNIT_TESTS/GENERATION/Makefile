@@ -5,7 +5,7 @@ default: all
 all:\
 	add_gen addsc_gen assi_gen div_gen divsc_gen dotprod_gen frand.a \
 	mag_gen mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen \
-	xprod_gen 
+	xprod_gen zero_gen 
 
 add_gen:\
 	ld add_gen.ld add_gen.o frand.a 
@@ -109,13 +109,19 @@ xprod_gen:\
 xprod_gen.o:\
 	cc xprod_gen.c 
 	./cc xprod_gen.c
+zero_gen:\
+	ld zero_gen.ld zero_gen.o frand.a 
+	./ld zero_gen zero_gen.o frand.a 
+zero_gen.o:\
+	cc zero_gen.c frand.h 
+	./cc zero_gen.c
 clean: 
 	rm -f add_gen add_gen.o addsc_gen addsc_gen.o assi_gen assi_gen.o \
 	conf-cctype conf-systype div_gen div_gen.o divsc_gen divsc_gen.o \
 	dotprod_gen dotprod_gen.o frand.a frand.o mag_gen mag_gen.o mult_gen \
 	mult_gen.o multsc_gen multsc_gen.o nega_gen nega_gen.o norm_gen \
 	norm_gen.o sub_gen sub_gen.o subsc_gen subsc_gen.o xprod_gen \
-	xprod_gen.o 
+	xprod_gen.o zero_gen zero_gen.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

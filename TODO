@@ -20,8 +20,8 @@ vec_divsc           csat
 vec_nega            csat
 vec_angle           
 vec_dist
-vec_assi            csa
+vec_assi            csat
 vec_dotp            c
 vec_mag
 vec_xprod
-vec_zero            csa
+vec_zero            csat

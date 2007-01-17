@@ -7,8 +7,7 @@ static float *vec_negaNf_sse(float *va, unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;
-  __m128 mvb1;
-  __m128 mvb2;
+  __m128 mvz;
   float *pva;
   unsigned int d16;
   unsigned int d8;
@@ -16,8 +15,27 @@ static float *vec_negaNf_sse(float *va, unsigned int ne)
   unsigned int dr;
   unsigned int ind;
 
+  mvz = _mm_setzero_ps();
   pva = va;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mva1 = _mm_sub_ps(mvz, mva1);
+    mva2 = _mm_sub_ps(mvz, mva2);
+    _mm_store_ps(pva, mva1);
+    _mm_store_ps(pva + 4, mva2);
+    pva += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva1 = _mm_sub_ps(mvz, mva1);
+    _mm_store_ps(pva, mva1);
+    pva += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pva[ind] = -pva[ind];
 
   return va;
 }
@@ -25,8 +43,7 @@ static float *vec_negaNfx_sse(const float *va, float *vr, unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;
-  __m128 mvb1;
-  __m128 mvb2;
+  __m128 mvz;
   __m128 mvr;
   const float *pva;
   float *pvr;
@@ -36,9 +53,30 @@ static float *vec_negaNfx_sse(const float *va, float *vr, unsigned int ne)
   unsigned int dr;
   unsigned int ind;
 
+  mvz = _mm_setzero_ps();
   pva = va;
   pvr = vr;
   vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+
+  for (ind = 0; ind < d8; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mva2 = _mm_load_ps(pva + 4);
+    mvr = _mm_sub_ps(mvz, mva1);
+    _mm_store_ps(pvr, mvr);
+    mvr = _mm_sub_ps(mvz, mva2);
+    _mm_store_ps(pvr + 4, mvr);
+    pva += 8;
+    pvr += 8;
+  }
+  for (ind = 0; ind < d4; ++ind) {
+    mva1 = _mm_load_ps(pva);
+    mvr = _mm_sub_ps(mvz, mva1);
+    _mm_store_ps(pvr, mvr);
+    pva += 4;
+    pvr += 4;
+  }
+  for (ind = 0; ind < dr; ++ind)
+    pvr[ind] = -pva[ind];
 
   return vr;
 }

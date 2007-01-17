@@ -3,8 +3,9 @@
 default: all
 
 all:\
-	add_gen addsc_gen div_gen divsc_gen dotprod_gen frand.a mag_gen \
-	mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen xprod_gen 
+	add_gen addsc_gen assi_gen div_gen divsc_gen dotprod_gen frand.a \
+	mag_gen mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen \
+	xprod_gen 
 
 add_gen:\
 	ld add_gen.ld add_gen.o frand.a 
@@ -18,6 +19,12 @@ addsc_gen:\
 addsc_gen.o:\
 	cc addsc_gen.c frand.h 
 	./cc addsc_gen.c
+assi_gen:\
+	ld assi_gen.ld assi_gen.o frand.a 
+	./ld assi_gen assi_gen.o frand.a 
+assi_gen.o:\
+	cc assi_gen.c frand.h 
+	./cc assi_gen.c
 cc: conf-cc conf-cctype conf-cflags 
 conf-cctype:\
 	conf-systype conf-cc mk-cctype 
@@ -103,11 +110,12 @@ xprod_gen.o:\
 	cc xprod_gen.c 
 	./cc xprod_gen.c
 clean: 
-	rm -f add_gen add_gen.o addsc_gen addsc_gen.o conf-cctype \
-	conf-systype div_gen div_gen.o divsc_gen divsc_gen.o dotprod_gen \
-	dotprod_gen.o frand.a frand.o mag_gen mag_gen.o mult_gen mult_gen.o \
-	multsc_gen multsc_gen.o nega_gen nega_gen.o norm_gen norm_gen.o \
-	sub_gen sub_gen.o subsc_gen subsc_gen.o xprod_gen xprod_gen.o 
+	rm -f add_gen add_gen.o addsc_gen addsc_gen.o assi_gen assi_gen.o \
+	conf-cctype conf-systype div_gen div_gen.o divsc_gen divsc_gen.o \
+	dotprod_gen dotprod_gen.o frand.a frand.o mag_gen mag_gen.o mult_gen \
+	mult_gen.o multsc_gen multsc_gen.o nega_gen nega_gen.o norm_gen \
+	norm_gen.o sub_gen sub_gen.o subsc_gen subsc_gen.o xprod_gen \
+	xprod_gen.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

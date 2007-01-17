@@ -5,9 +5,11 @@
 
 #include "t_add_data.c"
 
-float ftmp[16];
-double dtmp[16];
- 
+vector_16f vftmp;
+vector_16d vdtmp;
+float *ftmp = (float *) &vftmp;
+double *dtmp = (double *) &vdtmp;
+
 int main()
 {
   double *dpa;

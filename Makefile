@@ -66,11 +66,17 @@ UNIT_TESTS/t_addsc_data.o:\
 	cc UNIT_TESTS/t_addsc_data.c 
 	./cc UNIT_TESTS/t_addsc_data.c
 UNIT_TESTS/t_assign:\
-	ld UNIT_TESTS/t_assign.ld UNIT_TESTS/t_assign.o vector.a 
-	./ld UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o vector.a 
+	ld UNIT_TESTS/t_assign.ld UNIT_TESTS/t_assign.o UNIT_TESTS/t_util.o \
+	vector.a 
+	./ld UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o UNIT_TESTS/t_util.o \
+	vector.a 
 UNIT_TESTS/t_assign.o:\
-	cc UNIT_TESTS/t_assign.c vector.h UNIT_TESTS/t_util.h 
+	cc UNIT_TESTS/t_assign.c vector.h UNIT_TESTS/t_util.h \
+	UNIT_TESTS/t_assign_data.c 
 	./cc UNIT_TESTS/t_assign.c
+UNIT_TESTS/t_assign_data.o:\
+	cc UNIT_TESTS/t_assign_data.c 
+	./cc UNIT_TESTS/t_assign_data.c
 UNIT_TESTS/t_div1:\
 	ld UNIT_TESTS/t_div1.ld UNIT_TESTS/t_div1.o UNIT_TESTS/t_util.a \
 	vector.a 
@@ -409,10 +415,10 @@ mk-ctxt:\
 mk-slib: conf-systype 
 mk-sosuffix: conf-systype 
 vec_add.o:\
-	cc vec_add.c sysinfo.h vec_add.h vec_simd.h 
+	cc vec_add.c vec_add.h vec_simd.h 
 	./cc vec_add.c
 vec_addsc.o:\
-	cc vec_addsc.c sysinfo.h vec_add.h vec_simd.h 
+	cc vec_addsc.c vec_add.h vec_simd.h vec_types.h 
 	./cc vec_addsc.c
 vec_angle.o:\
 	cc vec_angle.c vector.h 
@@ -430,7 +436,7 @@ vec_div.o:\
 	cc vec_div.c vec_div.h vec_simd.h 
 	./cc vec_div.c
 vec_divsc.o:\
-	cc vec_divsc.c vec_divsc.h vec_simd.h 
+	cc vec_divsc.c vec_divsc.h vec_simd.h vec_types.h 
 	./cc vec_divsc.c
 vec_dotp.o:\
 	cc vec_dotp.c vec_dotp.h vec_simd.h 
@@ -439,13 +445,13 @@ vec_mag.o:\
 	cc vec_mag.c 
 	./cc vec_mag.c
 vec_mult.o:\
-	cc vec_mult.c sysinfo.h vec_mult.h vec_simd.h 
+	cc vec_mult.c vec_mult.h vec_simd.h 
 	./cc vec_mult.c
 vec_multsc.o:\
-	cc vec_multsc.c sysinfo.h vec_mult.h vec_simd.h 
+	cc vec_multsc.c vec_mult.h vec_simd.h vec_types.h 
 	./cc vec_multsc.c
 vec_nega.o:\
-	cc vec_nega.c vec_nega.h 
+	cc vec_nega.c vec_nega.h vec_simd.h vec_types.h 
 	./cc vec_nega.c
 vec_norm.o:\
 	cc vec_norm.c vec_norm.h vec_simd.h 
@@ -454,16 +460,16 @@ vec_simd.o:\
 	cc vec_simd.c vec_simd.h 
 	./cc vec_simd.c
 vec_sub.o:\
-	cc vec_sub.c sysinfo.h vec_sub.h vec_simd.h 
+	cc vec_sub.c vec_sub.h vec_simd.h 
 	./cc vec_sub.c
 vec_subsc.o:\
-	cc vec_subsc.c sysinfo.h vec_subsc.h vec_simd.h 
+	cc vec_subsc.c vec_subsc.h vec_simd.h vec_types.h 
 	./cc vec_subsc.c
 vec_xprod.o:\
 	cc vec_xprod.c vec_xprod.h 
 	./cc vec_xprod.c
 vec_zero.o:\
-	cc vec_zero.c sysinfo.h vec_zero.h vec_simd.h 
+	cc vec_zero.c vec_zero.h vec_simd.h 
 	./cc vec_zero.c
 vector-conf:\
 	ld vector-conf.ld vector-conf.o ctxt/ctxt.a 
@@ -485,15 +491,15 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_add2.o UNIT_TESTS/t_add_data.o UNIT_TESTS/t_addsc1 \
 	UNIT_TESTS/t_addsc1.o UNIT_TESTS/t_addsc2 UNIT_TESTS/t_addsc2.o \
 	UNIT_TESTS/t_addsc_data.o UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o \
-	UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o UNIT_TESTS/t_div2 \
-	UNIT_TESTS/t_div2.o UNIT_TESTS/t_div_data.o UNIT_TESTS/t_divsc1 \
-	UNIT_TESTS/t_divsc1.o UNIT_TESTS/t_divsc2 UNIT_TESTS/t_divsc2.o \
-	UNIT_TESTS/t_divsc_data.o UNIT_TESTS/t_dotp_data.o \
-	UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o UNIT_TESTS/t_mag1 \
-	UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mag_data.o UNIT_TESTS/t_mult1 \
-	UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o \
-	UNIT_TESTS/t_mult_data.o UNIT_TESTS/t_multsc1 UNIT_TESTS/t_multsc1.o \
-	UNIT_TESTS/t_multsc2 UNIT_TESTS/t_multsc2.o \
+	UNIT_TESTS/t_assign_data.o UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o \
+	UNIT_TESTS/t_div2 UNIT_TESTS/t_div2.o UNIT_TESTS/t_div_data.o \
+	UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc1.o UNIT_TESTS/t_divsc2 \
+	UNIT_TESTS/t_divsc2.o UNIT_TESTS/t_divsc_data.o \
+	UNIT_TESTS/t_dotp_data.o UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
+	UNIT_TESTS/t_mag1 UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mag_data.o \
+	UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 \
+	UNIT_TESTS/t_mult2.o UNIT_TESTS/t_mult_data.o UNIT_TESTS/t_multsc1 \
+	UNIT_TESTS/t_multsc1.o UNIT_TESTS/t_multsc2 UNIT_TESTS/t_multsc2.o \
 	UNIT_TESTS/t_multsc_data.o UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o \
 	UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o UNIT_TESTS/t_nega_data.o \
 	UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o UNIT_TESTS/t_norm2 \
@@ -502,18 +508,18 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_sub_data.o UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o \
 	UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
 	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod \
-	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o 
-	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
-	ctxt/dlibdir.o ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o \
-	ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
-	deinstaller deinstaller.o inst-check inst-check.o inst-copy \
-	inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
-	install_error.o installer installer.o instchk instchk.o insthier.o \
-	mk-ctxt mk-ctxt.o vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
-	vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o \
-	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o \
-	vec_subsc.o vec_xprod.o vec_zero.o vector-conf vector-conf.o \
-	vector.a 
+	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero 
+	rm -f UNIT_TESTS/t_zero.o conf-cctype conf-systype ctxt/bindir.c \
+	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
+	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
+	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
+	installer installer.o instchk instchk.o insthier.o vec_add.o \
+	vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o vec_div.o \
+	vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o vec_nega.o \
+	vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o \
+	vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

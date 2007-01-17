@@ -3,45 +3,55 @@
 #include "../vector.h"
 #include "t_util.h"
 
+#include "t_assign_data.c"
+
+vector_16f vftmp;
+vector_16d vdtmp;
+float *ftmp = (float *) &vftmp;
+double *dtmp = (double *) &vdtmp;
+
 int main()
 {
-  vector_4f vva;
-  vector_4f vvb;
-  float *va = (float *) &vva;
-  float *vb = (float *) &vvb;
+  double *dpr;
+  float *fpr;
+  unsigned int ind;
+  unsigned int jnd;
 
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-  va[2] = 789.0f;
-  va[3] = 9.123f;
+  /* single precision */
+  for (ind = 0; ind < sizeof(tests_f) / sizeof(struct assign_testf); ++ind) {
+    fpr = (float *) &tests_f[ind].vvr;
 
-  vec_assign4f(vb, va);
+    vec_assignNf(ftmp, fpr, tests_f[ind].sz);
 
-  printf("assign4f\n");
-  if (vb[0] != va[0]) { printf("fail: vb[0] != va[0] (%f)\n", vb[0]); return 1; }
-  if (vb[1] != va[1]) { printf("fail: vb[1] != va[1] (%f)\n", vb[1]); return 1; }
-  if (vb[2] != va[2]) { printf("fail: vb[2] != va[2] (%f)\n", vb[2]); return 1; }
-  if (vb[3] != va[3]) { printf("fail: vb[3] != va[3] (%f)\n", vb[3]); return 1; }
+    for (jnd = 0; jnd < tests_f[ind].sz; ++jnd) {
+      if (!approx_equalf(fpr[jnd], ftmp[jnd], APPROX_MAX_ERRORF)) {
+        printf("fail: tests_f[%u] vr[%u] %f != ftmp[%u] %f\n",
+                ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
+        return 1;
+      }
+      printf("[%u] vr[%u] %f ~ ftmp[%u] %f\n",
+              ind, jnd, fpr[jnd], jnd, ftmp[jnd]);
+    }
+    printf("--\n");
+  }
 
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-  va[2] = 789.0f;
+  /* double precision */
+  for (ind = 0; ind < sizeof(tests_d) / sizeof(struct assign_testd); ++ind) {
+    dpr = (double *) &tests_d[ind].vvr;
 
-  vec_assign3f(vb, va);
+    vec_assignNd(dtmp, dpr, tests_d[ind].sz);
 
-  printf("assign3f\n");
-  if (vb[0] != va[0]) { printf("fail: vb[0] != va[0] (%f)\n", vb[0]); return 1; }
-  if (vb[1] != va[1]) { printf("fail: vb[1] != va[1] (%f)\n", vb[1]); return 1; }
-  if (vb[2] != va[2]) { printf("fail: vb[2] != va[2] (%f)\n", vb[2]); return 1; }
-
-  va[0] = 123.0f;
-  va[1] = 456.0f;
-
-  vec_assign2f(vb, va);
-
-  printf("assign2f\n");
-  if (vb[0] != va[0]) { printf("fail: vb[0] != va[0] (%f)\n", vb[0]); return 1; }
-  if (vb[1] != va[1]) { printf("fail: vb[1] != va[1] (%f)\n", vb[1]); return 1; }
+    for (jnd = 0; jnd < tests_d[ind].sz; ++jnd) {
+      if (!approx_equald(dpr[jnd], dtmp[jnd], APPROX_MAX_ERRORD)) {
+        printf("fail: tests_d[%u] vr[%u] %f != dtmp[%u] %f\n",
+                ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+        return 1;
+      }
+      printf("[%u] vr[%u] %f ~ dtmp[%u] %f\n",
+              ind, jnd, dpr[jnd], jnd, dtmp[jnd]);
+    }
+    printf("--\n");
+  }
 
   return 0;
 } 

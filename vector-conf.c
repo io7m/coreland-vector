@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "ctxt.h"
+#include "vec_simd.h"
 
 const char progname[] = "vector-conf";
 
@@ -71,10 +72,18 @@ int main(int argc, char *argv[])
     }
   }
   if (flag & FLAG_FLAGS) {
+#ifdef SYS_HAVE_CPU_EXT_SSE
     if (ctxt_flags_sse_len > 1) printf("%s ", ctxt_flags_sse);
+#endif
+#ifdef SYS_HAVE_CPU_EXT_SSE2
     if (ctxt_flags_sse2_len > 1) printf("%s ", ctxt_flags_sse2);
+#endif
+#ifdef SYS_HAVE_CPU_EXT_SSE3
     if (ctxt_flags_sse3_len > 1) printf("%s ", ctxt_flags_sse3);
+#endif
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
     if (ctxt_flags_altivec_len > 1) printf("%s ", ctxt_flags_altivec);
+#endif
   }
   if (flag & FLAG_DLIBDIR) {
     if (flag & FLAG_COMPILE) printf("-L");

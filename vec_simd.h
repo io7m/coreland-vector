@@ -34,7 +34,6 @@ int vec_unaligned(const void *);
   #define vec_align(n) 
 #endif
 
-void vec_simd_segments(unsigned int *, unsigned int *,
-                       unsigned int *, unsigned int *, unsigned int);
+void vec_segments(unsigned int *, unsigned int, unsigned int);
 
 #endif

@@ -8,20 +8,17 @@ static float *vec_normNf_sse(float *va, float mag, unsigned int ne)
   __m128 mva1;
   __m128 mva2;
   __m128 mrcp;
+  unsigned int seg[3];
   float *pva;
   float rcp;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   rcp = 1 / sqrtf(mag);
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
   mrcp = _mm_set1_ps(rcp);
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mva1 = _mm_mul_ps(mva1, mrcp);
@@ -30,13 +27,13 @@ static float *vec_normNf_sse(float *va, float mag, unsigned int ne)
     _mm_store_ps(pva + 4, mva2);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva1 = _mm_mul_ps(mva1, mrcp);
     _mm_store_ps(pva, mva1);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] *= rcp;
 
   return va;
@@ -47,22 +44,19 @@ static float *vec_normNfx_sse(const float *va, float *vr, float mag,
   __m128 mva1;
   __m128 mva2;
   __m128 mrcp;
+  unsigned int seg[3];
   const float *pva;
   float *pvr;
   float rcp;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pvr = vr;
   pva = va;
   rcp = 1 / sqrtf(mag);
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
   mrcp = _mm_set1_ps(rcp);
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mva1 = _mm_mul_ps(mva1, mrcp);
@@ -72,14 +66,14 @@ static float *vec_normNfx_sse(const float *va, float *vr, float mag,
     pva += 8;
     pvr += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva1 = _mm_mul_ps(mva1, mrcp);
     _mm_store_ps(pvr, mva1);
     pva += 4;
     pvr += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = pva[ind] * rcp;
 
   return vr;
@@ -163,12 +157,10 @@ float *vec_normNf(float *va, unsigned int n)
 
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va))
-    return vec_normNf_sse(va, mag, n);
+  if (!vec_unaligned(va)) return vec_normNf_sse(va, mag, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va))
-    return vec_normNf_altivec(va, mag, n);
+  if (!vec_unaligned(va)) return vec_normNf_altivec(va, mag, n);
 #endif
     rcp = 1 / sqrtf(mag);
     for (ind = 0; ind < n; ++ind)
@@ -213,8 +205,7 @@ double *vec_normNd(double *va, unsigned int n)
 
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-    if (!vec_unaligned(va))
-      return vec_normNd_sse2(va, mag, n);
+    if (!vec_unaligned(va)) return vec_normNd_sse2(va, mag, n);
 #endif
     rcp = 1 / sqrt(mag);
     for (ind = 0; ind < n; ++ind)

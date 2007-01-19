@@ -8,19 +8,16 @@ static float *vec_multNf_sse(float *va, const float *vb, unsigned int ne)
   __m128 mva2;
   __m128 mvb1;
   __m128 mvb2;
+  unsigned int seg[3];
   const float *pvb;
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvb = vb;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mvb1 = _mm_load_ps(pvb);
@@ -32,7 +29,7 @@ static float *vec_multNf_sse(float *va, const float *vb, unsigned int ne)
     pva += 8;
     pvb += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mvb1 = _mm_load_ps(pvb);
     mva1 = _mm_mul_ps(mva1, mvb1);
@@ -40,7 +37,7 @@ static float *vec_multNf_sse(float *va, const float *vb, unsigned int ne)
     pva += 4;
     pvb += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] *= pvb[ind];
 
   return va;
@@ -53,21 +50,18 @@ static float *vec_multNfx_sse(const float *va, const float *vb,
   __m128 mvb1;
   __m128 mvb2;
   __m128 mvr;
+  unsigned int seg[3];
   const float *pva;
   const float *pvb;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvb = vb;
   pvr = vr;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mvb1 = _mm_load_ps(pvb);
@@ -80,7 +74,7 @@ static float *vec_multNfx_sse(const float *va, const float *vb,
     pvb += 8;
     pvr += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mvb1 = _mm_load_ps(pvb);
     mvr = _mm_mul_ps(mva1, mvb1);
@@ -89,7 +83,7 @@ static float *vec_multNfx_sse(const float *va, const float *vb,
     pvb += 4;
     pvr += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = pva[ind] * pvb[ind];
 
   return vr;
@@ -284,11 +278,11 @@ float *vec_multNf(float *va, const float *vb, unsigned int n)
 float *vec_multNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_multNfx_sse(va, vb, vr, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_multNfx_altivec(va, vb, vr, n);
 #endif
   {
@@ -314,7 +308,7 @@ double *vec_multNd(double *va, const double *vb, unsigned int n)
 double *vec_multNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_multNdx_sse2(va, vb, vr, n);
 #endif
   {

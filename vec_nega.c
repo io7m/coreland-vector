@@ -8,18 +8,15 @@ static float *vec_negaNf_sse(float *va, unsigned int ne)
   __m128 mva1;
   __m128 mva2;
   __m128 mvz;
+  unsigned int seg[3];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   mvz = _mm_setzero_ps();
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mva1 = _mm_sub_ps(mvz, mva1);
@@ -28,13 +25,13 @@ static float *vec_negaNf_sse(float *va, unsigned int ne)
     _mm_store_ps(pva + 4, mva2);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva1 = _mm_sub_ps(mvz, mva1);
     _mm_store_ps(pva, mva1);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] = -pva[ind];
 
   return va;
@@ -45,20 +42,17 @@ static float *vec_negaNfx_sse(const float *va, float *vr, unsigned int ne)
   __m128 mva2;
   __m128 mvz;
   __m128 mvr;
+  unsigned int seg[3];
   const float *pva;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   mvz = _mm_setzero_ps();
   pva = va;
   pvr = vr;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mva2 = _mm_load_ps(pva + 4);
     mvr = _mm_sub_ps(mvz, mva1);
@@ -68,14 +62,14 @@ static float *vec_negaNfx_sse(const float *va, float *vr, unsigned int ne)
     pva += 8;
     pvr += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_ps(pva);
     mvr = _mm_sub_ps(mvz, mva1);
     _mm_store_ps(pvr, mvr);
     pva += 4;
     pvr += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = -pva[ind];
 
   return vr;
@@ -83,7 +77,7 @@ static float *vec_negaNfx_sse(const float *va, float *vr, unsigned int ne)
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_negaNd_sse2(const double *va, double *vr, unsigned int ne)
+static double *vec_negaNd_sse2(double *va, unsigned int ne)
 {
   return va;
 }
@@ -213,12 +207,10 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
 float *vec_negaNf(float *va, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va))
-    return vec_negaNf_sse(va, n);
+  if (!vec_unaligned(va)) return vec_negaNf_sse(va, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va))
-    return vec_negaNf_altivec(va, n);
+  if (!vec_unaligned(va)) return vec_negaNf_altivec(va, n);
 #endif
   {
     unsigned int ind;
@@ -247,8 +239,7 @@ float *vec_negaNfx(const float *va, float *vr, unsigned int n)
 double *vec_negaNd(double *va, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
-    return vec_negaNd_sse2(va, n);
+  if (!vec_unaligned(va)) return vec_negaNd_sse2(va, n);
 #endif
   {
     unsigned int ind;

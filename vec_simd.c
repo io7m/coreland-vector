@@ -1,29 +1,31 @@
 #include "vec_simd.h"
 
-void vec_simd_segments(unsigned int *pd16, unsigned int *pd8,
-                       unsigned int *pd4,  unsigned int *pdr, unsigned int ne)
+/*
+ * split ne into multiples of four, packed into an array of hm
+ * integers. largest multiplicand is hm - 1. array size must be
+ * at least hm. remainder is placed in seg[0].
+ *
+ * example:
+ *   vec_segments(seg, 4, 55);
+ *     seg[3] = 3;
+ *     seg[2] = 0;
+ *     seg[1] = 1;
+ *     seg[0] = 3;
+ *    
+ *   3 + (1 * 4) + (0 * 8) + (3 * 16) = 55
+ */
+
+void vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)
 {
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
-
-  d16 = ne >> 4; ne -= d16 << 4;
-  d8 = ne >> 3; ne -= d8 << 3;
-  d4 = ne >> 2; ne -= d4 << 2;
-  dr = ne;
-
-#ifdef SYS_HAVE_CPU_EXT_SSE
-  /* do not process in groups of 16 with SSE, there appears to be a performance
-     penalty */
-  d8 += d16 << 1;
-  d16 = 0;
-#endif
-
-  *pd16 = d16;
-  *pd8 = d8;
-  *pd4 = d4;
-  *pdr = dr;
+  for (;;) {
+    if (hm - 1) {
+      seg[hm - 1] = ne >> hm;
+      ne -= seg[hm - 1] << hm;
+      --hm;
+    } else {
+      *seg = ne; return;
+    }
+  }
 }
 
 #ifdef VECTOR_VERBOSE_UNALIGNED

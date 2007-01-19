@@ -6,19 +6,16 @@ static float *vec_assignNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mvb1;
   __m128 mvb2;
+  unsigned int seg[3];
   const float *pvb;
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvb = vb;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     mvb1 = _mm_load_ps(pvb);
     mvb2 = _mm_load_ps(pvb + 4);
     _mm_store_ps(pva, mvb1);
@@ -26,13 +23,13 @@ static float *vec_assignNf_sse(float *va, const float *vb, unsigned int ne)
     pva += 8;
     pvb += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mvb1 = _mm_load_ps(pvb);
     _mm_store_ps(pva, mvb1);
     pva += 4;
     pvb += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] = pvb[ind];
 
   return va;

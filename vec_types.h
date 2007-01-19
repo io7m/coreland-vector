@@ -20,11 +20,11 @@ union vector_2f { float f[2]; vector float v; };
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-union vector_16d { double d[16]; __m128 v; };
-union vector_8d { double d[8]; __m128 v; };
-union vector_4d { double d[4]; __m128 v; };
-union vector_3d { double d[3]; __m128 v; };
-union vector_2d { double d[2]; __m128 v; };
+union vector_16d { double d[16]; __m128d v; };
+union vector_8d { double d[8]; __m128d v; };
+union vector_4d { double d[4]; __m128d v; };
+union vector_3d { double d[3]; __m128d v; };
+union vector_2d { double d[2]; __m128d v; };
 #endif
 
 #if !defined(SYS_HAVE_CPU_EXT_SSE2)

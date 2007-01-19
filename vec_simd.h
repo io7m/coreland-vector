@@ -13,9 +13,6 @@
 #include <xmmintrin.h>
 #endif
 
-void vec_simd_segments(unsigned int *, unsigned int *,
-                       unsigned int *, unsigned int *, unsigned int); 
-
 #ifdef VECTOR_VERBOSE_UNALIGNED
 int vec_unaligned(const void *);
 #else
@@ -36,5 +33,8 @@ int vec_unaligned(const void *);
 #ifndef vec_align
   #define vec_align(n) 
 #endif
+
+void vec_simd_segments(unsigned int *, unsigned int *,
+                       unsigned int *, unsigned int *, unsigned int);
 
 #endif

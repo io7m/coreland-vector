@@ -1,8 +1,8 @@
 #include "vec_simd.h"
 
 /*
- * split ne into multiples of four, packed into an array of hm
- * integers. largest multiplicand is hm - 1. array size must be
+ * split ne into buffer sizes and pack into array of hm integers.
+ * largest multiplicand is hm - 1. array size must be
  * at least hm. remainder is placed in seg[0].
  *
  * example:
@@ -12,7 +12,11 @@
  *     seg[1] = 1;
  *     seg[0] = 3;
  *    
- *   3 + (1 * 4) + (0 * 8) + (3 * 16) = 55
+ *       3
+ *    + (1 * (2 << 1))
+ *    + (0 * (2 << 2))
+ *    + (3 * (2 << 3))
+ *    = 55
  */
 
 void vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)

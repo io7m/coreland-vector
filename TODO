@@ -20,7 +20,7 @@ vec_divsc           csSat
 vec_nega            csSat
 vec_angle           
 vec_dist
-vec_assi            csat
+vec_assi            csSat
 vec_dotp            c
 vec_mag
 vec_xprod

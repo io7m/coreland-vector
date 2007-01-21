@@ -37,8 +37,30 @@ static float *vec_assignNf_sse(float *va, const float *vb, unsigned int ne)
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_assignNd_sse2(double *va, const double *vb, unsigned int n)
+static double *vec_assignNd_sse2(double *va, const double *vb, unsigned int ne)
 {
+  __m128d mvb1;
+  __m128d mvb2;
+  unsigned int seg[2];
+  const double *pvb;
+  double *pva;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  vec_segments(seg, 2, ne);
+
+  for (ind = 0; ind < seg[1]; ++ind) {
+    mvb1 = _mm_load_pd(pvb);
+    mvb2 = _mm_load_pd(pvb + 2);
+    _mm_store_pd(pva, mvb1);
+    _mm_store_pd(pva + 2, mvb2);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    pva[ind] = pvb[ind];
+
   return va;
 }
 #endif

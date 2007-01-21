@@ -8,20 +8,21 @@ Do programs linking against the library need to use -msse?
   S = sse2
   a = altivec
   t = tests
+  T = tests pass
 
-vec_add             csSat
-vec_sub             csSat
+vec_add             csSatT
+vec_sub             csSatT
 vec_mult            csSat
-vec_div             csSat
-vec_addsc           csSat
+vec_div             csSatT
+vec_addsc           csSatT
 vec_subsc           csSat
 vec_multsc          csSat
 vec_divsc           csSat
-vec_nega            csSat
+vec_nega            csSatT
 vec_angle           
 vec_dist
-vec_assi            csSat
+vec_assi            csSatT
 vec_dotp            c
 vec_mag
 vec_xprod
-vec_zero            csSat
+vec_zero            csSatT

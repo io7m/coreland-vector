@@ -24,4 +24,4 @@ vec_assi            csSat
 vec_dotp            c
 vec_mag
 vec_xprod
-vec_zero            csat
+vec_zero            csSat

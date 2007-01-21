@@ -145,18 +145,15 @@ static float *vec_negaNf_altivec(float *va, unsigned int ne)
   vector float vva3;
   vector float vva4;
   vector float vz;
+  unsigned int seg[4];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   vz = vec_ctf(vec_splat_u32(0), 0);
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva3 = vec_ld(0, pva + 8);
@@ -171,7 +168,7 @@ static float *vec_negaNf_altivec(float *va, unsigned int ne)
     vec_st(vva4, 0, pva + 12);
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva1 = vec_sub(vz, vva1);
@@ -180,13 +177,13 @@ static float *vec_negaNf_altivec(float *va, unsigned int ne)
     vec_st(vva2, 0, pva + 4);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva1 = vec_sub(vz, vva1);
     vec_st(vva1, 0, pva);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] = -pva[ind];
 
   return va;
@@ -199,20 +196,17 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
   vector float vva4;
   vector float vvr;
   vector float vz;
+  unsigned int seg[4];
   const float *pva;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   vz = vec_ctf(vec_splat_u32(0), 0);
   pva = va;
   pvr = vr;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva3 = vec_ld(0, pva + 8);
@@ -228,7 +222,7 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
     pva += 16;
     pvr += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vvr = vec_sub(vz, vva1);
@@ -238,14 +232,14 @@ static float *vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
     pva += 8;
     pvr += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vva1 = vec_ld(0, pva);
     vvr = vec_sub(vz, vva1);
     vec_st(vvr, 0, pvr);
     pva += 4;
     pvr += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = -pva[ind];
 
   return vr;

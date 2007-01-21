@@ -149,15 +149,12 @@ static float *vec_multscNf_altivec(float *va, float sc, unsigned int ne)
   vector float vva4;
   vector float vnz;
   vector unsigned int vui;
+  unsigned int seg[4];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
   /* using a vector of negative zeroes is faster than positive */
   vui = vec_splat_u32(-1);
@@ -165,7 +162,7 @@ static float *vec_multscNf_altivec(float *va, float sc, unsigned int ne)
   vs.f[0] = sc;
   vs.v = vec_splat(vs.v, 0);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva3 = vec_ld(0, pva + 8);
@@ -180,7 +177,7 @@ static float *vec_multscNf_altivec(float *va, float sc, unsigned int ne)
     vec_st(vva4, 0, pva + 12);
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva1 = vec_madd(vva1, vs.v, vnz);
@@ -189,13 +186,13 @@ static float *vec_multscNf_altivec(float *va, float sc, unsigned int ne)
     vec_st(vva2, 0, pva + 4);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva1 = vec_madd(vva1, vs.v, vnz);
     vec_st(vva1, 0, pva);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] *= sc;
 
   return va;
@@ -210,12 +207,9 @@ static float *vec_multscNfx_altivec(const float *va, float *vr, float sc,
   vector float vvr4;
   vector float vnz;
   vector unsigned int vui;
+  unsigned int seg[4];
   const float *pva;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   /* using a vector of negative zeroes is faster than positive */
@@ -225,9 +219,9 @@ static float *vec_multscNfx_altivec(const float *va, float *vr, float sc,
   pvr = vr;
   vs.f[0] = sc;
   vs.v = vec_splat(vs.v, 0);
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vvr1 = vec_ld(0, pva); 
     vvr2 = vec_ld(0, pva + 4);
     vvr3 = vec_ld(0, pva + 8);
@@ -243,7 +237,7 @@ static float *vec_multscNfx_altivec(const float *va, float *vr, float sc,
     pvr += 16;
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vvr1 = vec_ld(0, pva);
     vvr2 = vec_ld(0, pva + 4);
     vvr1 = vec_madd(vvr1, vs.v, vnz);
@@ -253,14 +247,14 @@ static float *vec_multscNfx_altivec(const float *va, float *vr, float sc,
     pvr += 8;
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vvr1 = vec_ld(0, pva);
     vvr1 = vec_madd(vvr1, vs.v, vnz);
     vec_st(vvr1, 0, pvr);
     pvr += 4;
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = pva[ind] * sc;
 
   return vr;

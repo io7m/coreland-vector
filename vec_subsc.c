@@ -147,20 +147,17 @@ static float *vec_subscNf_altivec(float *va, float sc, unsigned int ne)
   vector float vva2;
   vector float vva3;
   vector float vva4;
+  unsigned int seg[4];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
   vs.f[0] = sc;
   vs.v = vec_splat(vs.v, 0);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva3 = vec_ld(0, pva + 8);
@@ -175,7 +172,7 @@ static float *vec_subscNf_altivec(float *va, float sc, unsigned int ne)
     vec_st(vva4, 0, pva + 12);
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva2 = vec_ld(0, pva + 4);
     vva1 = vec_sub(vva1, vs.v);
@@ -184,13 +181,13 @@ static float *vec_subscNf_altivec(float *va, float sc, unsigned int ne)
     vec_st(vva2, 0, pva + 4);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vva1 = vec_ld(0, pva);
     vva1 = vec_sub(vva1, vs.v);
     vec_st(vva1, 0, pva);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] -= sc;
 
   return va;
@@ -203,22 +200,19 @@ static float *vec_subscNfx_altivec(const float *va, float *vr, float sc,
   vector float vvr2;
   vector float vvr3;
   vector float vvr4;
+  unsigned int seg[4];
   const float *pva;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvr = vr;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
   vs.f[0] = sc;
   vs.v = vec_splat(vs.v, 0);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vvr1 = vec_ld(0, pva); 
     vvr2 = vec_ld(0, pva + 4);
     vvr3 = vec_ld(0, pva + 8);
@@ -234,7 +228,7 @@ static float *vec_subscNfx_altivec(const float *va, float *vr, float sc,
     pvr += 16;
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vvr1 = vec_ld(0, pva);
     vvr2 = vec_ld(0, pva + 4);
     vvr1 = vec_sub(vvr1, vs.v);
@@ -244,14 +238,14 @@ static float *vec_subscNfx_altivec(const float *va, float *vr, float sc,
     pvr += 8;
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vvr1 = vec_ld(0, pva);
     vvr1 = vec_sub(vvr1, vs.v);
     vec_st(vvr1, 0, pvr);
     pvr += 4;
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pvr[ind] = pva[ind] - sc;
 
   return vr;

@@ -57,34 +57,31 @@ static double *vec_zeroNd_sse2(double *va, unsigned int ne)
 static float *vec_zeroNf_altivec(float *va, unsigned int ne)
 {
   vector float vz;
+  unsigned int seg[4];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   vz = vec_ctf(vec_splat_u32(0), 0);
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vec_st(vz, 0, pva);
     vec_st(vz, 0, pva + 4);
     vec_st(vz, 0, pva + 8);
     vec_st(vz, 0, pva + 12);
     pva += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vec_st(vz, 0, pva);
     vec_st(vz, 0, pva + 4);
     pva += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vec_st(vz, 0, pva);
     pva += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] = 0;
 
   return va;

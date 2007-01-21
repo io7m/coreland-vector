@@ -72,19 +72,16 @@ static float *vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
   vector float vvb2;
   vector float vvb3;
   vector float vvb4;
+  unsigned int seg[4];
   const float *pvb;
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvb = vb;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
-  for (ind = 0; ind < d16; ++ind) {
+  for (ind = 0; ind < seg[3]; ++ind) {
     vvb1 = vec_ld(0, pvb);
     vvb2 = vec_ld(0, pvb + 4);
     vvb3 = vec_ld(0, pvb + 8);
@@ -96,7 +93,7 @@ static float *vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
     pva += 16;
     pvb += 16;
   }
-  for (ind = 0; ind < d8; ++ind) {
+  for (ind = 0; ind < seg[2]; ++ind) {
     vvb1 = vec_ld(0, pvb);
     vvb2 = vec_ld(0, pvb + 4);
     vec_st(vvb1, 0, pva);
@@ -104,13 +101,13 @@ static float *vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
     pva += 8;
     pvb += 8;
   }
-  for (ind = 0; ind < d4; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     vvb1 = vec_ld(0, pvb);
     vec_st(vvb1, 0, pva);
     pva += 4;
     pvb += 4;
   }
-  for (ind = 0; ind < dr; ++ind)
+  for (ind = 0; ind < seg[0]; ++ind)
     pva[ind] = pvb[ind];
 
   return va;

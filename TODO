@@ -10,20 +10,20 @@ Do programs linking against the library need to use -msse?
   t = tests
   T = tests pass
 
-vec_add             csStT
-vec_sub             csStT
-vec_mult            csSt
-vec_div             csStT
-vec_addsc           csStT
-vec_subsc           csSt
-vec_multsc          csSt
-vec_divsc           csSt
-vec_nega            csStT
+vec_add             acsStT
+vec_sub             acsStT
+vec_mult            acsSt
+vec_div             acsStT
+vec_addsc           acsStT
+vec_subsc           acsSt
+vec_multsc          acsSt
+vec_divsc           acsSt
+vec_nega            acsStT
 vec_norm            cst
 vec_angle           
 vec_dist
-vec_assi            csStT
+vec_assi            acsStT
 vec_dotp            c
 vec_mag
 vec_xprod
-vec_zero            csStT
+vec_zero            acsStT

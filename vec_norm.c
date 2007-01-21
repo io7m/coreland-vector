@@ -103,15 +103,12 @@ static float *vec_normNf_altivec(float *va, float mag, unsigned int ne)
   vector float vvb2;
   vector float vvb3;
   vector float vvb4;
+  unsigned int seg[4];
   float *pva;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
   return va;
 }
@@ -127,17 +124,14 @@ static float *vec_normNfx_altivec(const float *va, float *vr,
   vector float vvb3;
   vector float vvb4;
   vector float vvr;
+  unsigned int seg[4];
   const float *pva;
   float *pvr;
-  unsigned int d16;
-  unsigned int d8;
-  unsigned int d4;
-  unsigned int dr;
   unsigned int ind;
 
   pva = va;
   pvr = vr;
-  vec_simd_segments(&d16, &d8, &d4, &dr, ne);
+  vec_segments(seg, 4, ne);
 
   return vr;
 }

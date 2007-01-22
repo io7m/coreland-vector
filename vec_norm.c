@@ -83,11 +83,64 @@ static float *vec_normNfx_sse(const float *va, float *vr, float mag,
 #ifdef SYS_HAVE_CPU_EXT_SSE2
 static double *vec_normNd_sse2(double *va, double mag, unsigned int ne)
 {
+  __m128d mva1;
+  __m128d mva2;
+  __m128d mrcp;
+  unsigned int seg[2];
+  double *pva;
+  double rcp;
+  unsigned int ind;
+
+  pva = va;
+  rcp = 1 / sqrt(mag);
+  vec_segments(seg, 2, ne);
+
+  mrcp = _mm_set1_pd(rcp);
+  for (ind = 0; ind < seg[1]; ++ind) {
+    mva1 = _mm_load_pd(pva);
+    mva2 = _mm_load_pd(pva + 2);
+    mva1 = _mm_mul_pd(mva1, mrcp);
+    mva2 = _mm_mul_pd(mva2, mrcp);
+    _mm_store_pd(pva, mva1);
+    _mm_store_pd(pva + 2, mva2);
+    pva += 4;
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    pva[ind] *= rcp;
+
   return va;
 }
 static double *vec_normNdx_sse2(const double *va, double *vr, double mag,
                                 unsigned int ne)
 {
+  __m128d mva1;
+  __m128d mva2;
+  __m128d mrcp;
+  unsigned int seg[2];
+  const double *pva;
+  double *pvr;
+  double rcp;
+  unsigned int ind;
+
+  pvr = vr;
+  pva = va;
+  rcp = 1 / sqrt(mag);
+  vec_segments(seg, 2, ne);
+
+  mrcp = _mm_set1_pd(rcp);
+  for (ind = 0; ind < seg[2]; ++ind) {
+    mva1 = _mm_load_pd(pva);
+    mva2 = _mm_load_pd(pva + 2);
+    mva1 = _mm_mul_pd(mva1, mrcp);
+    mva2 = _mm_mul_pd(mva2, mrcp);
+    _mm_store_pd(pvr, mva1);
+    _mm_store_pd(pvr + 2, mva2);
+    pva += 4;
+    pvr += 4;
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    pvr[ind] = pva[ind] * rcp;
+
   return vr;
 }
 #endif

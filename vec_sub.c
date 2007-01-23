@@ -312,12 +312,8 @@ float *vec_subNf(float *va, const float *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_subNf_altivec(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] -= vb[ind];
-    return va;
-  }
+  vec_SUB(va, vb, n, float);
+  return va;
 }
 float *vec_subNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
@@ -329,12 +325,8 @@ float *vec_subNfx(const float *va, const float *vb, float *vr, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_subNfx_altivec(va, vb, vr, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] - vb[ind];
-    return vr;
-  }
+  vec_SUBX(va, vb, vr, n, float);
+  return vr;
 }
 double *vec_subNd(double *va, const double *vb, unsigned int n)
 {
@@ -342,12 +334,8 @@ double *vec_subNd(double *va, const double *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_subNd_sse2(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] -= vb[ind];
-    return va;
-  }
+  vec_SUB(va, vb, n, double);
+  return va;
 }
 double *vec_subNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
@@ -355,10 +343,6 @@ double *vec_subNdx(const double *va, const double *vb, double *vr, unsigned int 
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_subNdx_sse2(va, vb, vr, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] - vb[ind];
-    return vr;
-  }
+  vec_SUBX(va, vb, vr, n, double);
+  return vr;
 }

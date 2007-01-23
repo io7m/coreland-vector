@@ -270,12 +270,8 @@ float *vec_divscNf(float *va, float sc, unsigned int n)
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va)) return vec_divscNf_altivec(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] /= sc;
-    return va;
-  }
+  vec_DIVSC(va, sc, n, float);
+  return va;
 }
 float *vec_divscNfx(const float *va, float *vr, float sc, unsigned int n)
 {
@@ -287,24 +283,16 @@ float *vec_divscNfx(const float *va, float *vr, float sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_divscNfx_altivec(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] / sc;
-    return vr;
-  }
+  vec_DIVSCX(va, vr, sc, n, float);
+  return vr;
 }
 double *vec_divscNd(double *va, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va)) return vec_divscNd_sse2(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] /= sc;
-    return va;
-  }
+  vec_DIVSC(va, sc, n, double);
+  return va;
 }
 double *vec_divscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
@@ -312,10 +300,6 @@ double *vec_divscNdx(const double *va, double *vr, double sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_divscNdx_sse2(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] / sc;
-    return vr;
-  }
+  vec_DIVSCX(va, vr, sc, n, double);
+  return vr;
 }

@@ -328,12 +328,8 @@ float *vec_divNf(float *va, const float *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNf_altivec(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] /= vb[ind];
-    return va;
-  }
+  vec_DIV(va, vb, n, float);
+  return va;
 }
 float *vec_divNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
@@ -345,12 +341,8 @@ float *vec_divNfx(const float *va, const float *vb, float *vr, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_divNfx_altivec(va, vb, vr, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] / vb[ind];
-    return vr;
-  }
+  vec_DIVX(va, vb, vr, n, float);
+  return vr;
 }
 double *vec_divNd(double *va, const double *vb, unsigned int n)
 {
@@ -358,12 +350,8 @@ double *vec_divNd(double *va, const double *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_divNd_sse2(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] /= vb[ind];
-    return va;
-  }
+  vec_DIV(va, vb, n, double);
+  return va;
 }
 double *vec_divNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
@@ -371,10 +359,6 @@ double *vec_divNdx(const double *va, const double *vb, double *vr, unsigned int 
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_divNdx_sse2(va, vb, vr, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] / vb[ind];
-    return vr;
-  }
+  vec_DIVX(va, vb, vr, n, double);
+  return vr;
 }

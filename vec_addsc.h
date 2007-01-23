@@ -20,4 +20,47 @@ double *vec_addscNdx(const double *, double *, double, unsigned int);
 #define vec_addsc3dx(v,vr,sc) vec_addscNdx((v),(vr),(sc),3)
 #define vec_addsc4dx(v,vr,sc) vec_addscNdx((v),(vr),(sc),4)
 
+#define vec_ADDSC(va,sc,ne,type) \
+{ \
+  type *pva; \
+  unsigned int seg[2]; \
+  unsigned int ind; \
+  \
+  pva = va; \
+  vec_segments(seg, 2, (ne)); \
+  \
+  for (ind = 0; ind < seg[1]; ++ind) { \
+    pva[0] += (sc); \
+    pva[1] += (sc); \
+    pva[2] += (sc); \
+    pva[3] += (sc); \
+    pva += 4; \
+  } \
+  for (ind = 0; ind < seg[0]; ++ind) \
+    pva[ind] += (sc); \
+}
+
+#define vec_ADDSCX(va,vr,sc,ne,type) \
+{ \
+  const type *pva; \
+  type *pvr; \
+  unsigned int seg[2]; \
+  unsigned int ind; \
+  \
+  pva = va; \
+  pvr = vr; \
+  vec_segments(seg, 2, (ne)); \
+  \
+  for (ind = 0; ind < seg[1]; ++ind) { \
+    pvr[0] = pva[0] + (sc); \
+    pvr[1] = pva[1] + (sc); \
+    pvr[2] = pva[2] + (sc); \
+    pvr[3] = pva[3] + (sc); \
+    pva += 4; \
+    pvr += 4; \
+  } \
+  for (ind = 0; ind < seg[0]; ++ind) \
+    pvr[ind] = pva[ind] + (sc); \
+}
+
 #endif

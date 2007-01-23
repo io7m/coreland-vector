@@ -1,6 +1,7 @@
 #include <math.h>
 #include "vector.h"
 
+/*
 float vec_angle2f(const float va[2], const float vb[2])
 {
   return acosf(vec_dotprod2f(va, vb) /
@@ -36,4 +37,4 @@ double vec_angle4d(const double va[4], const double vb[4])
   return acos(vec_dotprod4d(va, vb) /
            (vec_mag4d(va) * vec_mag4d(vb)));
 }
-
+*/

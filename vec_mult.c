@@ -90,78 +90,6 @@ static float *vec_multNfx_sse(const float *va, const float *vb,
 }
 #endif
 
-#ifdef SYS_HAVE_CPU_EXT_SSE2
-static double *vec_multNd_sse2(double *va, const double *vb, unsigned int ne)
-{
-  __m128d mva1;
-  __m128d mva2;
-  __m128d mvb1;
-  __m128d mvb2;
-  unsigned int seg[2];
-  const double *pvb;
-  double *pva;
-  unsigned int ind;
-
-  pva = va;
-  pvb = vb;
-  vec_segments(seg, 2, ne);
-
-  for (ind = 0; ind < seg[1]; ++ind) {
-    mva1 = _mm_load_pd(pva);
-    mva2 = _mm_load_pd(pva + 2);
-    mvb1 = _mm_load_pd(pvb);
-    mvb2 = _mm_load_pd(pvb + 2);
-    mva1 = _mm_mul_pd(mva1, mvb1);
-    mva2 = _mm_mul_pd(mva2, mvb2);
-    _mm_store_pd(pva, mva1);
-    _mm_store_pd(pva + 2, mva2);
-    pva += 4;
-    pvb += 4;
-  }
-  for (ind = 0; ind < seg[0]; ++ind)
-    pva[ind] *= pvb[ind];
-
-  return va;
-}
-static double *vec_multNdx_sse2(const double *va, const double *vb,
-                               double *vr, unsigned int ne)
-{
-  __m128d mva1;
-  __m128d mva2;
-  __m128d mvb1;
-  __m128d mvb2;
-  __m128d mvr;
-  unsigned int seg[2];
-  const double *pva;
-  const double *pvb;
-  double *pvr;
-  unsigned int ind;
-
-  pva = va;
-  pvb = vb;
-  pvr = vr;
-  vec_segments(seg, 2, ne);
-
-  for (ind = 0; ind < seg[1]; ++ind) {
-    mva1 = _mm_load_pd(pva);
-    mva2 = _mm_load_pd(pva + 2);
-    mvb1 = _mm_load_pd(pvb);
-    mvb2 = _mm_load_pd(pvb + 2);
-    mvr = _mm_mul_pd(mva1, mvb1);
-    _mm_store_pd(pvr, mvr);
-    mvr = _mm_mul_pd(mva2, mvb2);
-    _mm_store_pd(pvr + 2, mvr);
-    pva += 4;
-    pvb += 4;
-    pvr += 4;
-  }
-  for (ind = 0; ind < seg[0]; ++ind)
-    pvr[ind] = pva[ind] * pvb[ind];
-
-  return vr;
-}
-#endif
-
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
 static float *vec_multNf_altivec(float *va, const float *vb, unsigned int ne)
 {
@@ -322,12 +250,8 @@ float *vec_multNf(float *va, const float *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_multNf_altivec(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] *= vb[ind];
-    return va;
-  }
+  vec_MULT(va, vb, n, float);
+  return va;
 }
 float *vec_multNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
@@ -339,36 +263,16 @@ float *vec_multNfx(const float *va, const float *vb, float *vr, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
     return vec_multNfx_altivec(va, vb, vr, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] * vb[ind];
-    return vr;
-  }
+  vec_MULTX(va, vb, vr, n, float);
+  return vr;
 }
 double *vec_multNd(double *va, const double *vb, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
-    return vec_multNd_sse2(va, vb, n);
-#endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] *= vb[ind];
-    return va;
-  }
+  vec_MULT(va, vb, n, double);
+  return va;
 }
 double *vec_multNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
-    return vec_multNdx_sse2(va, vb, vr, n);
-#endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] * vb[ind];
-    return vr;
-  }
+  vec_MULTX(va, vb, vr, n, double);
+  return vr;
 }

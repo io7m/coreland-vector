@@ -1,5 +1,6 @@
 #include "vector.h"
 
+/*
 float vec_dist2f(const float va[2], const float vb[2])
 {
   float vc[2];
@@ -35,4 +36,4 @@ double vec_dist4d(const double va[4], const double vb[4])
   double vc[4];
   return vec_mag4d(vec_sub4dx(va, vb, vc));
 }
-
+*/

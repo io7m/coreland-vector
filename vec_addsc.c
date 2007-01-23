@@ -1,4 +1,4 @@
-#include "vec_add.h"
+#include "vec_addsc.h"
 #include "vec_simd.h"
 #include "vec_types.h"
 
@@ -262,12 +262,8 @@ float *vec_addscNf(float *va, float sc, unsigned int n)
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va)) return vec_addscNf_altivec(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] += sc;
-    return va;
-  }
+  vec_ADDSC(va, sc, n, float);
+  return va;
 }
 float *vec_addscNfx(const float *va, float *vr, float sc, unsigned int n)
 {
@@ -279,24 +275,16 @@ float *vec_addscNfx(const float *va, float *vr, float sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_addscNfx_altivec(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] + sc;
-    return vr;
-  }
+  vec_ADDSCX(va, vr, sc, n, float);
+  return vr;
 }
 double *vec_addscNd(double *va, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va)) return vec_addscNd_sse2(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] += sc;
-    return va;
-  }
+  vec_ADDSC(va, sc, n, double);
+  return va;
 }
 double *vec_addscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
@@ -304,10 +292,6 @@ double *vec_addscNdx(const double *va, double *vr, double sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_addscNdx_sse2(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] + sc;
-    return vr;
-  }
+  vec_ADDSCX(va, vr, sc, n, double);
+  return vr;
 }

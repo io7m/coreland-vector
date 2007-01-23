@@ -1,56 +1,48 @@
 #include <math.h>
+#include "vec_mag.h"
+#include "vec_simd.h"
 
-float vec_mag2f(const float v[2])
+/* interface */
+
+float vec_magNf(const float *va, unsigned int n)
 {
-  return sqrtf(
-    (v[0] * v[0]) +
-    (v[1] * v[1])
-  );
-}
+  unsigned int seg[2];
+  const float *pva;
+  float f = 0;
+  unsigned int ind;
 
-float vec_mag3f(const float v[3])
+  pva = va;
+  vec_segments(seg, 2, n);
+
+  for (ind = 0; ind < seg[1]; ++ind) {
+    f += (pva[0] * pva[0]) +
+         (pva[1] * pva[1]) +
+         (pva[2] * pva[2]) +
+         (pva[3] * pva[3]);
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    f += pva[ind] * pva[ind]; 
+
+  return sqrtf(f);
+}
+double vec_magNd(const double *va, unsigned int n)
 {
-  return sqrtf(
-    (v[0] * v[0]) +
-    (v[1] * v[1]) +
-    (v[2] * v[2])
-  );
-}
+  unsigned int seg[2];
+  const double *pva;
+  double d = 0;
+  unsigned int ind;
 
-float vec_mag4f(const float v[4])
-{
-  return sqrtf(
-    (v[0] * v[0]) +
-    (v[1] * v[1]) +
-    (v[2] * v[2]) +
-    (v[3] * v[3])
-  );
-}
+  pva = va;
+  vec_segments(seg, 2, n);
 
-double vec_mag2d(const double v[2])
-{
-  return sqrt(
-    (v[0] * v[0]) +
-    (v[1] * v[1])
-  );
-}
+  for (ind = 0; ind < seg[1]; ++ind) {
+    d += (pva[0] * pva[0]) +
+         (pva[1] * pva[1]) +
+         (pva[2] * pva[2]) +
+         (pva[3] * pva[3]);
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    d += pva[ind] * pva[ind]; 
 
-double vec_mag3d(const double v[3])
-{
-  return sqrt(
-    (v[0] * v[0]) +
-    (v[1] * v[1]) +
-    (v[2] * v[2])
-  );
+  return sqrt(d);
 }
-
-double vec_mag4d(const double v[4])
-{
-  return sqrt(
-    (v[0] * v[0]) +
-    (v[1] * v[1]) +
-    (v[2] * v[2]) +
-    (v[3] * v[3])
-  );
-}
-

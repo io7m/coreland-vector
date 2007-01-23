@@ -254,7 +254,7 @@ float *vec_addNfx(const float *va, const float *vb, float *vr, unsigned int n)
     return vec_addNfx_altivec(va, vb, vr, n);
 #endif
   vec_ADDX(va, vb, vr, n, float);
-  return va;
+  return vr;
 }
 double *vec_addNd(double *va, const double *vb, unsigned int n)
 {

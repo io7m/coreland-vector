@@ -262,12 +262,8 @@ float *vec_subscNf(float *va, float sc, unsigned int n)
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va)) return vec_subscNf_altivec(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] -= sc;
-    return va;
-  }
+  vec_SUBSC(va, sc, n, float);
+  return va;
 }
 float *vec_subscNfx(const float *va, float *vr, float sc, unsigned int n)
 {
@@ -279,24 +275,16 @@ float *vec_subscNfx(const float *va, float *vr, float sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_subscNfx_altivec(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] - sc;
-    return vr;
-  }
+  vec_SUBSCX(va, vr, sc, n, float);
+  return vr;
 }
 double *vec_subscNd(double *va, double sc, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va)) return vec_subscNd_sse2(va, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] -= sc;
-    return va;
-  }
+  vec_SUBSC(va, sc, n, double);
+  return va;
 }
 double *vec_subscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
@@ -304,10 +292,6 @@ double *vec_subscNdx(const double *va, double *vr, double sc, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vr))
     return vec_subscNdx_sse2(va, vr, sc, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] - sc;
-    return vr;
-  }
+  vec_SUBSCX(va, vr, sc, n, double);
+  return vr;
 }

@@ -7,9 +7,8 @@ ${CC} ${CFLAGS} ${SSE_FLAGS} \
 ${CC} ${CFLAGS} ${SSE_FLAGS} \
   -o t_divsc4_sse2 t_divsc4.c ../vec_divsc.c ../vec_simd.c frand.c
 
-printf "sse2 "
-./t_divsc4_sse2
-printf "pure "
-./t_divsc4_pure
+sse2=`./t_divsc4_sse2`
+pure=`./t_divsc4_pure`
+printf "%12s %12s %12s\n" "t_divsc4" "${sse2}" "${pure}"
 
 rm -f t_divsc4_pure t_divsc4_sse2

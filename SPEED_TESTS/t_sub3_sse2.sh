@@ -7,9 +7,8 @@ ${CC} ${CFLAGS} ${SSE_FLAGS} \
 ${CC} ${CFLAGS} ${SSE_FLAGS} \
   -o t_sub2_sse2 t_sub2.c ../vec_sub.c ../vec_simd.c frand.c
 
-printf "sse2 "
-./t_sub2_sse2
-printf "pure "
-./t_sub2_pure
+sse2=`./t_sub3_sse2`
+pure=`./t_sub3_pure`
+printf "%12s %12s %12s\n" "t_sub3" "${sse2}" "${pure}"
 
 rm -f t_sub2_pure t_sub2_sse2

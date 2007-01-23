@@ -7,9 +7,8 @@ ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
 ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
   -o t_mult1_alti t_mult1.c ../vec_mult.c ../vec_simd.c frand.c
 
-printf "alti "
-./t_mult1_alti
-printf "pure "
-./t_mult1_pure
+alti=`./t_mult1_alti`
+pure=`./t_mult1_pure`
+printf "%12s %12s %12s\n" "t_mult1" "${alti}" "${pure}"
 
 rm -f t_mult1_pure t_mult1_alti

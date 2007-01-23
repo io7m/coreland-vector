@@ -1,10 +1,11 @@
+#include "frand.h"
 #include <stdio.h>
 #include <time.h>
 #include "vector.h"
 #include "test_const.h"
 
 union align16 {
-  char x[16];
+  vector_4f v;
   float f[TEST_VEC_SIZE];
 };
 
@@ -15,15 +16,6 @@ struct test {
 };
 
 struct test test;
-
-float frand()
-{
-  float f;
-  float div;
-  div = (random() % 1000);
-  f = (random() % 10000) - 5000; 
-  return f / div;
-}
 
 void fill()
 {

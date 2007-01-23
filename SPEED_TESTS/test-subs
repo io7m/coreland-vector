@@ -3,6 +3,7 @@
 ALTIVEC_FLAGS=`head -n 1 ../flags-altivec`
 SSE_FLAGS=`head -n 1 ../flags-sse`
 SSE2_FLAGS=`head -n 1 ../flags-sse2`
+SSE_FLAGS="${SSE_FLAGS} ${SSE2_FLAGS}"
 CFLAGS="${CFLAGS} `head -n 1 conf-cflags`" 2>/dev/null
 CFLAGS="-I../ -lm ${CFLAGS}"
 CC=`head -n 1 conf-cc` 2>/dev/null
@@ -11,4 +12,3 @@ export CC
 export CFLAGS
 export ALTIVEC_FLAGS
 export SSE_FLAGS
-export SSE2_FLAGS

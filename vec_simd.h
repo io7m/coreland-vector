@@ -13,6 +13,10 @@
 #include <xmmintrin.h>
 #endif
 
+#ifdef SYS_HAVE_CPU_EXT_SSE2
+#include <emmintrin.h>
+#endif
+
 #ifdef VECTOR_VERBOSE_UNALIGNED
 int vec_unaligned(const void *);
 #else

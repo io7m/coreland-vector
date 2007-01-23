@@ -26,10 +26,7 @@ int main()
         return 2;
     }
 
-    /* APPROX_MAX_ERRORF multiplied because results are likely to be
-       larger due to dot product */
-
-    if (!approx_equalf(tests[ind].res, res, APPROX_MAX_ERRORF * 10.0)) {
+    if (!approx_equalf(tests[ind].res, res, APPROX_MAX_ERRORF)) {
       printf("fail: [%u] res %f != %f\n", ind, tests[ind].res, res);
       return 1;
     }

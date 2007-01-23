@@ -1,2 +1,2 @@
--g
+-g -pg
 These are passed to the C compiler.

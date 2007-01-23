@@ -1,19 +1,20 @@
 #include "frand.h"
-#include <time.h>
 #include <stdio.h>
+#include <time.h>
 #include "vector.h"
 #include "test_const.h"
 
 union align16 {
-  vector_4f v;
-  float f[TEST_VEC_SIZE];
+  vector_4d v;
+  double f[TEST_VEC_SIZE];
 };
 
 struct test {
   union align16 xva;
   union align16 xvb;
-  float *va;
-  float *vb;
+  double *va;
+  double *vb;
+  double *vr;
 };
 
 struct test test;
@@ -22,8 +23,8 @@ void fill()
 {
   unsigned int ind;
 
-  test.va = (float *) &test.xva;
-  test.vb = (float *) &test.xvb;
+  test.va = (double *) &test.xva;
+  test.vb = (double *) &test.xvb;
   for (ind = 0; ind < TEST_VEC_SIZE; ++ind) {
     test.va[ind] = frand();
     test.vb[ind] = frand();
@@ -41,12 +42,10 @@ int main()
 
   if (((unsigned long) test.va) & 15)
     printf("test.va unaligned %p\n", &test.va);
-  if (((unsigned long) test.vb) & 15)
-    printf("test.vb unaligned %p\n", &test.vb);
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
-    vec_subNf(test.va, test.vb, TEST_VEC_SIZE);
+    vec_assignNd(test.va, test.vb, TEST_VEC_SIZE);
   t2 = clock();
 
   t = (float) t2 - t1;

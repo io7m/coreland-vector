@@ -1,12 +1,18 @@
 #!/bin/sh
 
 ALTIVEC_FLAGS=`head -n 1 ../flags-altivec`
+if [ $? -ne 0 ]; then exit 1; fi
 SSE_FLAGS=`head -n 1 ../flags-sse`
+if [ $? -ne 0 ]; then exit 1; fi
 SSE2_FLAGS=`head -n 1 ../flags-sse2`
+if [ $? -ne 0 ]; then exit 1; fi
 SSE_FLAGS="${SSE_FLAGS} ${SSE2_FLAGS}"
+if [ $? -ne 0 ]; then exit 1; fi
 CFLAGS="${CFLAGS} `head -n 1 conf-cflags`" 2>/dev/null
+if [ $? -ne 0 ]; then exit 1; fi
 CFLAGS="-I../ -lm ${CFLAGS}"
 CC=`head -n 1 conf-cc` 2>/dev/null
+if [ $? -ne 0 ]; then exit 1; fi
 
 export CC
 export CFLAGS

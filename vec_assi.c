@@ -126,12 +126,8 @@ float *vec_assignNf(float *va, const float *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_assignNf_altivec(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] = vb[ind];
-    return va;
-  }
+  vec_ASSIGN(va, vb, n, float);
+  return va;
 }
 double *vec_assignNd(double *va, const double *vb, unsigned int n)
 {
@@ -139,10 +135,6 @@ double *vec_assignNd(double *va, const double *vb, unsigned int n)
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_assignNd_sse2(va, vb, n);
 #endif
-  {
-    unsigned int ind;
-    for (ind = 0; ind < n; ++ind)
-      va[ind] = vb[ind];
-    return va;
-  }
+  vec_ASSIGN(va, vb, n, double);
+  return va;
 }

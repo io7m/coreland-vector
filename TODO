@@ -24,6 +24,6 @@ vec_angle
 vec_dist
 vec_assi            acsStT
 vec_dotp            c
-vec_mag
+vec_mag             c
 vec_xprod
 vec_zero            acsStT

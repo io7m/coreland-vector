@@ -128,7 +128,7 @@ static double *vec_normNdx_sse2(const double *va, double *vr, double mag,
   vec_segments(seg, 2, ne);
 
   mrcp = _mm_set1_pd(rcp);
-  for (ind = 0; ind < seg[2]; ++ind) {
+  for (ind = 0; ind < seg[1]; ++ind) {
     mva1 = _mm_load_pd(pva);
     mva2 = _mm_load_pd(pva + 2);
     mva1 = _mm_mul_pd(mva1, mrcp);

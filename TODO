@@ -19,7 +19,7 @@ vec_subsc           acsSt
 vec_multsc          acsSt
 vec_divsc           acsSt
 vec_nega            acsStT
-vec_norm            cst
+vec_norm            csSt
 vec_angle           
 vec_dist
 vec_assi            acsStT

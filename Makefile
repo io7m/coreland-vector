@@ -452,9 +452,6 @@ mk-ctxt:\
 	./ld mk-ctxt mk-ctxt.o
 mk-slib: conf-systype 
 mk-sosuffix: conf-systype 
-t1.o:\
-	cc t1.c 
-	./cc t1.c
 vec_add.o:\
 	cc vec_add.c vec_add.h vec_simd.h 
 	./cc vec_add.c
@@ -462,16 +459,16 @@ vec_addsc.o:\
 	cc vec_addsc.c vec_addsc.h vec_simd.h vec_types.h 
 	./cc vec_addsc.c
 vec_angle.o:\
-	cc vec_angle.c vector.h 
+	cc vec_angle.c vec_dotp.h vec_mag.h vec_angle.h 
 	./cc vec_angle.c
 vec_anglen.o:\
-	cc vec_anglen.c vector.h 
+	cc vec_anglen.c vec_dotp.h vec_anglen.h 
 	./cc vec_anglen.c
 vec_assi.o:\
 	cc vec_assi.c vec_assi.h vec_simd.h 
 	./cc vec_assi.c
 vec_dist.o:\
-	cc vec_dist.c vector.h 
+	cc vec_dist.c vec_dist.h 
 	./cc vec_dist.c
 vec_div.o:\
 	cc vec_div.c vec_div.h vec_simd.h 
@@ -480,22 +477,23 @@ vec_divsc.o:\
 	cc vec_divsc.c vec_divsc.h vec_simd.h vec_types.h 
 	./cc vec_divsc.c
 vec_dotp.o:\
-	cc vec_dotp.c vec_dotp.h vec_simd.h 
+	cc vec_dotp.c vec_dotp.h vec_types.h vec_simd.h 
 	./cc vec_dotp.c
 vec_mag.o:\
-	cc vec_mag.c vec_mag.h vec_simd.h 
+	cc vec_mag.c vec_mag.h vec_dotp.h vec_simd.h 
 	./cc vec_mag.c
 vec_mult.o:\
 	cc vec_mult.c vec_mult.h vec_simd.h 
 	./cc vec_mult.c
 vec_multsc.o:\
-	cc vec_multsc.c vec_mult.h vec_simd.h vec_types.h 
+	cc vec_multsc.c vec_multsc.h vec_simd.h vec_types.h 
 	./cc vec_multsc.c
 vec_nega.o:\
 	cc vec_nega.c vec_nega.h vec_simd.h vec_types.h 
 	./cc vec_nega.c
 vec_norm.o:\
-	cc vec_norm.c vec_norm.h vec_simd.h 
+	cc vec_norm.c vec_dotp.h vec_norm.h vec_multsc.h vec_simd.h \
+	vec_types.h 
 	./cc vec_norm.c
 vec_simd.o:\
 	cc vec_simd.c vec_simd.h 
@@ -550,21 +548,20 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
 	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod \
 	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero 
-	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o conf-cctype \
-	conf-systype ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
-	ctxt/dlibdir.o ctxt/flags_altivec.c ctxt/flags_altivec.o \
-	ctxt/flags_sse.c ctxt/flags_sse.o ctxt/flags_sse2.c \
-	ctxt/flags_sse2.o ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c \
-	ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
-	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
-	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
-	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
-	installer installer.o instchk instchk.o insthier.o mk-ctxt mk-ctxt.o \
-	t1.o vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o \
-	vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o \
-	vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o \
-	vec_xprod.o vec_zero.o 
-	rm -f vector-conf vector-conf.o vector.a 
+	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o ctxt/bindir.c \
+	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/flags_altivec.c ctxt/flags_altivec.o ctxt/flags_sse.c \
+	ctxt/flags_sse.o ctxt/flags_sse2.c ctxt/flags_sse2.o \
+	ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c ctxt/incdir.o \
+	ctxt/repos.c ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o \
+	ctxt/version.c ctxt/version.o deinstaller deinstaller.o inst-check \
+	inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
+	inst-link.o install_core.o install_error.o installer installer.o \
+	instchk instchk.o insthier.o vec_add.o vec_addsc.o vec_angle.o \
+	vec_anglen.o vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o \
+	vec_mag.o vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o \
+	vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o vector-conf \
+	vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

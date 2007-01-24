@@ -26,7 +26,7 @@ double *vec_divscNdx(const double *, double *, double, unsigned int);
   unsigned int seg[2]; \
   unsigned int ind; \
   \
-  pva = va; \
+  pva = (va); \
   vec_segments(seg, 2, (ne)); \
   \
   for (ind = 0; ind < seg[1]; ++ind) { \
@@ -47,8 +47,8 @@ double *vec_divscNdx(const double *, double *, double, unsigned int);
   unsigned int seg[2]; \
   unsigned int ind; \
   \
-  pva = va; \
-  pvr = vr; \
+  pva = (va); \
+  pvr = (vr); \
   vec_segments(seg, 2, (ne)); \
   \
   for (ind = 0; ind < seg[1]; ++ind) { \

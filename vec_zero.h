@@ -18,7 +18,7 @@ double *vec_zeroNd(double *, unsigned int);
   unsigned int seg[2]; \
   unsigned int ind; \
   \
-  pva = va; \
+  pva = (va); \
   vec_segments(seg, 2, (ne)); \
   \
   for (ind = 0; ind < seg[1]; ++ind) { \

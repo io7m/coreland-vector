@@ -27,8 +27,8 @@ double *vec_subNdx(const double *, const double *, double *, unsigned int);
   unsigned int seg[2]; \
   unsigned int ind; \
   \
-  pva = va; \
-  pvb = vb; \
+  pva = (va); \
+  pvb = (vb); \
   vec_segments(seg, 2, (ne)); \
   \
   for (ind = 0; ind < seg[1]; ++ind) { \
@@ -51,9 +51,9 @@ double *vec_subNdx(const double *, const double *, double *, unsigned int);
   unsigned int seg[2]; \
   unsigned int ind; \
   \
-  pva = va; \
-  pvb = vb; \
-  pvr = vr; \
+  pva = (va); \
+  pvb = (vb); \
+  pvr = (vr); \
   vec_segments(seg, 2, (ne)); \
   \
   for (ind = 0; ind < seg[1]; ++ind) { \

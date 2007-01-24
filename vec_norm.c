@@ -1,6 +1,7 @@
 #include <math.h>
 #include "vec_dotp.h"
 #include "vec_norm.h"
+#include "vec_multsc.h"
 #include "vec_simd.h"
 #include "vec_types.h"
 
@@ -279,7 +280,6 @@ float *vec_normNf(float *va, unsigned int n)
 {
   float mag;
   float rcp;
-  unsigned int ind;
 
   mag = vec_dotprodNf(va, va, n);
   if (mag) {
@@ -290,8 +290,7 @@ float *vec_normNf(float *va, unsigned int n)
   if (!vec_unaligned(va)) return vec_normNf_altivec(va, mag, n);
 #endif
     rcp = 1 / sqrtf(mag);
-    for (ind = 0; ind < n; ++ind)
-      va[ind] *= rcp;
+    vec_multscNf(va, rcp, n);
   }
   return va;
 }
@@ -299,7 +298,6 @@ float *vec_normNfx(const float *va, float *vr, unsigned int n)
 {
   float mag;
   float rcp;
-  unsigned int ind;
 
   mag = vec_dotprodNf(va, va, n);
   if (mag) {
@@ -312,8 +310,7 @@ float *vec_normNfx(const float *va, float *vr, unsigned int n)
     return vec_normNfx_altivec(va, vr, mag, n);
 #endif
     rcp = 1 / sqrtf(mag);
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] * rcp;
+    vec_multscNfx(va, vr, rcp, n);
   }
   return vr;
 }
@@ -321,7 +318,6 @@ double *vec_normNd(double *va, unsigned int n)
 {
   double mag;
   double rcp;
-  unsigned int ind;
 
   mag = vec_dotprodNd(va, va, n);
   if (mag) {
@@ -329,8 +325,7 @@ double *vec_normNd(double *va, unsigned int n)
     if (!vec_unaligned(va)) return vec_normNd_sse2(va, mag, n);
 #endif
     rcp = 1 / sqrt(mag);
-    for (ind = 0; ind < n; ++ind)
-      va[ind] *= rcp;
+    vec_multscNd(va, rcp, n);
   }
   return va;
 }
@@ -338,7 +333,6 @@ double *vec_normNdx(const double *va, double *vr, unsigned int n)
 {
   double mag;
   double rcp;
-  unsigned int ind;
 
   mag = vec_dotprodNd(va, va, n);
   if (mag) {
@@ -347,8 +341,7 @@ double *vec_normNdx(const double *va, double *vr, unsigned int n)
       return vec_normNdx_sse2(va, vr, mag, n);
 #endif
     rcp = 1 / sqrt(mag);
-    for (ind = 0; ind < n; ++ind)
-      vr[ind] = va[ind] * rcp;
+    vec_multscNdx(va, vr, rcp, n);
   }
   return vr;
 }

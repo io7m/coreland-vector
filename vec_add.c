@@ -332,7 +332,7 @@ double *vec_addNd(double *va, const double *vb, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va) && !vec_unaligned(vb))
-    return vec_addNd_sse(va, vb, n);
+    return vec_addNd_sse2(va, vb, n);
 #endif
   vec_ADD(va, vb, n, double);
   return va;
@@ -341,7 +341,7 @@ double *vec_addNdx(const double *va, const double *vb, double *vr, unsigned int 
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
-    return vec_addNfd_sse2(va, vb, vr, n);
+    return vec_addNdx_sse2(va, vb, vr, n);
 #endif
   vec_ADDX(va, vb, vr, n, double);
   return vr;

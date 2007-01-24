@@ -1,5 +1,6 @@
 #include "frand.h"
 #include <time.h>
+#include <stdio.h>
 #include "vector.h"
 #include "test_const.h"
 

@@ -1,4 +1,5 @@
 #include <math.h>
+#include "vec_dotp.h"
 #include "vec_norm.h"
 #include "vec_simd.h"
 #include "vec_types.h"
@@ -280,10 +281,7 @@ float *vec_normNf(float *va, unsigned int n)
   float rcp;
   unsigned int ind;
 
-  mag = 0;
-  for (ind = 0; ind < n; ++ind)
-    mag += va[ind] * va[ind];
-
+  mag = vec_dotprodNf(va, va, n);
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va)) return vec_normNf_sse(va, mag, n);
@@ -303,10 +301,7 @@ float *vec_normNfx(const float *va, float *vr, unsigned int n)
   float rcp;
   unsigned int ind;
 
-  mag = 0;
-  for (ind = 0; ind < n; ++ind)
-    mag += va[ind] * va[ind];
-
+  mag = vec_dotprodNf(va, va, n);
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vr))
@@ -328,10 +323,7 @@ double *vec_normNd(double *va, unsigned int n)
   double rcp;
   unsigned int ind;
 
-  mag = 0;
-  for (ind = 0; ind < n; ++ind)
-    mag += va[ind] * va[ind];
-
+  mag = vec_dotprodNd(va, va, n);
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va)) return vec_normNd_sse2(va, mag, n);
@@ -348,10 +340,7 @@ double *vec_normNdx(const double *va, double *vr, unsigned int n)
   double rcp;
   unsigned int ind;
 
-  mag = 0;
-  for (ind = 0; ind < n; ++ind)
-    mag += va[ind] * va[ind];
-
+  mag = vec_dotprodNd(va, va, n);
   if (mag) {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
     if (!vec_unaligned(va) && !vec_unaligned(vr))

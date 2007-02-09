@@ -1,3 +1,3 @@
--g -W -Wall -DVECTOR_VERBOSE_UNALIGNED
+-g -W -Wall
 
 These are passed to the C compiler.

@@ -1,13 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_sysinfo sd_altivec-flags sd_sse-flags sd_sse2-flags sd_sse3-flags
-sysdeps_clean:  sd_sysinfo_clean sd_altivec-flags_clean sd_sse-flags_clean sd_sse2-flags_clean sd_sse3-flags_clean
-
-sd_sysinfo:
-	@(cd modules/sysinfo && ./run)
-sd_sysinfo_clean:
-	@(cd modules/sysinfo && ./clean)
+sysdeps:  sd_altivec-flags sd_sse-flags sd_sse2-flags sd_sse3-flags sd_sysinfo
+sysdeps_clean:  sd_altivec-flags_clean sd_sse-flags_clean sd_sse2-flags_clean sd_sse3-flags_clean sd_sysinfo_clean
 
 sd_altivec-flags:
 	@(cd modules/altivec-flags && ./run)
@@ -28,6 +23,11 @@ sd_sse3-flags:
 	@(cd modules/sse3-flags && ./run)
 sd_sse3-flags_clean:
 	@(cd modules/sse3-flags && ./clean)
+
+sd_sysinfo:
+	@(cd modules/sysinfo && ./run)
+sd_sysinfo_clean:
+	@(cd modules/sysinfo && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp

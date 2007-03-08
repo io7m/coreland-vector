@@ -174,10 +174,6 @@ static double vec_dotprodNd_sse3(const double *va, const double *vb,
 
 float vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE3
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
-    return vec_dotprodNf_sse3(va, vb, n);
-#endif
 #ifdef SYS_HAVE_CPU_EXT_SSE
   if (!vec_unaligned(va) && !vec_unaligned(vb))
     return vec_dotprodNf_sse(va, vb, n);

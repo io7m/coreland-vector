@@ -29,7 +29,7 @@ static float vec_dotprodNf_sse(const float *va, const float *vb,
     vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
     vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
     res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
-    res += vva2.f[0] + vva2.f[1] + vva2.f[3] + vva2.f[4];
+    res += vva2.f[0] + vva2.f[1] + vva2.f[2] + vva2.f[3];
     pva += 8;
     pvb += 8;
   }

@@ -22,7 +22,7 @@ static const struct flag flags[] = {
   { "dlibdir", FLAG_DLIBDIR, "print dynamic library directory" },
   { "slibdir", FLAG_SLIBDIR, "print static library directory" },
   { "compile", FLAG_COMPILE, "modify output for use as compiler flags" },
-  { "flags",   FLAG_FLAGS,   "output required compiler flags" },
+  { "cflags",   FLAG_FLAGS,   "output required compiler flags" },
   { "version", FLAG_VERSION, "print library version" },
   { "help",    FLAG_HELP, "this message" },
   { "newline", FLAG_NEWLINE, "print trailing newline" },

@@ -296,7 +296,7 @@ UNIT_TESTS/t_zero_data.o:\
 	./cc-compile UNIT_TESTS/t_zero_data.c
 cc-compile: conf-cc conf-cctype conf-cflags sysdeps.out flags-sse \
 	flags-sse2 flags-altivec 
-cc-link: conf-ld sysdeps.out libs-sysmath 
+cc-link: conf-ld sysdeps.out libs-math 
 cc-slib: conf-systype 
 conf-cctype:\
 	conf-systype conf-cc mk-cctype 
@@ -548,21 +548,20 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
 	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod \
 	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero 
-	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o conf-cctype \
-	conf-systype ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
-	ctxt/dlibdir.o ctxt/flags_altivec.c ctxt/flags_altivec.o \
-	ctxt/flags_sse.c ctxt/flags_sse.o ctxt/flags_sse2.c \
-	ctxt/flags_sse2.o ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c \
-	ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
-	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
-	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
-	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
-	installer installer.o instchk instchk.o insthier.o mk-ctxt mk-ctxt.o \
-	vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_dist.o \
-	vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o \
-	vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o \
-	vec_zero.o vector-conf 
-	rm -f vector-conf.o vector.a 
+	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o ctxt/bindir.c \
+	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/flags_altivec.c ctxt/flags_altivec.o ctxt/flags_sse.c \
+	ctxt/flags_sse.o ctxt/flags_sse2.c ctxt/flags_sse2.o \
+	ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c ctxt/incdir.o \
+	ctxt/repos.c ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o \
+	ctxt/version.c ctxt/version.o deinstaller deinstaller.o inst-check \
+	inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
+	inst-link.o install_core.o install_error.o installer installer.o \
+	instchk instchk.o insthier.o vec_add.o vec_addsc.o vec_angle.o \
+	vec_anglen.o vec_assi.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o \
+	vec_mag.o vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o \
+	vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o vector-conf \
+	vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

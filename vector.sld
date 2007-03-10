@@ -4,6 +4,7 @@ vec_angle.o
 vec_anglen.o
 vec_assi.o
 vec_degree.o
+vec_degreen.o
 vec_dist.o
 vec_div.o
 vec_divsc.o

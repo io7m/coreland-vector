@@ -21,6 +21,9 @@ vec_divsc           acsSt
 vec_nega            acsStT
 vec_norm            acsStT
 vec_angle           
+vec_anglenorm
+vec_degree
+vec_degreenorm
 vec_dist
 vec_assi            acsStT
 vec_dotp            ac

@@ -4,6 +4,7 @@
 #include "vec_multsc.h"
 #include "vec_simd.h"
 #include "vec_types.h"
+#include "vec_math.h"
 
 float *vec_normNf(float *va, unsigned int n)
 {

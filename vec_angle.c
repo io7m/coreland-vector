@@ -2,6 +2,7 @@
 #include "vec_dotp.h"
 #include "vec_mag.h"
 #include "vec_angle.h"
+#include "vec_math.h"
 
 float vec_angleNf(const float *va, const float *vb, unsigned int n)
 {

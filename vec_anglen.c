@@ -1,6 +1,7 @@
 #include <math.h>
 #include "vec_dotp.h"
 #include "vec_anglen.h"
+#include "vec_math.h"
 
 float vec_anglenormNf(const float *va, const float *vb, unsigned int n)
 {

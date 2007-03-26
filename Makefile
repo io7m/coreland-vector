@@ -473,10 +473,10 @@ vec_addsc.o:\
 	cc-compile vec_addsc.c vec_addsc.h vec_simd.h vec_types.h 
 	./cc-compile vec_addsc.c
 vec_angle.o:\
-	cc-compile vec_angle.c vec_dotp.h vec_mag.h vec_angle.h 
+	cc-compile vec_angle.c vec_dotp.h vec_mag.h vec_angle.h vec_math.h 
 	./cc-compile vec_angle.c
 vec_anglen.o:\
-	cc-compile vec_anglen.c vec_dotp.h vec_anglen.h 
+	cc-compile vec_anglen.c vec_dotp.h vec_anglen.h vec_math.h 
 	./cc-compile vec_anglen.c
 vec_assi.o:\
 	cc-compile vec_assi.c vec_assi.h vec_simd.h 
@@ -485,7 +485,7 @@ vec_degree.o:\
 	cc-compile vec_degree.c vec_angle.h vec_degree.h 
 	./cc-compile vec_degree.c
 vec_degreen.o:\
-	cc-compile vec_degreen.c vec_angle.h vec_degreen.h 
+	cc-compile vec_degreen.c vec_angle.h vec_anglen.h vec_degreen.h 
 	./cc-compile vec_degreen.c
 vec_dist.o:\
 	cc-compile vec_dist.c vec_dist.h 
@@ -500,8 +500,11 @@ vec_dotp.o:\
 	cc-compile vec_dotp.c vec_dotp.h vec_types.h vec_simd.h 
 	./cc-compile vec_dotp.c
 vec_mag.o:\
-	cc-compile vec_mag.c vec_mag.h vec_dotp.h vec_simd.h 
+	cc-compile vec_mag.c vec_mag.h vec_dotp.h vec_simd.h vec_math.h 
 	./cc-compile vec_mag.c
+vec_math.o:\
+	cc-compile vec_math.c vec_math.h 
+	./cc-compile vec_math.c
 vec_mult.o:\
 	cc-compile vec_mult.c vec_mult.h vec_simd.h 
 	./cc-compile vec_mult.c
@@ -513,7 +516,7 @@ vec_nega.o:\
 	./cc-compile vec_nega.c
 vec_norm.o:\
 	cc-compile vec_norm.c vec_dotp.h vec_norm.h vec_multsc.h vec_simd.h \
-	vec_types.h 
+	vec_types.h vec_math.h 
 	./cc-compile vec_norm.c
 vec_simd.o:\
 	cc-compile vec_simd.c vec_simd.h 
@@ -539,12 +542,14 @@ vector-conf.o:\
 vector.a:\
 	cc-slib vector.sld vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
 	vec_assi.o vec_degree.o vec_degreen.o vec_dist.o vec_div.o \
-	vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o vec_nega.o \
-	vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o 
+	vec_divsc.o vec_dotp.o vec_mag.o vec_math.o vec_mult.o vec_multsc.o \
+	vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o \
+	vec_zero.o 
 	./cc-slib vector vec_add.o vec_addsc.o vec_angle.o vec_anglen.o \
 	vec_assi.o vec_degree.o vec_degreen.o vec_dist.o vec_div.o \
-	vec_divsc.o vec_dotp.o vec_mag.o vec_mult.o vec_multsc.o vec_nega.o \
-	vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o 
+	vec_divsc.o vec_dotp.o vec_mag.o vec_math.o vec_mult.o vec_multsc.o \
+	vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o \
+	vec_zero.o 
 clean: sysdeps_clean tests_clean 
 	rm -f UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
 	UNIT_TESTS/t_add2.o UNIT_TESTS/t_add_data.o UNIT_TESTS/t_addsc1 \
@@ -568,22 +573,23 @@ clean: sysdeps_clean tests_clean
 	UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
 	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod \
 	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero 
-	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o ctxt/bindir.c \
-	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
-	ctxt/flags_altivec.c ctxt/flags_altivec.o ctxt/flags_math.c \
-	ctxt/flags_math.o ctxt/flags_sse.c ctxt/flags_sse.o \
-	ctxt/flags_sse2.c ctxt/flags_sse2.o ctxt/flags_sse3.c \
-	ctxt/flags_sse3.o ctxt/incdir.c ctxt/incdir.o ctxt/libs_math.c \
-	ctxt/libs_math.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
-	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
-	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir \
-	inst-dir.o inst-link inst-link.o install_core.o install_error.o \
-	installer installer.o instchk instchk.o insthier.o mk-ctxt vec_add.o \
-	vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o vec_degree.o \
-	vec_degreen.o vec_dist.o vec_div.o vec_divsc.o vec_dotp.o vec_mag.o \
-	vec_mult.o vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o \
-	vec_subsc.o 
-	rm -f vec_xprod.o vec_zero.o vector-conf vector-conf.o vector.a 
+	rm -f UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o conf-cctype \
+	conf-systype ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
+	ctxt/dlibdir.o ctxt/flags_altivec.c ctxt/flags_altivec.o \
+	ctxt/flags_math.c ctxt/flags_math.o ctxt/flags_sse.c \
+	ctxt/flags_sse.o ctxt/flags_sse2.c ctxt/flags_sse2.o \
+	ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c ctxt/incdir.o \
+	ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c ctxt/repos.o \
+	ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
+	deinstaller deinstaller.o inst-check inst-check.o inst-copy \
+	inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
+	install_error.o installer installer.o instchk instchk.o insthier.o \
+	mk-ctxt.o vec_add.o vec_addsc.o vec_angle.o vec_anglen.o vec_assi.o \
+	vec_degree.o vec_degreen.o vec_dist.o vec_div.o vec_divsc.o \
+	vec_dotp.o vec_mag.o vec_math.o vec_mult.o vec_multsc.o vec_nega.o \
+	vec_norm.o 
+	rm -f vec_simd.o vec_sub.o vec_subsc.o vec_xprod.o vec_zero.o \
+	vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

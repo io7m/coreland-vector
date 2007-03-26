@@ -2,6 +2,7 @@
 #include "vec_mag.h"
 #include "vec_dotp.h"
 #include "vec_simd.h"
+#include "vec_math.h"
 
 float vec_magNf(const float *va, unsigned int n)
 {

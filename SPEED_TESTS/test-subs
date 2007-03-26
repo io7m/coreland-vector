@@ -1,5 +1,9 @@
 #!/bin/sh
 
+MATH_FLAGS=`head -n 1 ../flags-math`
+if [ $? -ne 0 ]; then exit 1; fi
+MATH_LIBS=`head -n 1 ../libs-math`
+if [ $? -ne 0 ]; then exit 1; fi
 ALTIVEC_FLAGS=`head -n 1 ../flags-altivec`
 if [ $? -ne 0 ]; then exit 1; fi
 SSE_FLAGS=`head -n 1 ../flags-sse`
@@ -18,3 +22,5 @@ export CC
 export CFLAGS
 export ALTIVEC_FLAGS
 export SSE_FLAGS
+export MATH_FLAGS
+export MATH_LIBS

@@ -1,10 +1,12 @@
 bindir.o
 dlibdir.o
 flags_altivec.o
+flags_math.o
 flags_sse.o
 flags_sse2.o
 flags_sse3.o
 incdir.o
+libs_math.o
 repos.o
 slibdir.o
 version.o

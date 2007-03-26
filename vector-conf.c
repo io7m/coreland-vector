@@ -14,7 +14,8 @@ long str_rchr(register const char *, register int);
 #define FLAG_VERSION 0x0010
 #define FLAG_COMPILE 0x0020
 #define FLAG_HELP    0x0040
-#define FLAG_FLAGS   0x0080
+#define FLAG_CFLAGS  0x0080
+#define FLAG_LDFLAGS 0x0100
 
 struct flag { const char *flag; unsigned int val; const char *desc; };
 static const struct flag flags[] = {
@@ -22,7 +23,8 @@ static const struct flag flags[] = {
   { "dlibdir", FLAG_DLIBDIR, "print dynamic library directory" },
   { "slibdir", FLAG_SLIBDIR, "print static library directory" },
   { "compile", FLAG_COMPILE, "modify output for use as compiler flags" },
-  { "cflags",   FLAG_FLAGS,   "output required compiler flags" },
+  { "cflags",  FLAG_CFLAGS,  "output required compiler flags" },
+  { "ldflags", FLAG_LDFLAGS, "output required linker flags" },
   { "version", FLAG_VERSION, "print library version" },
   { "help",    FLAG_HELP, "this message" },
   { "newline", FLAG_NEWLINE, "print trailing newline" },
@@ -71,7 +73,7 @@ int main(int argc, char *argv[])
       printf("%s ", ctxt_incdir);
     }
   }
-  if (flag & FLAG_FLAGS) {
+  if (flag & FLAG_CFLAGS) {
 #ifdef SYS_HAVE_CPU_EXT_SSE
     if (ctxt_flags_sse_len > 1) printf("%s ", ctxt_flags_sse);
 #endif
@@ -84,6 +86,7 @@ int main(int argc, char *argv[])
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
     if (ctxt_flags_altivec_len > 1) printf("%s ", ctxt_flags_altivec);
 #endif
+    if (ctxt_flags_math_len > 1) printf("%s ", ctxt_flags_math);
   }
   if (flag & FLAG_DLIBDIR) {
     if (flag & FLAG_COMPILE) printf("-L");
@@ -92,6 +95,9 @@ int main(int argc, char *argv[])
   if (flag & FLAG_SLIBDIR) {
     if (flag & FLAG_COMPILE) printf("-L");
     printf("%s -lvector ", ctxt_slibdir);
+  }
+  if (flag & FLAG_LDFLAGS) {
+    if (ctxt_libs_math_len > 2) printf("%s ", ctxt_libs_math);
   }
   if (flag & FLAG_NEWLINE) printf("\n");
   return 0;

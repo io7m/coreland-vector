@@ -2,9 +2,9 @@
 
 . ./test-subs
 
-${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
+${CC} ${CFLAGS} ${ALTIVEC_FLAGS} ${MATH_FLAGS} \
   -o t_mult2_pure -DVECTOR_NO_SIMD t_mult2.c ../vec_mult.c ../vec_simd.c frand.c
-${CC} ${CFLAGS} ${ALTIVEC_FLAGS} \
+${CC} ${CFLAGS} ${ALTIVEC_FLAGS} ${MATH_FLAGS} \
   -o t_mult2_alti t_mult2.c ../vec_mult.c ../vec_simd.c frand.c
 
 alti=`./t_mult2_alti`

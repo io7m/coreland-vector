@@ -2,9 +2,9 @@
 
 . ./test-subs
 
-${CC} ${CFLAGS} ${SSE_FLAGS} \
+${CC} ${CFLAGS} ${SSE_FLAGS} ${MATH_FLAGS} \
   -o t_sub2_pure -DVECTOR_NO_SIMD t_sub2.c ../vec_sub.c ../vec_simd.c frand.c
-${CC} ${CFLAGS} ${SSE_FLAGS} \
+${CC} ${CFLAGS} ${SSE_FLAGS} ${MATH_FLAGS} \
   -o t_sub2_sse t_sub2.c ../vec_sub.c ../vec_simd.c frand.c
 
 sse=`./t_sub2_sse`

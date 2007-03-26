@@ -10,6 +10,7 @@ vec_div.o
 vec_divsc.o
 vec_dotp.o
 vec_mag.o
+vec_math.o
 vec_mult.o
 vec_multsc.o
 vec_nega.o

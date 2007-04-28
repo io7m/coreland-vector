@@ -19,7 +19,6 @@
 #include "vec_subsc.h"
 #include "vec_xprod.h"
 #include "vec_zero.h"
-#include "vec_simd.h"
 #include "vec_types.h"
 
 float *vec_crossprod3fx(const float [3], const float [3], float [3]);

@@ -32,21 +32,6 @@ int vec_unaligned(const void *);
   #define vec_unaligned(p) (((unsigned long)(p)) & 0xF)
 #endif
 
-/* next multiple of 16 */
-#define vec_pad(n) ((16 + (n) - ((n) & 15)) - (n))
-
-/* macros for vec_align() */
-#if SYS_CCTYPE == SYS_CCTYPE_GCC
-  #define vec_align(n) __attribute__((aligned ((n))))
-#endif
-#if SYS_CCTYPE == SYS_CCTYPE_INTEL
-  #define vec_align(n) _declspec(align((n)))
-#endif
-
-#ifndef vec_align
-  #define vec_align(n) 
-#endif
-
 void vec_segments(unsigned int *, unsigned int, unsigned int);
 
 #endif

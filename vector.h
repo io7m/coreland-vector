@@ -21,7 +21,4 @@
 #include "vec_zero.h"
 #include "vec_types.h"
 
-float *vec_crossprod3fx(const float [3], const float [3], float [3]);
-double *vec_crossprod3dx(const double [3], const double [3], double [3]);
-
 #endif

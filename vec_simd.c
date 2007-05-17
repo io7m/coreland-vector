@@ -31,16 +31,3 @@ void vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)
     }
   }
 }
-
-#ifdef VECTOR_VERBOSE_UNALIGNED
-#include <stdio.h>
-
-int vec_unaligned(const void *vp)
-{
-  if (((unsigned long) vp) & 15) {
-    fprintf(stderr, "warn: %p unaligned vector access\n", vp);
-    return 1;
-  } else
-    return 0;
-}
-#endif

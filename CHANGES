@@ -1,2 +1,6 @@
 20061227 version: vector 0.1
 20060310 version: vector 0.11
+20070517 code: vec_align.h header created. vec_unaligned() is now always
+               a macro which calls vec_unaligned_core(). this allows better
+               warnings to be emitted. ptr_uint type is used instead of
+               unsigned long.

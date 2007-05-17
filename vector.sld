@@ -1,5 +1,6 @@
 vec_add.o
 vec_addsc.o
+vec_align.o
 vec_angle.o
 vec_anglen.o
 vec_assi.o

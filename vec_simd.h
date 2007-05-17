@@ -26,12 +26,6 @@
 #include <emmintrin.h>
 #endif
 
-#ifdef VECTOR_VERBOSE_UNALIGNED
-int vec_unaligned(const void *);
-#else
-  #define vec_unaligned(p) (((unsigned long)(p)) & 0xF)
-#endif
-
 void vec_segments(unsigned int *, unsigned int, unsigned int);
 
 #endif

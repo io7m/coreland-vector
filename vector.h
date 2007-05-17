@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include "vec_add.h"
+#include "vec_align.h"
 #include "vec_addsc.h"
 #include "vec_angle.h"
 #include "vec_anglen.h"

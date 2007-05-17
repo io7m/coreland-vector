@@ -1,3 +1,4 @@
+#include "vec_align.h"
 #include "vec_dotp.h"
 #include "vec_types.h"
 #include "vec_simd.h"

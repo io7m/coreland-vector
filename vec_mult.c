@@ -1,3 +1,4 @@
+#include "vec_align.h"
 #include "vec_mult.h"
 #include "vec_simd.h"
 

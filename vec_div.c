@@ -1,4 +1,5 @@
 #include "vec_div.h"
+#include "vec_align.h"
 #include "vec_simd.h"
 
 #ifdef SYS_HAVE_CPU_EXT_SSE

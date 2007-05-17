@@ -4,3 +4,5 @@
                a macro which calls vec_unaligned_core(). this allows better
                warnings to be emitted. ptr_uint type is used instead of
                unsigned long.
+
+20070517 version: vector 0.111

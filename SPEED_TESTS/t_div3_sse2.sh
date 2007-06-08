@@ -3,9 +3,9 @@
 . ./test-subs
 
 ${CC} ${CFLAGS} ${SSE_FLAGS} ${MATH_FLAGS} \
-  -o t_div3_pure -DVECTOR_NO_SIMD t_div3.c ../vec_div.c ../vec_simd.c frand.c
+  -o t_div3_pure -DVECTOR_NO_SIMD t_div3.c ../vec_div.c ../vec_simd.c ../vec_align.c frand.c
 ${CC} ${CFLAGS} ${SSE_FLAGS} ${MATH_FLAGS} \
-  -o t_div3_sse2 t_div3.c ../vec_div.c ../vec_simd.c frand.c
+  -o t_div3_sse2 t_div3.c ../vec_div.c ../vec_simd.c ../vec_align.c frand.c
 
 sse2=`./t_div3_sse2`
 pure=`./t_div3_pure`

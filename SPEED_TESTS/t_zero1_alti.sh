@@ -3,9 +3,9 @@
 . ./test-subs
 
 ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} ${MATH_FLAGS} \
-  -o t_zero1_pure -DVECTOR_NO_SIMD t_zero1.c ../vec_zero.c ../vec_simd.c frand.c
+  -o t_zero1_pure -DVECTOR_NO_SIMD t_zero1.c ../vec_zero.c ../vec_simd.c ../vec_align.c frand.c
 ${CC} ${CFLAGS} ${ALTIVEC_FLAGS} ${MATH_FLAGS} \
-  -o t_zero1_alti t_zero1.c ../vec_zero.c ../vec_simd.c frand.c
+  -o t_zero1_alti t_zero1.c ../vec_zero.c ../vec_simd.c ../vec_align.c frand.c
 
 alti=`./t_zero1_alti`
 pure=`./t_zero1_pure`

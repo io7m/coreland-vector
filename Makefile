@@ -3,34 +3,76 @@
 default: all
 
 all:\
-sysdeps.out UNIT_TESTS/t_add1 UNIT_TESTS/t_add2 UNIT_TESTS/t_addsc1 \
-UNIT_TESTS/t_addsc2 UNIT_TESTS/t_align1 UNIT_TESTS/t_assign \
-UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc2 \
-UNIT_TESTS/t_dotprod UNIT_TESTS/t_mag1 UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult2 \
-UNIT_TESTS/t_multsc1 UNIT_TESTS/t_multsc2 UNIT_TESTS/t_nega1 \
-UNIT_TESTS/t_nega2 UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 \
-UNIT_TESTS/t_sub2 UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc2 \
-UNIT_TESTS/t_util.a UNIT_TESTS/t_xprod UNIT_TESTS/t_zero ctxt/ctxt.a \
-deinstaller inst-check inst-copy inst-dir inst-link installer instchk \
-vector-conf vector.a 
+UNIT_TESTS/t_add1 UNIT_TESTS/t_add2 UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc2 \
+UNIT_TESTS/t_align1 UNIT_TESTS/t_assign UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 \
+UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc2 UNIT_TESTS/t_dotprod \
+UNIT_TESTS/t_mag1 UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult2 UNIT_TESTS/t_multsc1 \
+UNIT_TESTS/t_multsc2 UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega2 \
+UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub2 \
+UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc2 UNIT_TESTS/t_util.a \
+UNIT_TESTS/t_xprod UNIT_TESTS/t_zero ctxt/ctxt.a deinstaller inst-check \
+inst-copy inst-dir inst-link installer instchk vector-conf vector.a 
 
-sysdeps: sysdeps.out
-sysdeps.out:
-	SYSDEPS/sysdep-header sysdeps.out
-	(cd SYSDEPS && make)
-sysdeps_clean:
-	(cd SYSDEPS && make clean)
-	rm -f sysdeps.out
+# -- SYSDEPS start
+flags-altivec:
+	@echo SYSDEPS altivec-flags run create flags-altivec 
+	@(cd SYSDEPS/modules/altivec-flags && ./run)
+libs-math:
+	@echo SYSDEPS sd-math run create _sd_math.h flags-math libs-math 
+	@(cd SYSDEPS/modules/sd-math && ./run)
+flags-math: libs-math
+_sd_math.h: libs-math
+_sd-ptr_uint.h:
+	@echo SYSDEPS sd-ptr_uint run create _sd-ptr_uint.h 
+	@(cd SYSDEPS/modules/sd-ptr_uint && ./run)
+flags-sse:
+	@echo SYSDEPS sse-flags run create flags-sse 
+	@(cd SYSDEPS/modules/sse-flags && ./run)
+flags-sse2:
+	@echo SYSDEPS sse2-flags run create flags-sse2 
+	@(cd SYSDEPS/modules/sse2-flags && ./run)
+flags-sse3:
+	@echo SYSDEPS sse3-flags run create flags-sse3 
+	@(cd SYSDEPS/modules/sse3-flags && ./run)
+_sysinfo.h:
+	@echo SYSDEPS sysinfo run create _sysinfo.h 
+	@(cd SYSDEPS/modules/sysinfo && ./run)
 
-flags-altivec: sysdeps.out
-libs-math: sysdeps.out
-flags-math: sysdeps.out
-_sd_math.h: sysdeps.out
-_sd-ptr_uint.h: sysdeps.out
-flags-sse: sysdeps.out
-flags-sse2: sysdeps.out
-flags-sse3: sysdeps.out
-_sysinfo.h: sysdeps.out
+
+altivec-flags_clean:
+	@echo SYSDEPS altivec-flags clean flags-altivec 
+	@(cd SYSDEPS/modules/altivec-flags && ./clean)
+sd-math_clean:
+	@echo SYSDEPS sd-math clean _sd_math.h flags-math libs-math 
+	@(cd SYSDEPS/modules/sd-math && ./clean)
+sd-ptr_uint_clean:
+	@echo SYSDEPS sd-ptr_uint clean _sd-ptr_uint.h 
+	@(cd SYSDEPS/modules/sd-ptr_uint && ./clean)
+sse-flags_clean:
+	@echo SYSDEPS sse-flags clean flags-sse 
+	@(cd SYSDEPS/modules/sse-flags && ./clean)
+sse2-flags_clean:
+	@echo SYSDEPS sse2-flags clean flags-sse2 
+	@(cd SYSDEPS/modules/sse2-flags && ./clean)
+sse3-flags_clean:
+	@echo SYSDEPS sse3-flags clean flags-sse3 
+	@(cd SYSDEPS/modules/sse3-flags && ./clean)
+sysinfo_clean:
+	@echo SYSDEPS sysinfo clean _sysinfo.h 
+	@(cd SYSDEPS/modules/sysinfo && ./clean)
+
+
+sysdeps_clean:\
+altivec-flags_clean \
+sd-math_clean \
+sd-ptr_uint_clean \
+sse-flags_clean \
+sse2-flags_clean \
+sse3-flags_clean \
+sysinfo_clean \
+
+
+# -- SYSDEPS end
 
 UNIT_TESTS/t_add1:\
 cc-link UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a \
@@ -381,11 +423,11 @@ cc-compile UNIT_TESTS/t_zero_data.c
 	./cc-compile UNIT_TESTS/t_zero_data.c
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags sysdeps.out flags-sse \
-flags-sse2 flags-altivec flags-math 
+conf-cc conf-cctype conf-systype conf-cflags flags-sse flags-sse2 \
+flags-altivec flags-math 
 
 cc-link:\
-conf-ld conf-ldtype conf-systype sysdeps.out libs-math 
+conf-ld conf-ldtype conf-systype libs-math 
 
 cc-slib:\
 conf-systype 
@@ -605,6 +647,9 @@ conf-systype
 mk-systype:\
 conf-cc 
 
+sysinfo.h:\
+_sysinfo.h 
+
 vec_add.o:\
 cc-compile vec_add.c vec_add.h vec_align.h vec_simd.h 
 	./cc-compile vec_add.c
@@ -614,7 +659,7 @@ cc-compile vec_addsc.c vec_addsc.h vec_align.h vec_simd.h vec_types.h
 	./cc-compile vec_addsc.c
 
 vec_align.o:\
-cc-compile vec_align.c vec_align.h _sd_ptr_uint.h 
+cc-compile vec_align.c vec_align.h _sd-ptr_uint.h 
 	./cc-compile vec_align.c
 
 vec_angle.o:\
@@ -657,6 +702,9 @@ vec_mag.o:\
 cc-compile vec_mag.c vec_mag.h vec_dotp.h vec_simd.h vec_math.h 
 	./cc-compile vec_mag.c
 
+vec_math.h:\
+_sd_math.h 
+
 vec_math.o:\
 cc-compile vec_math.c vec_math.h 
 	./cc-compile vec_math.c
@@ -678,6 +726,9 @@ cc-compile vec_norm.c vec_dotp.h vec_norm.h vec_multsc.h vec_simd.h \
 vec_types.h vec_math.h 
 	./cc-compile vec_norm.c
 
+vec_simd.h:\
+sysinfo.h 
+
 vec_simd.o:\
 cc-compile vec_simd.c vec_simd.h 
 	./cc-compile vec_simd.c
@@ -689,6 +740,9 @@ cc-compile vec_sub.c vec_align.h vec_sub.h vec_simd.h
 vec_subsc.o:\
 cc-compile vec_subsc.c vec_align.h vec_subsc.h vec_simd.h vec_types.h 
 	./cc-compile vec_subsc.c
+
+vec_types.h:\
+vec_simd.h 
 
 vec_xprod.o:\
 cc-compile vec_xprod.c vec_xprod.h 
@@ -717,6 +771,12 @@ vec_zero.o
 	vec_div.o vec_divsc.o vec_dotp.o vec_mag.o vec_math.o vec_mult.o \
 	vec_multsc.o vec_nega.o vec_norm.o vec_simd.o vec_sub.o vec_subsc.o \
 	vec_xprod.o vec_zero.o 
+
+vector.h:\
+vec_add.h vec_align.h vec_addsc.h vec_angle.h vec_anglen.h vec_assi.h \
+vec_dist.h vec_div.h vec_divsc.h vec_dotp.h vec_mag.h vec_mult.h \
+vec_multsc.h vec_nega.h vec_norm.h vec_sub.h vec_subsc.h vec_xprod.h \
+vec_zero.h vec_types.h 
 
 clean-all: sysdeps_clean tests_clean obj_clean 
 clean: obj_clean

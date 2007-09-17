@@ -96,7 +96,7 @@ static void help(void)
 }
 static void parse_flags(int argc, char *argv[])
 {
-  unsigned int ind;
+  int ind;
   unsigned int jnd;
 
   --argc;

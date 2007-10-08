@@ -1,6 +1,6 @@
 #include "v_align.h"
+#include "v_inline.h"
 #include "_sd-ptr_uint.h"
-#include "_sd_inline.h"
 
 #define IS_UNALIGNED(p) (((ptr_uint) (p)) & 15)
 

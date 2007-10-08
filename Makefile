@@ -658,15 +658,41 @@ sysinfo.h:\
 _sysinfo.h 
 
 v_add.o:\
-cc-compile v_add.c v_add.h v_align.h v_simd.h 
+cc-compile v_add.c v_add.h v_align.h v_simd.h v_inline.h v_add_sse.c \
+v_add_sse2.c v_add_alti.c 
 	./cc-compile v_add.c
 
+v_add_alti.o:\
+cc-compile v_add_alti.c v_add.h v_align.h v_simd.h v_inline.h 
+	./cc-compile v_add_alti.c
+
+v_add_sse.o:\
+cc-compile v_add_sse.c v_add.h v_align.h v_simd.h v_inline.h 
+	./cc-compile v_add_sse.c
+
+v_add_sse2.o:\
+cc-compile v_add_sse2.c v_add.h v_align.h v_simd.h 
+	./cc-compile v_add_sse2.c
+
 v_addsc.o:\
-cc-compile v_addsc.c v_addsc.h v_align.h v_simd.h v_types.h 
+cc-compile v_addsc.c v_addsc.h v_align.h v_simd.h v_types.h v_inline.h \
+v_addsc_sse.c v_addsc_sse2.c v_addsc_alti.c 
 	./cc-compile v_addsc.c
 
+v_addsc_alti.o:\
+cc-compile v_addsc_alti.c v_addsc.h v_align.h v_simd.h v_types.h v_inline.h 
+	./cc-compile v_addsc_alti.c
+
+v_addsc_sse.o:\
+cc-compile v_addsc_sse.c v_addsc.h v_align.h v_simd.h v_types.h v_inline.h 
+	./cc-compile v_addsc_sse.c
+
+v_addsc_sse2.o:\
+cc-compile v_addsc_sse2.c v_addsc.h v_align.h v_simd.h v_types.h v_inline.h 
+	./cc-compile v_addsc_sse2.c
+
 v_align.o:\
-cc-compile v_align.c v_align.h _sd-ptr_uint.h _sd_inline.h 
+cc-compile v_align.c v_align.h v_inline.h _sd-ptr_uint.h 
 	./cc-compile v_align.c
 
 v_angle.o:\
@@ -705,6 +731,9 @@ v_dotp.o:\
 cc-compile v_dotp.c v_align.h v_dotp.h v_types.h v_simd.h 
 	./cc-compile v_dotp.c
 
+v_inline.h:\
+_sd_inline.h 
+
 v_mag.o:\
 cc-compile v_mag.c v_mag.h v_dotp.h v_simd.h v_math.h 
 	./cc-compile v_mag.c
@@ -723,6 +752,10 @@ cc-compile v_mult.c v_align.h v_mult.h v_simd.h
 v_multsc.o:\
 cc-compile v_multsc.c v_align.h v_multsc.h v_simd.h v_types.h 
 	./cc-compile v_multsc.c
+
+v_multsc_alti.o:\
+cc-compile v_multsc_alti.c 
+	./cc-compile v_multsc_alti.c
 
 v_nega.o:\
 cc-compile v_nega.c v_align.h v_nega.h v_simd.h v_types.h 
@@ -818,10 +851,11 @@ obj_clean:
 	deinstaller deinstaller.o inst-check inst-check.o inst-copy \
 	inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
 	install_error.o installer installer.o instchk instchk.o insthier.o \
-	mk-ctxt v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o v_assi.o \
-	v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
-	v_math.o 
-	rm -f v_mult.o v_multsc.o v_nega.o v_norm.o v_simd.o v_sub.o \
+	v_add.o v_add_alti.o v_add_sse.o v_add_sse2.o v_addsc.o \
+	v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o v_align.o v_angle.o \
+	v_anglen.o v_assi.o v_degree.o v_degreen.o v_dist.o 
+	rm -f v_div.o v_divsc.o v_dotp.o v_mag.o v_math.o v_mult.o \
+	v_multsc.o v_multsc_alti.o v_nega.o v_norm.o v_simd.o v_sub.o \
 	v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link

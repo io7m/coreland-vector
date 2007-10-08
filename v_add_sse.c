@@ -7,14 +7,8 @@ static inline float
 *vec_addNf_sse(float *va, const float *vb, unsigned int ne)
 {
   __m128 mva1;
-  __m128 mva2;
-  __m128 mva3;
-  __m128 mva4;
   __m128 mvb1;
-  __m128 mvb2;
-  __m128 mvb3;
-  __m128 mvb4;
-  unsigned int seg[4] = {0, 0, 0, 0};
+  unsigned int seg[4];
   const float *pvb;
   float *pva;
   unsigned int ind;
@@ -28,18 +22,18 @@ static inline float
     mvb1 = _mm_load_ps(pvb);
     mva1 = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pva, mva1);
-    mva2 = _mm_load_ps(pva + 4);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mva2 = _mm_add_ps(mva2, mvb2);
-    _mm_store_ps(pva + 4, mva2);
-    mva3 = _mm_load_ps(pva + 8);
-    mvb3 = _mm_load_ps(pvb + 8);
-    mva3 = _mm_add_ps(mva3, mvb3);
-    _mm_store_ps(pva + 8, mva3);
-    mva4 = _mm_load_ps(pva + 12);
-    mvb4 = _mm_load_ps(pvb + 12);
-    mva4 = _mm_add_ps(mva4, mvb4);
-    _mm_store_ps(pva + 12, mva4);
+    mva1 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb + 4);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pva + 4, mva1);
+    mva1 = _mm_load_ps(pva + 8);
+    mvb1 = _mm_load_ps(pvb + 8);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pva + 8, mva1);
+    mva1 = _mm_load_ps(pva + 12);
+    mvb1 = _mm_load_ps(pvb + 12);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pva + 12, mva1);
     pva += 16;
     pvb += 16;
   }
@@ -48,10 +42,10 @@ static inline float
     mvb1 = _mm_load_ps(pvb);
     mva1 = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pva, mva1);
-    mva2 = _mm_load_ps(pva + 4);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mva2 = _mm_add_ps(mva2, mvb2);
-    _mm_store_ps(pva + 4, mva2);
+    mva1 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb + 4);
+    mva1 = _mm_add_ps(mva1, mvb1);
+    _mm_store_ps(pva + 4, mva1);
     pva += 8;
     pvb += 8;
   }
@@ -73,15 +67,9 @@ static inline float *
 vec_addNfx_sse(const float *va, const float *vb, float *vr, unsigned int ne)
 {
   __m128 mva1;
-  __m128 mva2;
-  __m128 mva3;
-  __m128 mva4;
   __m128 mvb1;
-  __m128 mvb2;
-  __m128 mvb3;
-  __m128 mvb4;
   __m128 mvr;
-  unsigned int seg[4] = {0, 0, 0, 0};
+  unsigned int seg[4];
   const float *pva;
   const float *pvb;
   float *pvr;
@@ -97,17 +85,17 @@ vec_addNfx_sse(const float *va, const float *vb, float *vr, unsigned int ne)
     mvb1 = _mm_load_ps(pvb);
     mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr, mvr);
-    mva2 = _mm_load_ps(pva + 4);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mvr = _mm_add_ps(mva2, mvb2);
+    mva1 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb + 4);
+    mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr + 4, mvr);
-    mva3 = _mm_load_ps(pva + 8);
-    mvb3 = _mm_load_ps(pvb + 8);
-    mvr = _mm_add_ps(mva3, mvb3);
+    mva1 = _mm_load_ps(pva + 8);
+    mvb1 = _mm_load_ps(pvb + 8);
+    mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr + 8, mvr);
-    mva4 = _mm_load_ps(pva + 12);
-    mvb4 = _mm_load_ps(pvb + 12);
-    mvr = _mm_add_ps(mva4, mvb4);
+    mva1 = _mm_load_ps(pva + 12);
+    mvb1 = _mm_load_ps(pvb + 12);
+    mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr + 12, mvr);
     pva += 16;
     pvb += 16;
@@ -118,9 +106,9 @@ vec_addNfx_sse(const float *va, const float *vb, float *vr, unsigned int ne)
     mvb1 = _mm_load_ps(pvb);
     mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr, mvr);
-    mva2 = _mm_load_ps(pva + 4);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mvr = _mm_add_ps(mva2, mvb2);
+    mva1 = _mm_load_ps(pva + 4);
+    mvb1 = _mm_load_ps(pvb + 4);
+    mvr = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr + 4, mvr);
     pva += 8;
     pvb += 8;

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+die()
+{
+  echo "fatal: $1" 1>&2
+  exit 112
+}
+
+if [ $# -lt 4 ]
+then
+  echo 'usage: test sse|alti|plain iters size'
+  exit 111
+fi
+
+test=$1
+core=$2
+iter=$3
+size=$4
+
+. ./test-subs
+
+FILES=`cat ${test}.dep` || die "could not read ${test}.dep"
+FLAGS="${CFLAGS} ${MATH_FLAGS}"
+LIBS="${LDFLAGS} ${MATH_LIBS}"
+
+case ${core} in
+  sse) FLAGS="${FLAGS} ${SSE_FLAGS}";;
+  alti) FLAGS="${FLAGS} ${ALTIVEC_FLAGS}";;
+  plain) FLAGS="${FLAGS} -DVECTOR_NO_SIMD";;
+  *) die "unknown core" ;;
+esac
+
+name="${test}_v${size}_${core}"
+${CC} ${FLAGS} \
+  "-DTEST_VEC_SIZE=${size}" \
+  "-DTEST_ITER=${iter}" \
+  -o "${name}" "${test}.c" ${FILES} "frand.c" ${LIBS} ||
+  die "could not compile ${name}"
+
+./${name} || die "error executing ${name}"
+rm "${name}"

@@ -14,7 +14,7 @@ SSE_FLAGS="${SSE_FLAGS} ${SSE2_FLAGS}"
 if [ $? -ne 0 ]; then exit 1; fi
 CFLAGS="${CFLAGS} `head -n 1 conf-cflags`" 2>/dev/null
 if [ $? -ne 0 ]; then exit 1; fi
-CFLAGS="-I../ -lm ${CFLAGS}"
+CFLAGS="-I../ ${CFLAGS}"
 CC=`head -n 1 conf-cc` 2>/dev/null
 if [ $? -ne 0 ]; then exit 1; fi
 

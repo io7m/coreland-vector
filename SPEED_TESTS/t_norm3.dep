@@ -1,0 +1,5 @@
+../v_norm.c
+../v_dotp.c
+../v_multsc.c
+../v_simd.c
+../v_align.c

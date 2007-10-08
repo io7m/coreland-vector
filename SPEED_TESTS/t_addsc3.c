@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "vector.h"
-#include "test_const.h"
+
 
 union align16 {
   vector_4d v;
@@ -41,10 +41,10 @@ int main()
 
   fill(); 
 
-  if (((unsigned long) test.va) & 15)
-    printf("test.va unaligned %p\n", &test.va);
-  if (((unsigned long) test.vr) & 15)
-    printf("test.vr unaligned %p\n", &test.vr);
+  if (vec_unaligned(test.va))
+    fprintf(stderr, "test.va unaligned %p\n", &test.va);
+  if (vec_unaligned(test.vr))
+    fprintf(stderr, "test.vr unaligned %p\n", &test.vr);
  
   t1 = clock();
   for (ind = 0; ind < TEST_ITER; ++ind)
@@ -52,6 +52,6 @@ int main()
   t2 = clock();
 
   t = (double) t2 - t1;
-  printf("%f\n", t / CLOCKS_PER_SEC);
+  printf("%.15f\n", t / CLOCKS_PER_SEC);
   return 0;
 }

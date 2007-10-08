@@ -1,0 +1,3 @@
+../v_addsc.c
+../v_simd.c
+../v_align.c

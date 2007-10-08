@@ -1,0 +1,35 @@
+#!/bin/sh
+
+die()
+{
+  echo "fatal: $1" 1>&2
+  exit 112
+}
+
+sizes="1 2 4 8 16 32 64 128 256 512 1024"
+iters="5000000"
+
+. ./test-subs
+
+sse=0
+alti=0
+
+conf="../_sysinfo.h"
+
+grep 'HAVE_CPU_EXT_SSE*' ${conf} 1>/dev/null 2>&1
+if [ $? -eq 0 ]; then sse=1; fi
+grep 'HAVE_CPU_EXT_ALTIVEC' ${conf} 1>/dev/null 2>&1
+if [ $? -eq 0 ]; then alti=1; fi
+
+printf "%-20s%-20s%-20s%-20s\n" "test" "plain" "sse" "altivec"
+for test in `ls *.dep | awk -F. '{print $1}'`
+do
+  for size in ${sizes}
+  do
+    name="${test}_${size}"
+    out="`./run-test ${test} plain ${iters} ${size}`"
+    if [ $sse -eq 1 ]; then out="${out} `./run-test ${test} sse ${iters} ${size}`"; fi
+    if [ $alti -eq 1 ]; then out="${out} `./run-test ${test} alti ${iters} ${size}`"; fi
+    printf "%-20s%-20s%-20s%-20s\n" "${name}" ${out}
+  done
+done

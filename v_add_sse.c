@@ -25,16 +25,16 @@ static inline float
 
   for (ind = 0; ind < seg[3]; ++ind) {
     mva1 = _mm_load_ps(pva);
-    mva2 = _mm_load_ps(pva + 4);
-    mva3 = _mm_load_ps(pva + 8);
-    mva4 = _mm_load_ps(pva + 12);
     mvb1 = _mm_load_ps(pvb);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mvb3 = _mm_load_ps(pvb + 8);
-    mvb4 = _mm_load_ps(pvb + 12);
     mva1 = _mm_add_ps(mva1, mvb1);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb2 = _mm_load_ps(pvb + 4);
     mva2 = _mm_add_ps(mva2, mvb2);
+    mva3 = _mm_load_ps(pva + 8);
+    mvb3 = _mm_load_ps(pvb + 8);
     mva3 = _mm_add_ps(mva3, mvb3);
+    mva4 = _mm_load_ps(pva + 12);
+    mvb4 = _mm_load_ps(pvb + 12);
     mva4 = _mm_add_ps(mva4, mvb4);
     _mm_store_ps(pva, mva1);
     _mm_store_ps(pva + 4, mva2);
@@ -45,10 +45,10 @@ static inline float
   }
   for (ind = 0; ind < seg[2]; ++ind) {
     mva1 = _mm_load_ps(pva);
-    mva2 = _mm_load_ps(pva + 4);
     mvb1 = _mm_load_ps(pvb);
-    mvb2 = _mm_load_ps(pvb + 4);
     mva1 = _mm_add_ps(mva1, mvb1);
+    mva2 = _mm_load_ps(pva + 4);
+    mvb2 = _mm_load_ps(pvb + 4);
     mva2 = _mm_add_ps(mva2, mvb2);
     _mm_store_ps(pva, mva1);
     _mm_store_ps(pva + 4, mva2);

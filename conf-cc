@@ -1,4 +1,4 @@
-cc
+gcc42
 
 This will be used to compile C source files. Only the
 first line of this file will be used.

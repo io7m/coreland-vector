@@ -1,0 +1,77 @@
+#include "v_align.h"
+#include "v_dotp.h"
+#include "v_types.h"
+#include "v_simd.h"
+
+static inline float
+vec_dotprodNf_altivec(const float *va, const float *vb, unsigned int ne)
+{
+  vector float vva1;
+  vector float vva2;
+  vector float vva3;
+  vector float vva4;
+  vector float vvb1;
+  vector float vvb2;
+  vector float vvb3;
+  vector float vvb4;
+  vector float vlen;
+  vector unsigned int tmp;
+  unsigned int seg[4];
+  const float *pva;
+  const float *pvb;
+  unsigned int ind;
+  float res;
+
+  res = 0;
+  pva = va;
+  pvb = vb;
+  tmp = vec_splat_u32(-1);
+  vlen = vec_ctf(vec_splat_u32(0), 0);
+  vec_segments(seg, 4, ne);
+
+  for (ind = 0; ind < seg[3]; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vva3 = vec_ld(0, pva + 8);
+    vva4 = vec_ld(0, pva + 12);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vvb3 = vec_ld(0, pvb + 8);
+    vvb4 = vec_ld(0, pvb + 12);
+    vlen = vec_madd(vva1, vvb1, vlen);
+    vlen = vec_madd(vva2, vvb2, vlen);
+    vlen = vec_madd(vva3, vvb3, vlen);
+    vlen = vec_madd(vva4, vvb4, vlen);
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 4));
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 8));
+    pva += 16;
+    pvb += 16;
+  }
+  for (ind = 0; ind < seg[2]; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vva2 = vec_ld(0, pva + 4);
+    vvb1 = vec_ld(0, pvb);
+    vvb2 = vec_ld(0, pvb + 4);
+    vlen = vec_madd(vva1, vvb1, vlen);
+    vlen = vec_madd(vva2, vvb2, vlen);
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 4));
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 8));
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < seg[1]; ++ind) {
+    vva1 = vec_ld(0, pva);
+    vvb1 = vec_ld(0, pvb);
+    vlen = vec_madd(vva1, vvb1, vlen);
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 4));
+    vlen = vec_add(vlen, vec_sld(vlen, vlen, 8));
+    pva += 4;
+    pvb += 4;
+  }
+  vec_ste(vlen, 0, &res);
+
+  for (ind = 0; ind < seg[0]; ++ind)
+    res += pva[ind] * pvb[ind];
+
+  return res;
+}

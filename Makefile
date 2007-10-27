@@ -795,7 +795,7 @@ v_inline.h:\
 _sd_inline.h 
 
 v_mag.o:\
-cc-compile v_mag.c v_mag.h v_dotp.h v_simd.h v_math.h 
+cc-compile v_mag.c v_math.h v_mag.h v_dotp.h v_simd.h 
 	./cc-compile v_mag.c
 
 v_math.h:\
@@ -806,20 +806,50 @@ cc-compile v_math.c v_math.h
 	./cc-compile v_math.c
 
 v_mult.o:\
-cc-compile v_mult.c v_align.h v_mult.h v_simd.h 
+cc-compile v_mult.c v_align.h v_mult.h v_simd.h v_mult_sse.c v_mult_alti.c 
 	./cc-compile v_mult.c
 
+v_mult_alti.o:\
+cc-compile v_mult_alti.c v_align.h v_mult.h v_simd.h 
+	./cc-compile v_mult_alti.c
+
+v_mult_sse.o:\
+cc-compile v_mult_sse.c v_align.h v_mult.h v_simd.h 
+	./cc-compile v_mult_sse.c
+
 v_multsc.o:\
-cc-compile v_multsc.c v_align.h v_multsc.h v_simd.h v_types.h 
+cc-compile v_multsc.c v_align.h v_multsc.h v_simd.h v_types.h v_multsc_sse.c \
+v_multsc_sse2.c v_multsc_alti.c 
 	./cc-compile v_multsc.c
 
 v_multsc_alti.o:\
-cc-compile v_multsc_alti.c 
+cc-compile v_multsc_alti.c v_align.h v_multsc.h v_simd.h v_types.h 
 	./cc-compile v_multsc_alti.c
 
+v_multsc_sse.o:\
+cc-compile v_multsc_sse.c v_align.h v_multsc.h v_simd.h v_types.h 
+	./cc-compile v_multsc_sse.c
+
+v_multsc_sse2.o:\
+cc-compile v_multsc_sse2.c v_align.h v_multsc.h v_simd.h v_types.h 
+	./cc-compile v_multsc_sse2.c
+
 v_nega.o:\
-cc-compile v_nega.c v_align.h v_nega.h v_simd.h v_types.h 
+cc-compile v_nega.c v_align.h v_nega.h v_simd.h v_types.h v_nega_sse.c \
+v_nega_sse2.c v_nega_alti.c 
 	./cc-compile v_nega.c
+
+v_nega_alti.o:\
+cc-compile v_nega_alti.c v_align.h v_nega.h v_simd.h v_types.h 
+	./cc-compile v_nega_alti.c
+
+v_nega_sse.o:\
+cc-compile v_nega_sse.c v_align.h v_nega.h v_simd.h v_types.h 
+	./cc-compile v_nega_sse.c
+
+v_nega_sse2.o:\
+cc-compile v_nega_sse2.c v_align.h v_nega.h v_simd.h v_types.h 
+	./cc-compile v_nega_sse2.c
 
 v_norm.o:\
 cc-compile v_norm.c v_dotp.h v_norm.h v_multsc.h v_simd.h v_types.h v_math.h 
@@ -833,12 +863,38 @@ cc-compile v_simd.c v_simd.h
 	./cc-compile v_simd.c
 
 v_sub.o:\
-cc-compile v_sub.c v_align.h v_sub.h v_simd.h 
+cc-compile v_sub.c v_align.h v_sub.h v_simd.h v_sub_sse.c v_sub_sse2.c \
+v_sub_alti.c 
 	./cc-compile v_sub.c
 
+v_sub_alti.o:\
+cc-compile v_sub_alti.c v_align.h v_sub.h v_simd.h 
+	./cc-compile v_sub_alti.c
+
+v_sub_sse.o:\
+cc-compile v_sub_sse.c v_align.h v_sub.h v_simd.h 
+	./cc-compile v_sub_sse.c
+
+v_sub_sse2.o:\
+cc-compile v_sub_sse2.c v_align.h v_sub.h v_simd.h 
+	./cc-compile v_sub_sse2.c
+
 v_subsc.o:\
-cc-compile v_subsc.c v_align.h v_subsc.h v_simd.h v_types.h 
+cc-compile v_subsc.c v_align.h v_subsc.h v_simd.h v_types.h v_subsc_sse.c \
+v_subsc_sse2.c v_subsc_alti.c 
 	./cc-compile v_subsc.c
+
+v_subsc_alti.o:\
+cc-compile v_subsc_alti.c v_align.h v_subsc.h v_simd.h v_types.h 
+	./cc-compile v_subsc_alti.c
+
+v_subsc_sse.o:\
+cc-compile v_subsc_sse.c v_align.h v_subsc.h v_simd.h v_types.h 
+	./cc-compile v_subsc_sse.c
+
+v_subsc_sse2.o:\
+cc-compile v_subsc_sse2.c v_align.h v_subsc.h v_simd.h v_types.h 
+	./cc-compile v_subsc_sse2.c
 
 v_types.h:\
 v_simd.h 
@@ -918,8 +974,11 @@ obj_clean:
 	v_div.o v_div_alti.o v_div_sse.o v_div_sse2.o v_divsc.o \
 	v_divsc_alti.o v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o \
 	v_dotp_sse.o v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o v_mult.o \
-	v_multsc.o v_multsc_alti.o v_nega.o v_norm.o v_simd.o v_sub.o \
-	v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a 
+	v_mult_alti.o v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
+	v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o \
+	v_norm.o v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o \
+	v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o v_xprod.o \
+	v_zero.o vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

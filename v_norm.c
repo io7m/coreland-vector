@@ -6,7 +6,8 @@
 #include "v_types.h"
 #include "v_math.h"
 
-float *vec_normNf(float *va, unsigned int n)
+float *
+vec_normNf(float *va, unsigned int n)
 {
   float mag;
   float rcp;
@@ -18,7 +19,9 @@ float *vec_normNf(float *va, unsigned int n)
   }
   return va;
 }
-float *vec_normNfx(const float *va, float *vr, unsigned int n)
+
+float *
+vec_normNfx(const float *va, float *vr, unsigned int n)
 {
   float mag;
   float rcp;
@@ -30,7 +33,9 @@ float *vec_normNfx(const float *va, float *vr, unsigned int n)
   }
   return vr;
 }
-double *vec_normNd(double *va, unsigned int n)
+
+double *
+vec_normNd(double *va, unsigned int n)
 {
   double mag;
   double rcp;
@@ -42,7 +47,9 @@ double *vec_normNd(double *va, unsigned int n)
   }
   return va;
 }
-double *vec_normNdx(const double *va, double *vr, unsigned int n)
+
+double *
+vec_normNdx(const double *va, double *vr, unsigned int n)
 {
   double mag;
   double rcp;

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+out="`date +%Y%m%d_%H%M%S`.log"
+echo log/$out
+./run-tests | tee "log/$out"

@@ -18,8 +18,9 @@ float *
 vec_divNf(float *va, const float *vb, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
-    return vec_divNf_sse(va, vb, n);
+  if (n > 3)
+    if (!vec_unaligned(va) && !vec_unaligned(vb))
+      return vec_divNf_sse(va, vb, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vb))
@@ -33,8 +34,9 @@ float *
 vec_divNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
-    return vec_divNfx_sse(va, vb, vr, n);
+  if (n > 3)
+    if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+      return vec_divNfx_sse(va, vb, vr, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
   if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))

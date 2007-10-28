@@ -2,4 +2,5 @@
 
 out="`date +%Y%m%d_%H%M%S`.log"
 echo log/$out
-./run-tests | tee "log/$out"
+grep sysinfo ../sysdeps.out | tee -a "log/$out"
+time ./run-tests | tee -a "log/$out"

@@ -28,8 +28,18 @@ do
   do
     name="${test}_${size}"
     out="`./run-test ${test} plain ${iters} ${size}`"
-    if [ $sse -eq 1 ]; then out="${out} `./run-test ${test} sse ${iters} ${size}`"; fi
-    if [ $alti -eq 1 ]; then out="${out} `./run-test ${test} alti ${iters} ${size}`"; fi
+    if [ $sse -eq 1 ]
+    then
+      out="${out} `./run-test ${test} sse ${iters} ${size}`"
+    else
+      out="${out} na"
+    fi
+    if [ $alti -eq 1 ]
+    then
+      out="${out} `./run-test ${test} alti ${iters} ${size}`"
+    else
+      out="${out} na"
+    fi
     printf "%-20s%-20s%-20s%-20s\n" "${name}" ${out}
   done
 done

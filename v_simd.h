@@ -26,6 +26,6 @@
 #include <emmintrin.h>
 #endif
 
-void vec_segments(unsigned int *, unsigned int, unsigned int);
+inline void vec_segments(unsigned int *, unsigned int, unsigned int);
 
 #endif

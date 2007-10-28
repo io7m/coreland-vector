@@ -1,3 +1,4 @@
+#include "v_inline.h"
 #include "v_simd.h"
 
 /*
@@ -19,7 +20,8 @@
  *    = 55
  */
 
-void vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)
+inline void
+vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)
 {
   for (;;) {
     if (hm - 1) {

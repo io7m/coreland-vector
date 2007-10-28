@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "../vector.h"
+#include "../v_align.h"
 #include "t_util.h"
 
 int main(void)

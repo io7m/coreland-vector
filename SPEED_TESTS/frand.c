@@ -1,5 +1,4 @@
 #include "frand.h"
-#include "frand.h"
 
 #define RANDOM_MAX 100000
 

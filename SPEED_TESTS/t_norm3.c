@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "vector.h"
+#include "v_align.h"
 
 
 union align16 {

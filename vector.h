@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include "v_abs.h"
 #include "v_add.h"
 #include "v_addsc.h"
 #include "v_angle.h"

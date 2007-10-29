@@ -1,3 +1,4 @@
+v_abs.o
 v_add.o
 v_addsc.o
 v_align.o

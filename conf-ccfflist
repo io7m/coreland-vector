@@ -1,4 +1,5 @@
 flags-sse
 flags-sse2
+flags-sse3
 flags-altivec
 flags-math

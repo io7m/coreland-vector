@@ -1,4 +1,4 @@
--g -Os -W -Wall -Werror -pedantic-errors -std=c99 -Wno-unused-parameter -DVECTOR_VERBOSE_UNALIGNED
+-g -Os -W -Wall -Werror -pedantic-errors -std=c99 -Wno-unused-parameter
 
 These are optional compiler flags. Only the first line of this
 file will be used.

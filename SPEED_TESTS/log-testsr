@@ -1,0 +1,6 @@
+#!/bin/sh
+
+out="`date +%Y%m%d_%H%M%S`.log"
+echo log/$out
+grep sysinfo ../sysdeps.out | tee -a "log/$out"
+time ./run-testsr $@ | tee -a "log/$out"

@@ -66,7 +66,7 @@ vec_negaNf_sse_gte16(float *va, unsigned int ne)
     _mm_store_ps(pva, mva4); pva += 4;
   }
 
-  vec_negaNf_sse_lt16(pva, nr);
+  if (nr) vec_negaNf_sse_lt16(pva, nr);
   return va;
 }
 
@@ -144,7 +144,7 @@ vec_negaNfx_sse_gte16(const float *va, float *vr, unsigned int ne)
     pvr += 16; 
   }
 
-  vec_negaNfx_sse_lt16(pva, pvr, nr);
+  if (nr) vec_negaNfx_sse_lt16(pva, pvr, nr);
   return vr;
 }
 

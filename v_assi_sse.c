@@ -62,7 +62,7 @@ vec_assignNf_sse_gte16(float *va, const float *vb, unsigned int ne)
     _mm_pause();
   }
 
-  vec_assignNf_sse_lt16(pva, pvb, nr);
+  if (nr) vec_assignNf_sse_lt16(pva, pvb, nr);
   return va;
 }
 

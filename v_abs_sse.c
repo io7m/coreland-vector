@@ -65,7 +65,7 @@ vec_absNf_sse_gte16(float *va, unsigned int ne)
     _mm_store_ps(pva, mva4); pva += 4;
   }
 
-  vec_absNf_sse_lt16(pva, nr);
+  if (nr) vec_absNf_sse_lt16(pva, nr);
   return va;
 }
 

@@ -48,7 +48,7 @@ vec_zeroNf_sse_gte16(float *va, unsigned int ne)
     _mm_store_ps(pva, mvz); pva += 4;
   }
 
-  vec_zeroNf_sse_lt16(pva, nr);
+  if (nr) vec_zeroNf_sse_lt16(pva, nr);
   return va;
 }
 

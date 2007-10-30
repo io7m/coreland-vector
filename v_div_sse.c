@@ -76,7 +76,7 @@ vec_divNf_sse_gte16(float *va, const float *vb, unsigned int ne)
     _mm_store_ps(pva, mva4); pva += 4;
   }
 
-  vec_divNf_sse_lt16(pva, pvb, nr);
+  if (nr) vec_divNf_sse_lt16(pva, pvb, nr);
   return va;
 }
 
@@ -163,7 +163,7 @@ vec_divNfx_sse_gte16(const float *va, const float *vb, float *vr, unsigned int n
     _mm_store_ps(pvr, mva4); pvr += 4;
   }
 
-  vec_divNfx_sse_lt16(pva, pvb, pvr, nr);
+  if (nr) vec_divNfx_sse_lt16(pva, pvb, pvr, nr);
   return vr;
 }
 

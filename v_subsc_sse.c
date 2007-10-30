@@ -67,7 +67,7 @@ vec_subscNf_sse_gte16(float *va, float sc, unsigned int ne)
     pva += 16;
   }
 
-  vec_subscNf_sse_lt16(pva, sc, nr);
+  if (nr) vec_subscNf_sse_lt16(pva, sc, nr);
   return va;
 }
 
@@ -148,7 +148,7 @@ vec_subscNfx_sse_gte16(const float *va, float *vr, float sc, unsigned int ne)
     pvr += 16; 
   }
 
-  vec_subscNfx_sse_lt16(pva, pvr, sc, nr);
+  if (nr) vec_subscNfx_sse_lt16(pva, pvr, sc, nr);
   return vr;
 }
 

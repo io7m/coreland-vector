@@ -8,40 +8,46 @@ vec_dotprodNf_sse(const float *va, const float *vb, unsigned int ne)
 {
   vector_4f vva1;
   vector_4f vva2;
+  vector_4f vva3;
+  vector_4f vva4;
   vector_4f vvb1;
   vector_4f vvb2;
-  unsigned int seg[3];
+  vector_4f vvb3;
+  vector_4f vvb4;
   const float *pvb;
   const float *pva;
-  register float res;
+  float res;
   unsigned int ind;
+  unsigned int n16;
+  unsigned int nr;
+
+  n16 = ne >> 4;
+  nr = ne - (n16 << 4);
 
   res = 0;
   pva = va;
   pvb = vb;
-  vec_segments(seg, 3, ne);
 
-  for (ind = 0; ind < seg[2]; ++ind) {
-    vva1.v = _mm_load_ps(pva);
-    vva2.v = _mm_load_ps(pva + 4);
-    vvb1.v = _mm_load_ps(pvb);
-    vvb2.v = _mm_load_ps(pvb + 4);
+  for (ind = 0; ind < n16; ++ind) {
+    vva1.v = _mm_load_ps(pva); pva += 4;
+    vva2.v = _mm_load_ps(pva); pva += 4;
+    vva3.v = _mm_load_ps(pva); pva += 4;
+    vva4.v = _mm_load_ps(pva); pva += 4;
+    vvb1.v = _mm_load_ps(pvb); pvb += 4;
     vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
+    vvb2.v = _mm_load_ps(pvb); pvb += 4;
     vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
+    vvb3.v = _mm_load_ps(pvb); pvb += 4;
+    vva3.v = _mm_mul_ps(vva3.v, vvb3.v);
+    vvb4.v = _mm_load_ps(pvb); pvb += 4;
+    vva4.v = _mm_mul_ps(vva4.v, vvb4.v);
+    _mm_pause();
     res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
     res += vva2.f[0] + vva2.f[1] + vva2.f[2] + vva2.f[3];
-    pva += 8;
-    pvb += 8;
+    res += vva3.f[0] + vva3.f[1] + vva3.f[2] + vva3.f[3];
+    res += vva4.f[0] + vva4.f[1] + vva4.f[2] + vva4.f[3];
   }
-  for (ind = 0; ind < seg[1]; ++ind) {
-    vva1.v = _mm_load_ps(pva);
-    vvb1.v = _mm_load_ps(pvb);
-    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
-    res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
-    pva += 4;
-    pvb += 4;
-  }
-  for (ind = 0; ind < seg[0]; ++ind)
+  for (ind = 0; ind < nr; ++ind)
     res += pva[ind] * pvb[ind];
 
   return res;

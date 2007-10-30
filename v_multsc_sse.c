@@ -96,10 +96,9 @@ vec_multscNfx_sse_lt16(const float *va, float *vr, float sc, unsigned int ne)
   pvr = vr;
 
   for (ind = 0; ind < n4; ++ind) {
-    mva1 = _mm_load_ps(pva + 0);
+    mva1 = _mm_load_ps(pva); pva += 4;
     mva1 = _mm_mul_ps(mva1, vsc);
-    _mm_store_ps(pvr + 0, mva1);
-    pva += 4;
+    _mm_store_ps(pvr, mva1);
     pvr += 4;
   }
   for (ind = 0; ind < nr; ++ind)
@@ -142,6 +141,7 @@ vec_multscNfx_sse_gte16(const float *va, float *vr, float sc, unsigned int ne)
     _mm_store_ps(pvr + 4, mva2);
     _mm_store_ps(pvr + 8, mva3);
     _mm_store_ps(pvr + 12, mva4);
+    _mm_pause();
     pva += 16;
     pvr += 16; 
   }

@@ -111,6 +111,7 @@ vec_addNfx_sse_lt16(const float *va, const float *vb, float *vr, unsigned int ne
     mvb1 = _mm_load_ps(pvb); pvb += 4;
     mva1 = _mm_add_ps(mva1, mvb1);
     _mm_store_ps(pvr, mva1);
+    _mm_pause();
     pvr += 4;
   }
   for (ind = 0; ind < nr; ++ind)
@@ -161,6 +162,7 @@ vec_addNfx_sse_gte16(const float *va, const float *vb, float *vr, unsigned int n
     _mm_store_ps(pvr, mva3); pvr += 4;
     mva4 = _mm_add_ps(mva4, mvb4);
     _mm_store_ps(pvr, mva4); pvr += 4;
+    _mm_pause();
   }
 
   vec_addNfx_sse_lt16(pva, pvb, pvr, nr);

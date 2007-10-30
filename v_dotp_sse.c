@@ -28,11 +28,10 @@ vec_dotprodNf_sse_lt16(const float *va, const float *vb, unsigned int ne)
     vva1.v = _mm_load_ps(pva); pva += 4;
     vva2.v = _mm_load_ps(pva); pva += 4;
     vvb1.v = _mm_load_ps(pvb); pvb += 4;
-    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
     vvb2.v = _mm_load_ps(pvb); pvb += 4;
+    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
     vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
     vva1.v = _mm_add_ps(vva1.v, vva2.v);
-    _mm_pause();
     res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
   }
   for (ind = 0; ind < nr; ++ind)
@@ -72,12 +71,12 @@ vec_dotprodNf_sse_gte16(const float *va, const float *vb, unsigned int ne)
     vva3.v = _mm_load_ps(pva); pva += 4;
     vva4.v = _mm_load_ps(pva); pva += 4;
     vvb1.v = _mm_load_ps(pvb); pvb += 4;
-    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
     vvb2.v = _mm_load_ps(pvb); pvb += 4;
-    vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
     vvb3.v = _mm_load_ps(pvb); pvb += 4;
-    vva3.v = _mm_mul_ps(vva3.v, vvb3.v);
     vvb4.v = _mm_load_ps(pvb); pvb += 4;
+    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
+    vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
+    vva3.v = _mm_mul_ps(vva3.v, vvb3.v);
     vva4.v = _mm_mul_ps(vva4.v, vvb4.v);
     vva1.v = _mm_add_ps(vva1.v, vva2.v);
     vva1.v = _mm_add_ps(vva1.v, vva3.v);

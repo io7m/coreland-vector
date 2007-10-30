@@ -10,19 +10,22 @@ vec_assignNf_sse_lt16(float *va, const float *vb, unsigned int ne)
   float *pva;
   const float *pvb;
   unsigned int ind;
-  unsigned int nv = ne / 4;
-  unsigned int nc = ne % 4;
+  unsigned int n4;
+  unsigned int nr;
+
+  n4 = ne >> 2;
+  nr = ne - (n4 << 2);
 
   pva = va;
   pvb = vb;
 
-  for (ind = 0; ind < nv; ++ind) {
+  for (ind = 0; ind < n4; ++ind) {
     mvb1 = _mm_load_ps(pvb);
     _mm_store_ps(pva, mvb1);
-    pva += 4;
     pvb += 4;
+    pva += 4;
   }
-  for (ind = 0; ind < nc; ++ind)
+  for (ind = 0; ind < nr; ++ind)
     pva[ind] = pvb[ind];
 
   return va;
@@ -38,26 +41,28 @@ vec_assignNf_sse_gte16(float *va, const float *vb, unsigned int ne)
   float *pva;
   const float *pvb;
   unsigned int ind;
-  unsigned int nv = ne / 16;
-  unsigned int nc = ne % 16;
+  unsigned int n16;
+  unsigned int nr;
+
+  n16 = ne >> 4;
+  nr = ne - (n16 << 4);
 
   pva = va;
   pvb = vb;
 
-  for (ind = 0; ind < nv; ++ind) {
-    mvb1 = _mm_load_ps(pvb + 0);
-    mvb2 = _mm_load_ps(pvb + 4);
-    mvb3 = _mm_load_ps(pvb + 8);
-    mvb4 = _mm_load_ps(pvb + 12);
-    _mm_store_ps(pva + 0, mvb1);
-    _mm_store_ps(pva + 4, mvb2);
-    _mm_store_ps(pva + 8, mvb3);
-    _mm_store_ps(pva + 12, mvb4);
-    pva += 16;
-    pvb += 16;
+  for (ind = 0; ind < n16; ++ind) {
+    mvb1 = _mm_load_ps(pvb); pvb += 4;
+    mvb2 = _mm_load_ps(pvb); pvb += 4;
+    mvb3 = _mm_load_ps(pvb); pvb += 4;
+    mvb4 = _mm_load_ps(pvb); pvb += 4;
+    _mm_store_ps(pva, mvb1); pva += 4;
+    _mm_store_ps(pva, mvb2); pva += 4;
+    _mm_store_ps(pva, mvb3); pva += 4;
+    _mm_store_ps(pva, mvb4); pva += 4;
+    _mm_pause();
   }
 
-  vec_assignNf_sse_lt16(pva, pvb, nc);
+  vec_assignNf_sse_lt16(pva, pvb, nr);
   return va;
 }
 

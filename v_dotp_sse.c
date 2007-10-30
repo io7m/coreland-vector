@@ -4,7 +4,45 @@
 #include "v_simd.h"
 
 static inline float
-vec_dotprodNf_sse(const float *va, const float *vb, unsigned int ne)
+vec_dotprodNf_sse_lt16(const float *va, const float *vb, unsigned int ne)
+{
+  vector_4f vva1;
+  vector_4f vva2;
+  vector_4f vvb1;
+  vector_4f vvb2;
+  const float *pvb;
+  const float *pva;
+  float res;
+  unsigned int ind;
+  unsigned int n8;
+  unsigned int nr;
+
+  n8 = ne >> 3;
+  nr = ne - (n8 << 3);
+
+  res = 0;
+  pva = va;
+  pvb = vb;
+
+  for (ind = 0; ind < n8; ++ind) {
+    vva1.v = _mm_load_ps(pva); pva += 4;
+    vva2.v = _mm_load_ps(pva); pva += 4;
+    vvb1.v = _mm_load_ps(pvb); pvb += 4;
+    vva1.v = _mm_mul_ps(vva1.v, vvb1.v);
+    vvb2.v = _mm_load_ps(pvb); pvb += 4;
+    vva2.v = _mm_mul_ps(vva2.v, vvb2.v);
+    vva1.v = _mm_add_ps(vva1.v, vva2.v);
+    _mm_pause();
+    res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
+  }
+  for (ind = 0; ind < nr; ++ind)
+    res += pva[ind] * pvb[ind];
+
+  return res;
+}
+
+static inline float
+vec_dotprodNf_sse_gte16(const float *va, const float *vb, unsigned int ne)
 {
   vector_4f vva1;
   vector_4f vva2;
@@ -46,8 +84,14 @@ vec_dotprodNf_sse(const float *va, const float *vb, unsigned int ne)
     vva1.v = _mm_add_ps(vva1.v, vva4.v);
     res += vva1.f[0] + vva1.f[1] + vva1.f[2] + vva1.f[3];
   }
-  for (ind = 0; ind < nr; ++ind)
-    res += pva[ind] * pvb[ind];
 
+  if (nr) vec_dotprodNf_sse_lt16(pva, pvb, nr);
   return res;
+}
+
+static inline float
+vec_dotprodNf_sse(const float *va, const float *vb, unsigned int ne)
+{
+  return (ne >= 16) ? vec_dotprodNf_sse_gte16(va, vb, ne)
+                    : vec_dotprodNf_sse_lt16(va, vb, ne);
 }

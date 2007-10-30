@@ -10,3 +10,4 @@
 20071008 code: rewrote speed tests, renamed source files to v_* instead of vec_*
                and added sd-inline for inlining calls.
 20071029 code: added v_abs.
+20071030 code: massive optimization over entire code.

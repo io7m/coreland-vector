@@ -20,10 +20,10 @@ float *
 vec_zeroNf(float *va, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va)) return vec_zeroNf_sse(va, n);
+  if (vec_aligned(va)) return vec_zeroNf_sse(va, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va)) return vec_zeroNf_altivec(va, n);
+  if (vec_aligned(va)) return vec_zeroNf_altivec(va, n);
 #endif
   vec_ZERO(va, n, float);
   return va;
@@ -33,7 +33,7 @@ double *
 vec_zeroNd(double *va, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va)) return vec_zeroNd_sse2(va, n);
+  if (vec_aligned(va)) return vec_zeroNd_sse2(va, n);
 #endif
   vec_ZERO(va, n, double);
   return va;

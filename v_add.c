@@ -19,11 +19,11 @@ float *
 vec_addNf(float *va, const float *vb, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_addNf_sse(va, vb, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_addNf_altivec(va, vb, n);
 #endif
   vec_ADD(va, vb, n, float);
@@ -34,11 +34,11 @@ float *
 vec_addNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+  if (vec_aligned(va) && vec_aligned(vb) && vec_aligned(vr))
     return vec_addNfx_sse(va, vb, vr, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+  if (vec_aligned(va) && vec_aligned(vb) && vec_aligned(vr))
     return vec_addNfx_altivec(va, vb, vr, n);
 #endif
   vec_ADDX(va, vb, vr, n, float);
@@ -49,7 +49,7 @@ double *
 vec_addNd(double *va, const double *vb, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_addNd_sse2(va, vb, n);
 #endif
   vec_ADD(va, vb, n, double);
@@ -60,7 +60,7 @@ double *
 vec_addNdx(const double *va, const double *vb, double *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+  if (vec_aligned(va) && vec_aligned(vb) && vec_aligned(vr))
     return vec_addNdx_sse2(va, vb, vr, n);
 #endif
   vec_ADDX(va, vb, vr, n, double);

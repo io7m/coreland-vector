@@ -26,11 +26,11 @@ vec_dotprodNf(const float *va, const float *vb, unsigned int n)
 {
   float f;
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_dotprodNf_sse(va, vb, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_dotprodNf_altivec(va, vb, n);
 #endif
   vec_DOTPROD(va, vb, &f, n, float);
@@ -44,12 +44,12 @@ vec_dotprodNd(const double *va, const double *vb, unsigned int n)
 /*
 Not implemented
 #ifdef SYS_HAVE_CPU_EXT_SSE3
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_dotprodNd_sse3(va, vb, n);
 #endif
 */
 #ifdef SYS_HAVE_CPU_EXT_SSE2
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_dotprodNd_sse2(va, vb, n);
 #endif
   vec_DOTPROD(va, vb, &d, n, double);

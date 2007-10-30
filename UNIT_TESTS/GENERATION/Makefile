@@ -3,127 +3,190 @@
 default: all
 
 all:\
-	add_gen addsc_gen assi_gen div_gen divsc_gen dotprod_gen frand.a \
-	mag_gen mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen \
-	xprod_gen zero_gen 
+abs_gen add_gen addsc_gen assi_gen div_gen divsc_gen dotprod_gen frand.a \
+mag_gen mult_gen multsc_gen nega_gen norm_gen sub_gen subsc_gen xprod_gen 
+
+abs_gen:\
+cc-link abs_gen.ld abs_gen.o frand.a 
+	./cc-link abs_gen abs_gen.o frand.a 
+
+abs_gen.o:\
+cc-compile abs_gen.c frand.h 
+	./cc-compile abs_gen.c
 
 add_gen:\
-	ld add_gen.ld add_gen.o frand.a 
-	./ld add_gen add_gen.o frand.a 
+cc-link add_gen.ld add_gen.o frand.a 
+	./cc-link add_gen add_gen.o frand.a 
+
 add_gen.o:\
-	cc add_gen.c frand.h 
-	./cc add_gen.c
+cc-compile add_gen.c frand.h 
+	./cc-compile add_gen.c
+
 addsc_gen:\
-	ld addsc_gen.ld addsc_gen.o frand.a 
-	./ld addsc_gen addsc_gen.o frand.a 
+cc-link addsc_gen.ld addsc_gen.o frand.a 
+	./cc-link addsc_gen addsc_gen.o frand.a 
+
 addsc_gen.o:\
-	cc addsc_gen.c frand.h 
-	./cc addsc_gen.c
+cc-compile addsc_gen.c frand.h 
+	./cc-compile addsc_gen.c
+
 assi_gen:\
-	ld assi_gen.ld assi_gen.o frand.a 
-	./ld assi_gen assi_gen.o frand.a 
+cc-link assi_gen.ld assi_gen.o frand.a 
+	./cc-link assi_gen assi_gen.o frand.a 
+
 assi_gen.o:\
-	cc assi_gen.c frand.h 
-	./cc assi_gen.c
-cc: conf-cc conf-cctype conf-cflags 
+cc-compile assi_gen.c frand.h 
+	./cc-compile assi_gen.c
+
+cc-compile:\
+conf-cc conf-cctype conf-systype 
+
+cc-link:\
+conf-ld conf-ldtype conf-systype 
+
+cc-slib:\
+conf-systype 
+
 conf-cctype:\
-	conf-systype conf-cc mk-cctype 
-	./mk-cctype > conf-cctype
+conf-systype conf-cc mk-cctype 
+	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
+
+conf-ldtype:\
+conf-systype conf-ld conf-cctype mk-ldtype 
+	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
+
 conf-systype:\
-	mk-systype 
-	./mk-systype > conf-systype
+mk-systype 
+	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
+
 div_gen:\
-	ld div_gen.ld div_gen.o frand.a 
-	./ld div_gen div_gen.o frand.a 
+cc-link div_gen.ld div_gen.o frand.a 
+	./cc-link div_gen div_gen.o frand.a 
+
 div_gen.o:\
-	cc div_gen.c frand.h 
-	./cc div_gen.c
+cc-compile div_gen.c frand.h 
+	./cc-compile div_gen.c
+
 divsc_gen:\
-	ld divsc_gen.ld divsc_gen.o frand.a 
-	./ld divsc_gen divsc_gen.o frand.a 
+cc-link divsc_gen.ld divsc_gen.o frand.a 
+	./cc-link divsc_gen divsc_gen.o frand.a 
+
 divsc_gen.o:\
-	cc divsc_gen.c frand.h 
-	./cc divsc_gen.c
+cc-compile divsc_gen.c frand.h 
+	./cc-compile divsc_gen.c
+
 dotprod_gen:\
-	ld dotprod_gen.ld dotprod_gen.o 
-	./ld dotprod_gen dotprod_gen.o 
+cc-link dotprod_gen.ld dotprod_gen.o 
+	./cc-link dotprod_gen dotprod_gen.o 
+
 dotprod_gen.o:\
-	cc dotprod_gen.c 
-	./cc dotprod_gen.c
+cc-compile dotprod_gen.c 
+	./cc-compile dotprod_gen.c
+
 frand.a:\
-	mk-slib frand.sld frand.o 
-	./mk-slib frand frand.o 
+cc-slib frand.sld frand.o 
+	./cc-slib frand frand.o 
+
 frand.o:\
-	cc frand.c frand.h 
-	./cc frand.c
-ld: conf-ld 
+cc-compile frand.c frand.h 
+	./cc-compile frand.c
+
 mag_gen:\
-	ld mag_gen.ld mag_gen.lff mag_gen.o 
-	./ld mag_gen mag_gen.o 
-mag_gen.lff: libs-sysmath 
+cc-link mag_gen.ld mag_gen.lff mag_gen.o 
+	./cc-link mag_gen mag_gen.o 
+
+mag_gen.lff:\
+libs-sysmath 
+
 mag_gen.o:\
-	cc mag_gen.c 
-	./cc mag_gen.c
-mk-cctype: conf-cc conf-systype 
-mk-slib: conf-systype 
+cc-compile mag_gen.c 
+	./cc-compile mag_gen.c
+
+mk-cctype:\
+conf-cc conf-systype 
+
+mk-ctxt:\
+mk-mk-ctxt 
+	./mk-mk-ctxt
+
+mk-ldtype:\
+conf-cctype conf-systype 
+
+mk-mk-ctxt:\
+conf-cc 
+
+mk-systype:\
+conf-cc 
+
 mult_gen:\
-	ld mult_gen.ld mult_gen.o frand.a 
-	./ld mult_gen mult_gen.o frand.a 
+cc-link mult_gen.ld mult_gen.o frand.a 
+	./cc-link mult_gen mult_gen.o frand.a 
+
 mult_gen.o:\
-	cc mult_gen.c frand.h 
-	./cc mult_gen.c
+cc-compile mult_gen.c frand.h 
+	./cc-compile mult_gen.c
+
 multsc_gen:\
-	ld multsc_gen.ld multsc_gen.o frand.a 
-	./ld multsc_gen multsc_gen.o frand.a 
+cc-link multsc_gen.ld multsc_gen.o frand.a 
+	./cc-link multsc_gen multsc_gen.o frand.a 
+
 multsc_gen.o:\
-	cc multsc_gen.c frand.h 
-	./cc multsc_gen.c
+cc-compile multsc_gen.c frand.h 
+	./cc-compile multsc_gen.c
+
 nega_gen:\
-	ld nega_gen.ld nega_gen.o frand.a 
-	./ld nega_gen nega_gen.o frand.a 
+cc-link nega_gen.ld nega_gen.o frand.a 
+	./cc-link nega_gen nega_gen.o frand.a 
+
 nega_gen.o:\
-	cc nega_gen.c frand.h 
-	./cc nega_gen.c
+cc-compile nega_gen.c frand.h 
+	./cc-compile nega_gen.c
+
 norm_gen:\
-	ld norm_gen.ld norm_gen.lff norm_gen.o frand.a 
-	./ld norm_gen norm_gen.o frand.a 
-norm_gen.lff: libs-sysmath 
+cc-link norm_gen.ld norm_gen.lff norm_gen.o frand.a 
+	./cc-link norm_gen norm_gen.o frand.a 
+
+norm_gen.lff:\
+libs-sysmath 
+
 norm_gen.o:\
-	cc norm_gen.c frand.h 
-	./cc norm_gen.c
+cc-compile norm_gen.c frand.h 
+	./cc-compile norm_gen.c
+
 sub_gen:\
-	ld sub_gen.ld sub_gen.o frand.a 
-	./ld sub_gen sub_gen.o frand.a 
+cc-link sub_gen.ld sub_gen.o frand.a 
+	./cc-link sub_gen sub_gen.o frand.a 
+
 sub_gen.o:\
-	cc sub_gen.c frand.h 
-	./cc sub_gen.c
+cc-compile sub_gen.c frand.h 
+	./cc-compile sub_gen.c
+
 subsc_gen:\
-	ld subsc_gen.ld subsc_gen.o frand.a 
-	./ld subsc_gen subsc_gen.o frand.a 
+cc-link subsc_gen.ld subsc_gen.o frand.a 
+	./cc-link subsc_gen subsc_gen.o frand.a 
+
 subsc_gen.o:\
-	cc subsc_gen.c frand.h 
-	./cc subsc_gen.c
+cc-compile subsc_gen.c frand.h 
+	./cc-compile subsc_gen.c
+
 xprod_gen:\
-	ld xprod_gen.ld xprod_gen.o 
-	./ld xprod_gen xprod_gen.o 
+cc-link xprod_gen.ld xprod_gen.o 
+	./cc-link xprod_gen xprod_gen.o 
+
 xprod_gen.o:\
-	cc xprod_gen.c 
-	./cc xprod_gen.c
-zero_gen:\
-	ld zero_gen.ld zero_gen.o frand.a 
-	./ld zero_gen zero_gen.o frand.a 
-zero_gen.o:\
-	cc zero_gen.c frand.h 
-	./cc zero_gen.c
-clean: 
-	rm -f add_gen add_gen.o addsc_gen addsc_gen.o assi_gen assi_gen.o \
-	conf-cctype conf-systype div_gen div_gen.o divsc_gen divsc_gen.o \
-	dotprod_gen dotprod_gen.o frand.a frand.o mag_gen mag_gen.o mult_gen \
-	mult_gen.o multsc_gen multsc_gen.o nega_gen nega_gen.o norm_gen \
-	norm_gen.o sub_gen sub_gen.o subsc_gen subsc_gen.o xprod_gen \
-	xprod_gen.o zero_gen zero_gen.o 
+cc-compile xprod_gen.c 
+	./cc-compile xprod_gen.c
+
+clean-all: obj_clean 
+clean: obj_clean
+obj_clean: 
+	rm -f abs_gen abs_gen.o add_gen add_gen.o addsc_gen addsc_gen.o \
+	assi_gen assi_gen.o conf-cctype conf-ldtype conf-systype div_gen \
+	div_gen.o divsc_gen divsc_gen.o dotprod_gen dotprod_gen.o frand.a \
+	frand.o mag_gen mag_gen.o mult_gen mult_gen.o multsc_gen \
+	multsc_gen.o nega_gen nega_gen.o norm_gen norm_gen.o sub_gen \
+	sub_gen.o subsc_gen subsc_gen.o xprod_gen xprod_gen.o 
 
 regen:
-	cpj-genmk > Makefile.tmp
-	mv Makefile.tmp Makefile
+	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
 

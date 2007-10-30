@@ -16,11 +16,11 @@ float *
 vec_multNf(float *va, const float *vb, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_multNf_sse(va, vb, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb))
+  if (vec_aligned(va) && vec_aligned(vb))
     return vec_multNf_altivec(va, vb, n);
 #endif
   vec_MULT(va, vb, n, float);
@@ -31,11 +31,11 @@ float *
 vec_multNfx(const float *va, const float *vb, float *vr, unsigned int n)
 {
 #ifdef SYS_HAVE_CPU_EXT_SSE
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+  if (vec_aligned(va) && vec_aligned(vb) && vec_aligned(vr))
     return vec_multNfx_sse(va, vb, vr, n);
 #endif
 #ifdef SYS_HAVE_CPU_EXT_ALTIVEC
-  if (!vec_unaligned(va) && !vec_unaligned(vb) && !vec_unaligned(vr))
+  if (vec_aligned(va) && vec_aligned(vb) && vec_aligned(vr))
     return vec_multNfx_altivec(va, vb, vr, n);
 #endif
   vec_MULTX(va, vb, vr, n, float);

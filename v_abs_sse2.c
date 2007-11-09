@@ -56,7 +56,7 @@ static inline double
 }
 
 static inline double *
-vec_absNfx_sse(const double *va, double *vr, unsigned int ne)
+vec_absNdx_sse2(const double *va, double *vr, unsigned int ne)
 {
   __m128 mva1;
   __m128 mva2;

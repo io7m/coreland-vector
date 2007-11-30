@@ -13,9 +13,10 @@ static inline double
   __m128d mvx;
   unsigned int seg[4];
   double *pva;
+  const union { unsigned long long i; double d; } sb = { 0x7fffffffffffffff };
   unsigned int ind;
 
-  mvx = _mm_set1_pd(0x7fffffffffffffff);
+  mvx = _mm_set1_pd(sb.d);
   pva = va;
   vec_segments(seg, 4, ne);
 
@@ -58,18 +59,19 @@ static inline double
 static inline double *
 vec_absNdx_sse2(const double *va, double *vr, unsigned int ne)
 {
-  __m128 mva1;
-  __m128 mva2;
-  __m128 mva3;
-  __m128 mva4;
-  __m128 mvx;
-  __m128 mvr;
+  __m128d mva1;
+  __m128d mva2;
+  __m128d mva3 = {0.0, 0.0};
+  __m128d mva4;
+  __m128d mvx;
+  __m128d mvr;
   unsigned int seg[4];
   const double *pva;
   double *pvr;
+  const union { unsigned long long i; double d; } sb = { 0x7fffffffffffffff };
   unsigned int ind;
 
-  mvx = _mm_set1_pd(0x7fffffffffffffff);
+  mvx = _mm_set1_pd(sb.d);
   pva = va;
   pvr = vr;
   vec_segments(seg, 4, ne);

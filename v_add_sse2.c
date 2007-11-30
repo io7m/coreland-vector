@@ -6,7 +6,7 @@ static inline double *
 vec_addNd_sse2(double *va, const double *vb, unsigned int ne)
 {
   __m128d mva1;
-  __m128d mva2;
+  __m128d mvb1;
   unsigned int seg[4];
   const double *pvb;
   double *pva;

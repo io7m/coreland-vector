@@ -1,26 +1,71 @@
 #!/bin/sh
 
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  exit 112
+}
+
+have()
+{
+  echo "$2" | grep "$1" 1>/dev/null 2>&1
+}
+
+check_supported()
+{
+  type="$1"
+  case $type in
+    alti)
+      if ! have CPU_EXT_ALTIVEC "${VEC_FLAGS}"
+      then
+        fatal "this system does not support altivec"
+      fi
+      ;;
+    sse)
+      if ! have CPU_EXT_SSE "${VEC_FLAGS}"
+      then
+        fatal "this system does not support sse"
+      fi
+      ;;
+    sse2)
+      if ! have CPU_EXT_SSE2 "${VEC_FLAGS}"
+      then
+        fatal "this system does not support sse2"
+      fi
+      ;;
+    sse3)
+      if ! have CPU_EXT_SSE3 "${VEC_FLAGS}"
+      then
+        fatal "this system does not support sse3"
+      fi
+      ;;
+    plain)
+      ;;
+    *)
+      fatal "unknown hardware type - \"$type\""
+      ;;
+  esac
+}
+
 MATH_FLAGS=`head -n 1 ../flags-math`
-if [ $? -ne 0 ]; then exit 1; fi
+if [ $? -ne 0 ]; then fatal "could not read flags-math"; fi
+
 MATH_LIBS=`head -n 1 ../libs-math`
-if [ $? -ne 0 ]; then exit 1; fi
-ALTIVEC_FLAGS=`head -n 1 ../flags-altivec`
-if [ $? -ne 0 ]; then exit 1; fi
-SSE_FLAGS=`head -n 1 ../flags-sse`
-if [ $? -ne 0 ]; then exit 1; fi
-SSE2_FLAGS=`head -n 1 ../flags-sse2`
-if [ $? -ne 0 ]; then exit 1; fi
-SSE_FLAGS="${SSE_FLAGS} ${SSE2_FLAGS}"
-if [ $? -ne 0 ]; then exit 1; fi
+if [ $? -ne 0 ]; then fatal "could not read libs-math"; fi
+
+VEC_FLAGS=`head -n 1 ../flags-cc-vector`
+if [ $? -ne 0 ]; then fatal "could not read flags-cc-vector"; fi
+
 CFLAGS="${CFLAGS} `head -n 1 conf-cflags`" 2>/dev/null
-if [ $? -ne 0 ]; then exit 1; fi
+if [ $? -ne 0 ]; then fatal "could not read cflags"; fi
+
 CFLAGS="-I../ ${CFLAGS}"
+
 CC=`head -n 1 conf-cc` 2>/dev/null
-if [ $? -ne 0 ]; then exit 1; fi
+if [ $? -ne 0 ]; then fatal "could not read conf-cc"; fi
 
 export CC
 export CFLAGS
-export ALTIVEC_FLAGS
-export SSE_FLAGS
+export VEC_FLAGS
 export MATH_FLAGS
 export MATH_LIBS

@@ -19,16 +19,18 @@ size=$4
 
 . ./test-subs
 
-FILES=`cat ${test}.dep` || die "could not read ${test}.dep"
 FLAGS="${CFLAGS} ${MATH_FLAGS}"
 LIBS="${LDFLAGS} ${MATH_LIBS}"
 
+check_supported "${core}"
 case ${core} in
-  sse) FLAGS="${FLAGS} ${SSE_FLAGS}";;
-  alti) FLAGS="${FLAGS} ${ALTIVEC_FLAGS}";;
+  sse) FLAGS="${FLAGS} ${VEC_FLAGS}";;
+  alti) FLAGS="${FLAGS} ${VEC_FLAGS}";;
   plain) FLAGS="${FLAGS} -DVECTOR_NO_SIMD";;
   *) die "unknown core" ;;
 esac
+
+FILES=`cat ${test}.dep` || die "could not read ${test}.dep"
 
 name="${test}_v${size}_${core}"
 ${CC} ${FLAGS} \

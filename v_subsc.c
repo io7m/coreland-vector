@@ -3,15 +3,15 @@
 #include "v_simd.h"
 #include "v_types.h"
 
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
 #include "v_subsc_sse.c"
 #endif
 
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
 #include "v_subsc_sse2.c"
 #endif
 
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
 #include "v_subsc_alti.c"
 #endif
 
@@ -20,10 +20,10 @@
 float *
 vec_subscNf(float *va, float sc, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
   if (vec_aligned(va)) return vec_subscNf_sse(va, sc, n);
 #endif
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
   if (vec_aligned(va)) return vec_subscNf_altivec(va, sc, n);
 #endif
   vec_SUBSC(va, sc, n, float);
@@ -33,11 +33,11 @@ vec_subscNf(float *va, float sc, unsigned int n)
 float *
 vec_subscNfx(const float *va, float *vr, float sc, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
   if (vec_aligned(va) && vec_aligned(vr))
     return vec_subscNfx_sse(va, vr, sc, n);
 #endif
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
   if (vec_aligned(va) && vec_aligned(vr))
     return vec_subscNfx_altivec(va, vr, sc, n);
 #endif
@@ -48,7 +48,7 @@ vec_subscNfx(const float *va, float *vr, float sc, unsigned int n)
 double *
 vec_subscNd(double *va, double sc, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
   if (vec_aligned(va)) return vec_subscNd_sse2(va, sc, n);
 #endif
   vec_SUBSC(va, sc, n, double);
@@ -58,7 +58,7 @@ vec_subscNd(double *va, double sc, unsigned int n)
 double *
 vec_subscNdx(const double *va, double *vr, double sc, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
   if (vec_aligned(va) && vec_aligned(vr))
     return vec_subscNdx_sse2(va, vr, sc, n);
 #endif

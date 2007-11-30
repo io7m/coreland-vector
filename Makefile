@@ -15,9 +15,6 @@ UNIT_TESTS/t_xprod UNIT_TESTS/t_zero ctxt/ctxt.a deinstaller inst-check \
 inst-copy inst-dir inst-link installer instchk vector-conf vector.a 
 
 # -- SYSDEPS start
-flags-altivec:
-	@echo SYSDEPS altivec-flags run create flags-altivec 
-	@(cd SYSDEPS/modules/altivec-flags && ./run)
 _sd_inline.h:
 	@echo SYSDEPS sd-inline run create _sd_inline.h 
 	@(cd SYSDEPS/modules/sd-inline && ./run)
@@ -29,23 +26,12 @@ _sd_math.h: libs-math
 _sd-ptr_uint.h:
 	@echo SYSDEPS sd-ptr_uint run create _sd-ptr_uint.h 
 	@(cd SYSDEPS/modules/sd-ptr_uint && ./run)
-flags-sse:
-	@echo SYSDEPS sse-flags run create flags-sse 
-	@(cd SYSDEPS/modules/sse-flags && ./run)
-flags-sse2:
-	@echo SYSDEPS sse2-flags run create flags-sse2 
-	@(cd SYSDEPS/modules/sse2-flags && ./run)
-flags-sse3:
-	@echo SYSDEPS sse3-flags run create flags-sse3 
-	@(cd SYSDEPS/modules/sse3-flags && ./run)
-_sysinfo.h:
-	@echo SYSDEPS sysinfo run create _sysinfo.h 
-	@(cd SYSDEPS/modules/sysinfo && ./run)
+flags-vector:
+	@echo SYSDEPS vector-flags run create flags-cc-vector flags-vector 
+	@(cd SYSDEPS/modules/vector-flags && ./run)
+flags-cc-vector: flags-vector
 
 
-altivec-flags_clean:
-	@echo SYSDEPS altivec-flags clean flags-altivec 
-	@(cd SYSDEPS/modules/altivec-flags && ./clean)
 sd-inline_clean:
 	@echo SYSDEPS sd-inline clean _sd_inline.h 
 	@(cd SYSDEPS/modules/sd-inline && ./clean)
@@ -55,29 +41,16 @@ sd-math_clean:
 sd-ptr_uint_clean:
 	@echo SYSDEPS sd-ptr_uint clean _sd-ptr_uint.h 
 	@(cd SYSDEPS/modules/sd-ptr_uint && ./clean)
-sse-flags_clean:
-	@echo SYSDEPS sse-flags clean flags-sse 
-	@(cd SYSDEPS/modules/sse-flags && ./clean)
-sse2-flags_clean:
-	@echo SYSDEPS sse2-flags clean flags-sse2 
-	@(cd SYSDEPS/modules/sse2-flags && ./clean)
-sse3-flags_clean:
-	@echo SYSDEPS sse3-flags clean flags-sse3 
-	@(cd SYSDEPS/modules/sse3-flags && ./clean)
-sysinfo_clean:
-	@echo SYSDEPS sysinfo clean _sysinfo.h 
-	@(cd SYSDEPS/modules/sysinfo && ./clean)
+vector-flags_clean:
+	@echo SYSDEPS vector-flags clean flags-cc-vector flags-vector 
+	@(cd SYSDEPS/modules/vector-flags && ./clean)
 
 
 sysdeps_clean:\
-altivec-flags_clean \
 sd-inline_clean \
 sd-math_clean \
 sd-ptr_uint_clean \
-sse-flags_clean \
-sse2-flags_clean \
-sse3-flags_clean \
-sysinfo_clean \
+vector-flags_clean \
 
 
 # -- SYSDEPS end
@@ -457,8 +430,7 @@ cc-compile UNIT_TESTS/t_zero_data.c
 	./cc-compile UNIT_TESTS/t_zero_data.c
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags flags-sse flags-sse2 flags-sse3 \
-flags-altivec flags-math 
+conf-cc conf-cctype conf-systype conf-cflags flags-cc-vector flags-math 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype libs-math 
@@ -492,13 +464,11 @@ cc-compile ctxt/bindir.c
 	./cc-compile ctxt/bindir.c
 
 ctxt/ctxt.a:\
-cc-slib ctxt/ctxt.sld ctxt/bindir.o ctxt/dlibdir.o ctxt/flags_altivec.o \
-ctxt/flags_math.o ctxt/flags_sse.o ctxt/flags_sse2.o ctxt/flags_sse3.o \
+cc-slib ctxt/ctxt.sld ctxt/bindir.o ctxt/dlibdir.o ctxt/flags_math.o \
 ctxt/incdir.o ctxt/libs_math.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o 
-	./cc-slib ctxt/ctxt ctxt/bindir.o ctxt/dlibdir.o \
-	ctxt/flags_altivec.o ctxt/flags_math.o ctxt/flags_sse.o \
-	ctxt/flags_sse2.o ctxt/flags_sse3.o ctxt/incdir.o ctxt/libs_math.o \
-	ctxt/repos.o ctxt/slibdir.o ctxt/version.o 
+	./cc-slib ctxt/ctxt ctxt/bindir.o ctxt/dlibdir.o ctxt/flags_math.o \
+	ctxt/incdir.o ctxt/libs_math.o ctxt/repos.o ctxt/slibdir.o \
+	ctxt/version.o 
 
 ctxt/dlibdir.c: mk-ctxt conf-dlibdir
 	rm -f ctxt/dlibdir.c
@@ -508,14 +478,6 @@ ctxt/dlibdir.o:\
 cc-compile ctxt/dlibdir.c 
 	./cc-compile ctxt/dlibdir.c
 
-ctxt/flags_altivec.c: mk-ctxt flags-altivec
-	rm -f ctxt/flags_altivec.c
-	./mk-ctxt ctxt_flags_altivec < flags-altivec > ctxt/flags_altivec.c
-
-ctxt/flags_altivec.o:\
-cc-compile ctxt/flags_altivec.c 
-	./cc-compile ctxt/flags_altivec.c
-
 ctxt/flags_math.c: mk-ctxt flags-math
 	rm -f ctxt/flags_math.c
 	./mk-ctxt ctxt_flags_math < flags-math > ctxt/flags_math.c
@@ -523,30 +485,6 @@ ctxt/flags_math.c: mk-ctxt flags-math
 ctxt/flags_math.o:\
 cc-compile ctxt/flags_math.c 
 	./cc-compile ctxt/flags_math.c
-
-ctxt/flags_sse.c: mk-ctxt flags-sse
-	rm -f ctxt/flags_sse.c
-	./mk-ctxt ctxt_flags_sse < flags-sse > ctxt/flags_sse.c
-
-ctxt/flags_sse.o:\
-cc-compile ctxt/flags_sse.c 
-	./cc-compile ctxt/flags_sse.c
-
-ctxt/flags_sse2.c: mk-ctxt flags-sse2
-	rm -f ctxt/flags_sse2.c
-	./mk-ctxt ctxt_flags_sse2 < flags-sse2 > ctxt/flags_sse2.c
-
-ctxt/flags_sse2.o:\
-cc-compile ctxt/flags_sse2.c 
-	./cc-compile ctxt/flags_sse2.c
-
-ctxt/flags_sse3.c: mk-ctxt flags-sse3
-	rm -f ctxt/flags_sse3.c
-	./mk-ctxt ctxt_flags_sse3 < flags-sse3 > ctxt/flags_sse3.c
-
-ctxt/flags_sse3.o:\
-cc-compile ctxt/flags_sse3.c 
-	./cc-compile ctxt/flags_sse3.c
 
 ctxt/incdir.c: mk-ctxt conf-incdir
 	rm -f ctxt/incdir.c
@@ -681,13 +619,6 @@ conf-systype
 mk-systype:\
 conf-cc 
 
-sysinfo.h:\
-_sysinfo.h 
-
-t1.o:\
-cc-compile t1.c 
-	./cc-compile t1.c
-
 v_abs.o:\
 cc-compile v_abs.c v_abs.h v_align.h v_simd.h v_inline.h v_math.h \
 v_abs_sse.c v_abs_sse2.c v_abs_alti.c 
@@ -818,7 +749,7 @@ cc-compile v_divsc_sse2.c v_align.h v_divsc.h v_simd.h v_types.h
 	./cc-compile v_divsc_sse2.c
 
 v_dotp.o:\
-cc-compile v_dotp.c v_align.h v_dotp.h v_types.h v_simd.h v_dotp_sse.c \
+cc-compile v_dotp.c v_align.h v_dotp.h v_simd.h v_types.h v_dotp_sse.c \
 v_dotp_sse2.c v_dotp_sse3.c v_dotp_alti.c 
 	./cc-compile v_dotp.c
 
@@ -827,7 +758,7 @@ cc-compile v_dotp_alti.c v_align.h v_dotp.h v_types.h v_simd.h
 	./cc-compile v_dotp_alti.c
 
 v_dotp_sse.o:\
-cc-compile v_dotp_sse.c v_align.h v_dotp.h v_types.h v_simd.h 
+cc-compile v_dotp_sse.c v_align.h v_dotp.h v_simd.h v_types.h 
 	./cc-compile v_dotp_sse.c
 
 v_dotp_sse2.o:\
@@ -902,9 +833,6 @@ v_norm.o:\
 cc-compile v_norm.c v_dotp.h v_norm.h v_multsc.h v_simd.h v_types.h v_math.h 
 	./cc-compile v_norm.c
 
-v_simd.h:\
-sysinfo.h 
-
 v_simd.o:\
 cc-compile v_simd.c v_inline.h v_simd.h 
 	./cc-compile v_simd.c
@@ -942,9 +870,6 @@ cc-compile v_subsc_sse.c v_subsc.h v_align.h v_simd.h v_types.h v_inline.h
 v_subsc_sse2.o:\
 cc-compile v_subsc_sse2.c v_align.h v_subsc.h v_simd.h v_types.h 
 	./cc-compile v_subsc_sse2.c
-
-v_types.h:\
-v_simd.h 
 
 v_xprod.o:\
 cc-compile v_xprod.c v_xprod.h 
@@ -1020,28 +945,26 @@ obj_clean:
 	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o \
 	UNIT_TESTS/t_zero_data.o conf-cctype conf-ldtype conf-systype \
 	ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
-	ctxt/dlibdir.o ctxt/flags_altivec.c ctxt/flags_altivec.o \
-	ctxt/flags_math.c ctxt/flags_math.o ctxt/flags_sse.c \
-	ctxt/flags_sse.o ctxt/flags_sse2.c ctxt/flags_sse2.o \
-	ctxt/flags_sse3.c ctxt/flags_sse3.o ctxt/incdir.c ctxt/incdir.o \
-	ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c ctxt/repos.o \
-	ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
-	deinstaller deinstaller.o inst-check inst-check.o inst-copy \
-	inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
-	install_error.o installer installer.o instchk instchk.o insthier.o \
-	mk-ctxt t1.o v_abs.o v_abs_alti.o v_abs_sse.o v_abs_sse2.o v_add.o \
-	v_add_alti.o v_add_sse.o v_add_sse2.o 
-	rm -f v_addsc.o v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o \
-	v_align.o v_angle.o v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o \
-	v_assi_sse2.o v_degree.o v_degreen.o v_dist.o v_div.o v_div_alti.o \
-	v_div_sse.o v_div_sse2.o v_divsc.o v_divsc_alti.o v_divsc_sse.o \
-	v_divsc_sse2.o v_dotp.o v_dotp_alti.o v_dotp_sse.o v_dotp_sse2.o \
-	v_dotp_sse3.o v_mag.o v_math.o v_mult.o v_mult_alti.o v_mult_sse.o \
-	v_multsc.o v_multsc_alti.o v_multsc_sse.o v_multsc_sse2.o v_nega.o \
-	v_nega_alti.o v_nega_sse.o v_nega_sse2.o v_norm.o v_simd.o v_sub.o \
-	v_sub_alti.o v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o \
-	v_subsc_sse.o v_subsc_sse2.o v_xprod.o v_zero.o v_zero_alti.o \
-	v_zero_sse.o v_zero_sse2.o vector-conf vector-conf.o vector.a 
+	ctxt/dlibdir.o ctxt/flags_math.c ctxt/flags_math.o ctxt/incdir.c \
+	ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c \
+	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c \
+	ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o \
+	inst-copy inst-copy.o inst-dir inst-dir.o inst-link inst-link.o \
+	install_core.o install_error.o installer installer.o instchk \
+	instchk.o insthier.o v_abs.o v_abs_alti.o v_abs_sse.o v_abs_sse2.o \
+	v_add.o v_add_alti.o v_add_sse.o v_add_sse2.o v_addsc.o \
+	v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o v_align.o v_angle.o \
+	v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o 
+	rm -f v_assi_sse2.o v_degree.o v_degreen.o v_dist.o v_div.o \
+	v_div_alti.o v_div_sse.o v_div_sse2.o v_divsc.o v_divsc_alti.o \
+	v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o v_dotp_sse.o \
+	v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o v_mult.o v_mult_alti.o \
+	v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
+	v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o \
+	v_norm.o v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o \
+	v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o v_xprod.o \
+	v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o vector-conf \
+	vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

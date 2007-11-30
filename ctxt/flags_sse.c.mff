@@ -1,3 +1,0 @@
-ctxt/flags_sse.c: mk-ctxt flags-sse
-	rm -f ctxt/flags_sse.c
-	./mk-ctxt ctxt_flags_sse < flags-sse > ctxt/flags_sse.c

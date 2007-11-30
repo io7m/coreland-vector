@@ -18,8 +18,6 @@ static long str_rchr(register const char *, register int);
 
 /* PROJECT SPECIFIC */
 
-#include "_sysinfo.h"
-
 const char progname[] = "vector-conf";
 
 void flag_incdir(void)
@@ -36,10 +34,6 @@ void flag_incdir(void)
 }
 void flag_cflags(void)
 {
-  if (ctxt_flags_sse_len > 1) printf("%s ", ctxt_flags_sse);
-  if (ctxt_flags_sse2_len > 1) printf("%s ", ctxt_flags_sse2);
-  if (ctxt_flags_sse3_len > 1) printf("%s ", ctxt_flags_sse3);
-  if (ctxt_flags_altivec_len > 1) printf("%s ", ctxt_flags_altivec);
   if (ctxt_flags_math_len > 1) printf("%s ", ctxt_flags_math);
 }
 void flag_dlibdir(void)

@@ -4,25 +4,25 @@
 #include "v_inline.h"
 #include "v_math.h"
 
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
 #include "v_abs_sse.c"
 #endif
 
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
 #include "v_abs_sse2.c"
 #endif
 
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
 #include "v_abs_alti.c"
 #endif
 
 float *
 vec_absNf(float *va, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
   if (vec_aligned(va)) return vec_absNf_sse(va, n);
 #endif
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
   if (vec_aligned(va)) return vec_absNf_altivec(va, n);
 #endif
   vec_ABS(va, n, float, fabsf);
@@ -32,10 +32,10 @@ vec_absNf(float *va, unsigned int n)
 float *
 vec_absNfx(const float *va, float *vr, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE
+#ifdef HAVE_CPU_EXT_SSE
   if (vec_aligned(va) && vec_aligned(vr)) return vec_absNfx_sse(va, vr, n);
 #endif
-#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+#ifdef HAVE_CPU_EXT_ALTIVEC
   if (vec_aligned(va) && vec_aligned(vr)) return vec_absNfx_altivec(va, vr, n);
 #endif
   vec_ABSX(va, vr, n, float, fabsf);
@@ -45,7 +45,7 @@ vec_absNfx(const float *va, float *vr, unsigned int n)
 double *
 vec_absNd(double *va, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
   if (vec_aligned(va)) return vec_absNd_sse2(va, n);
 #endif
   vec_ABS(va, n, double, fabs);
@@ -55,7 +55,7 @@ vec_absNd(double *va, unsigned int n)
 double *
 vec_absNdx(const double *va, double *vr, unsigned int n)
 {
-#ifdef SYS_HAVE_CPU_EXT_SSE2
+#ifdef HAVE_CPU_EXT_SSE2
   if (vec_aligned(va) && vec_aligned(vr)) return vec_absNdx_sse2(va, vr, n);
 #endif
   vec_ABSX(va, vr, n, double, fabs);

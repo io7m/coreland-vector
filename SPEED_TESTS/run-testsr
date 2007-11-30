@@ -14,7 +14,7 @@ iters="5000000"
 sse=0
 alti=0
 
-conf="../_sysinfo.h"
+conf="../flags-cc-vector"
 
 grep 'HAVE_CPU_EXT_SSE*' ${conf} 1>/dev/null 2>&1
 if [ $? -eq 0 ]; then sse=1; fi

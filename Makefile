@@ -943,28 +943,27 @@ obj_clean:
 	rm -f UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
 	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod \
 	UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o \
-	UNIT_TESTS/t_zero_data.o conf-cctype conf-ldtype conf-systype \
-	ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c \
-	ctxt/dlibdir.o ctxt/flags_math.c ctxt/flags_math.o ctxt/incdir.c \
-	ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c \
-	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c \
-	ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o \
-	inst-copy inst-copy.o inst-dir inst-dir.o inst-link inst-link.o \
-	install_core.o install_error.o installer installer.o instchk \
-	instchk.o insthier.o v_abs.o v_abs_alti.o v_abs_sse.o v_abs_sse2.o \
-	v_add.o v_add_alti.o v_add_sse.o v_add_sse2.o v_addsc.o \
-	v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o v_align.o v_angle.o \
-	v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o 
-	rm -f v_assi_sse2.o v_degree.o v_degreen.o v_dist.o v_div.o \
-	v_div_alti.o v_div_sse.o v_div_sse2.o v_divsc.o v_divsc_alti.o \
-	v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o v_dotp_sse.o \
-	v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o v_mult.o v_mult_alti.o \
-	v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
-	v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o \
-	v_norm.o v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o \
-	v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o v_xprod.o \
-	v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o vector-conf \
-	vector-conf.o vector.a 
+	UNIT_TESTS/t_zero_data.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
+	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/flags_math.c ctxt/flags_math.o \
+	ctxt/incdir.c ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o \
+	ctxt/repos.c ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o \
+	ctxt/version.c ctxt/version.o deinstaller deinstaller.o inst-check \
+	inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
+	inst-link.o install_core.o install_error.o installer installer.o \
+	instchk instchk.o insthier.o mk-ctxt v_abs.o v_abs_alti.o \
+	v_abs_sse.o v_abs_sse2.o v_add.o v_add_alti.o v_add_sse.o \
+	v_add_sse2.o v_addsc.o v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o \
+	v_align.o v_angle.o v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o \
+	v_assi_sse2.o v_degree.o 
+	rm -f v_degreen.o v_dist.o v_div.o v_div_alti.o v_div_sse.o \
+	v_div_sse2.o v_divsc.o v_divsc_alti.o v_divsc_sse.o v_divsc_sse2.o \
+	v_dotp.o v_dotp_alti.o v_dotp_sse.o v_dotp_sse2.o v_dotp_sse3.o \
+	v_mag.o v_math.o v_mult.o v_mult_alti.o v_mult_sse.o v_multsc.o \
+	v_multsc_alti.o v_multsc_sse.o v_multsc_sse2.o v_nega.o \
+	v_nega_alti.o v_nega_sse.o v_nega_sse2.o v_norm.o v_simd.o v_sub.o \
+	v_sub_alti.o v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o \
+	v_subsc_sse.o v_subsc_sse2.o v_xprod.o v_zero.o v_zero_alti.o \
+	v_zero_sse.o v_zero_sse2.o vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller

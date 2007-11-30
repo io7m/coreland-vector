@@ -1,2 +1,0 @@
-v_types.h: v_types.sh _sysinfo.h
-	./v_types.sh > v_types.h.tmp && mv v_types.h.tmp v_types.h

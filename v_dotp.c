@@ -1,7 +1,8 @@
 #include "v_align.h"
 #include "v_dotp.h"
-#include "v_types.h"
+
 #include "v_simd.h"
+#include "v_types.h"
 
 #ifdef SYS_HAVE_CPU_EXT_SSE
 #include "v_dotp_sse.c"

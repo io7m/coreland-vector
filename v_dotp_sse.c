@@ -1,7 +1,8 @@
 #include "v_align.h"
 #include "v_dotp.h"
-#include "v_types.h"
+
 #include "v_simd.h"
+#include "v_types.h"
 
 static inline float
 vec_dotprodNf_sse_lt16(const float *va, const float *vb, unsigned int ne)

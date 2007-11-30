@@ -1,8 +1,6 @@
 Work out acceptable error margin for unit tests (one static
 APPROX_ERROR) value isn't enough.
 
-Do programs linking against the library need to use -msse?
-
   c = converted
   s = sse
   S = sse2

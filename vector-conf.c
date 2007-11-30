@@ -18,7 +18,9 @@ static long str_rchr(register const char *, register int);
 
 /* PROJECT SPECIFIC */
 
-const char progname[] = "generic-conf";
+#include "_sysinfo.h"
+
+const char progname[] = "vector-conf";
 
 void flag_incdir(void)
 {
@@ -34,6 +36,16 @@ void flag_incdir(void)
 }
 void flag_cflags(void)
 {
+#ifdef SYS_HAVE_CPU_EXT_SSE
+  printf("-DSYS_HAVE_CPU_EXT_SSE ");
+#endif
+#ifdef SYS_HAVE_CPU_EXT_SSE2
+  printf("-DSYS_HAVE_CPU_EXT_SSE2 ");
+#endif
+#ifdef SYS_HAVE_CPU_EXT_ALTIVEC
+  printf("-DSYS_HAVE_CPU_EXT_ALTIVEC ");
+#endif
+
   if (ctxt_flags_sse_len > 1) printf("%s ", ctxt_flags_sse);
   if (ctxt_flags_sse2_len > 1) printf("%s ", ctxt_flags_sse2);
   if (ctxt_flags_sse3_len > 1) printf("%s ", ctxt_flags_sse3);

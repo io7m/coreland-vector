@@ -1,9 +1,9 @@
 #ifndef VEC_TYPES_H
 #define VEC_TYPES_H
 
-#include "v_simd.h"
-
 #ifdef SYS_HAVE_CPU_EXT_SSE
+#include <xmmintrin.h>
+
 union vector_16f { float f[16]; __m128 v; };
 union vector_8f { float f[8]; __m128 v; };
 union vector_4f { float f[4]; __m128 v; };
@@ -20,6 +20,8 @@ union vector_2f { float f[2]; vector float v; };
 #endif
 
 #ifdef SYS_HAVE_CPU_EXT_SSE2
+#include <emmintrin.h>
+
 union vector_16d { double d[16]; __m128d v; };
 union vector_8d { double d[8]; __m128d v; };
 union vector_4d { double d[4]; __m128d v; };

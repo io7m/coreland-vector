@@ -52,6 +52,7 @@ void flag_slibdir(void)
 }
 void flag_ldflags(void)
 {
+  printf("-lvector ");
   if (ctxt_libs_math_len > 2) printf("%s ", ctxt_libs_math);
 }
 

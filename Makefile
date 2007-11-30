@@ -3,11 +3,11 @@
 default: all
 
 all:\
-UNIT_TESTS/t_abs1 UNIT_TESTS/t_abs2 UNIT_TESTS/t_add1 UNIT_TESTS/t_add2 \
-UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc2 UNIT_TESTS/t_align1 \
-UNIT_TESTS/t_assign UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 UNIT_TESTS/t_divsc1 \
-UNIT_TESTS/t_divsc2 UNIT_TESTS/t_dotprod UNIT_TESTS/t_mag1 \
-UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult2 UNIT_TESTS/t_multsc1 \
+local UNIT_TESTS/t_abs1 UNIT_TESTS/t_abs2 UNIT_TESTS/t_add1 \
+UNIT_TESTS/t_add2 UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc2 \
+UNIT_TESTS/t_align1 UNIT_TESTS/t_assign UNIT_TESTS/t_div1 UNIT_TESTS/t_div2 \
+UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc2 UNIT_TESTS/t_dotprod \
+UNIT_TESTS/t_mag1 UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult2 UNIT_TESTS/t_multsc1 \
 UNIT_TESTS/t_multsc2 UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega2 \
 UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm2 UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub2 \
 UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc2 UNIT_TESTS/t_util.a \
@@ -943,8 +943,8 @@ v_subsc_sse2.o:\
 cc-compile v_subsc_sse2.c v_align.h v_subsc.h v_simd.h v_types.h 
 	./cc-compile v_subsc_sse2.c
 
-v_types.h:\
-v_simd.h 
+v_types.h: v_types.sh _sysinfo.h
+	./v_types.sh > v_types.h.tmp && mv v_types.h.tmp v_types.h
 
 v_xprod.o:\
 cc-compile v_xprod.c v_xprod.h 
@@ -990,7 +990,7 @@ v_abs.h v_add.h v_addsc.h v_angle.h v_anglen.h v_assi.h v_dist.h v_div.h \
 v_divsc.h v_dotp.h v_mag.h v_mult.h v_multsc.h v_nega.h v_norm.h v_sub.h \
 v_subsc.h v_xprod.h v_zero.h v_types.h 
 
-clean-all: sysdeps_clean tests_clean obj_clean 
+clean-all: sysdeps_clean tests_clean local_clean obj_clean 
 clean: obj_clean
 obj_clean: 
 	rm -f UNIT_TESTS/t_abs1 UNIT_TESTS/t_abs1.o UNIT_TESTS/t_abs2 \
@@ -1039,9 +1039,9 @@ obj_clean:
 	v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
 	v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o \
 	v_norm.o v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o \
-	v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o v_xprod.o \
-	v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o vector-conf \
-	vector-conf.o vector.a 
+	v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o v_types.h \
+	v_xprod.o v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o \
+	vector-conf vector-conf.o vector.a 
 
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
 	./deinstaller
@@ -1059,6 +1059,9 @@ tests:
 	(cd UNIT_TESTS && make tests)
 tests_clean:
 	(cd UNIT_TESTS && make clean)
+local:
+local_clean:
+	rm -f v_types.h
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
 

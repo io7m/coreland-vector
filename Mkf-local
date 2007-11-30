@@ -1,0 +1,3 @@
+local:
+local_clean:
+	rm -f v_types.h

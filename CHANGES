@@ -11,3 +11,4 @@
                and added sd-inline for inlining calls.
 20071029 code: added v_abs.
 20071030 code: massive optimization over entire code.
+20080115 code: updated inst-check.c

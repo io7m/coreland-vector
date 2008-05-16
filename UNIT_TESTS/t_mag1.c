@@ -3,7 +3,7 @@
 #include "../vector.h"
 #include "t_util.h"
 
-#include "t_mag_data.c"
+#include "t_mag_data.dat"
 
 int main()
 {

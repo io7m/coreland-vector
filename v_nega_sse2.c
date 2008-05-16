@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_types.h"
 
+#ifdef HAVE_CPU_EXT_SSE2
+
 static inline double *
 vec_negaNd_sse2(double *va, unsigned int ne)
 {
@@ -65,3 +67,4 @@ vec_negaNdx_sse2(const double *va, double *vr, unsigned int ne)
   return vr;
 }
 
+#endif

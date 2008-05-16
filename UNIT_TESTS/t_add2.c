@@ -3,7 +3,7 @@
 #include "../vector.h"
 #include "t_util.h"
 
-#include "t_add_data.c"
+#include "t_add_data.dat"
 
 int main()
 {

@@ -2,6 +2,8 @@
 #include "v_align.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline vector float
 vec_recip(vector float v)
 {
@@ -160,3 +162,5 @@ vec_divNfx_altivec(const float *va, const float *vb,
 
   return vr;
 }
+
+#endif

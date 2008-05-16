@@ -2,6 +2,8 @@
 #include "v_sub.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_SSE2
+
 static inline double *
 vec_subNd_sse2(double *va, const double *vb, unsigned int ne)
 {
@@ -74,3 +76,4 @@ vec_subNdx_sse2(const double *va, const double *vb, double *vr, unsigned int ne)
   return vr;
 }
 
+#endif

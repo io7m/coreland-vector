@@ -4,6 +4,8 @@
 #include "v_types.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_SSE
+
 static inline float *
 vec_addscNf_sse_lt16(float *va, float sc, unsigned int ne)
 {
@@ -159,3 +161,5 @@ vec_addscNfx_sse(const float *va, float *vr, float sc, unsigned int ne)
   return (ne >= 16) ? vec_addscNfx_sse_gte16(va, vr, sc, ne)
                     : vec_addscNfx_sse_lt16(va, vr, sc, ne);
 }
+
+#endif

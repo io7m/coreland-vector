@@ -2,6 +2,8 @@
 #include "v_zero.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float *
 vec_zeroNf_altivec(float *va, unsigned int ne)
 {
@@ -35,3 +37,5 @@ vec_zeroNf_altivec(float *va, unsigned int ne)
 
   return va;
 }
+
+#endif

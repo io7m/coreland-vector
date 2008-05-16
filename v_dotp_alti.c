@@ -3,6 +3,8 @@
 #include "v_types.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float
 vec_dotprodNf_altivec(const float *va, const float *vb, unsigned int ne)
 {
@@ -75,3 +77,5 @@ vec_dotprodNf_altivec(const float *va, const float *vb, unsigned int ne)
 
   return res;
 }
+
+#endif

@@ -4,6 +4,8 @@
 #include "v_simd.h"
 #include "v_types.h"
 
+#ifdef HAVE_CPU_EXT_SSE
+
 static inline float
 vec_dotprodNf_sse_lt16(const float *va, const float *vb, unsigned int ne)
 {
@@ -95,3 +97,5 @@ vec_dotprodNf_sse(const float *va, const float *vb, unsigned int ne)
   return (ne >= 16) ? vec_dotprodNf_sse_gte16(va, vb, ne)
                     : vec_dotprodNf_sse_lt16(va, vb, ne);
 }
+
+#endif

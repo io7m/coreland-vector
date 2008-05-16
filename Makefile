@@ -4,42 +4,37 @@ default: all
 
 all:\
 UNIT_TESTS/t_abs1 UNIT_TESTS/t_abs1.o UNIT_TESTS/t_abs2 UNIT_TESTS/t_abs2.o \
-UNIT_TESTS/t_abs_data.o UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
-UNIT_TESTS/t_add2.o UNIT_TESTS/t_add_data.o UNIT_TESTS/t_addsc1 \
-UNIT_TESTS/t_addsc1.o UNIT_TESTS/t_addsc2 UNIT_TESTS/t_addsc2.o \
-UNIT_TESTS/t_addsc_data.o UNIT_TESTS/t_align1 UNIT_TESTS/t_align1.o \
-UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o UNIT_TESTS/t_assign_data.o \
-UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o UNIT_TESTS/t_div2 UNIT_TESTS/t_div2.o \
-UNIT_TESTS/t_div_data.o UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc1.o \
-UNIT_TESTS/t_divsc2 UNIT_TESTS/t_divsc2.o UNIT_TESTS/t_divsc_data.o \
-UNIT_TESTS/t_dotp_data.o UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
-UNIT_TESTS/t_mag1 UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mag_data.o \
-UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o \
-UNIT_TESTS/t_mult_data.o UNIT_TESTS/t_multsc1 UNIT_TESTS/t_multsc1.o \
-UNIT_TESTS/t_multsc2 UNIT_TESTS/t_multsc2.o UNIT_TESTS/t_multsc_data.o \
-UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o \
-UNIT_TESTS/t_nega_data.o UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o \
-UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o UNIT_TESTS/t_norm_data.o \
-UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o \
-UNIT_TESTS/t_sub_data.o UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o \
-UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
-UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o \
-UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o ctxt/bindir.o \
-ctxt/ctxt.a ctxt/dlibdir.o ctxt/flags_math.o ctxt/incdir.o ctxt/libs_math.o \
-ctxt/repos.o ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o inst-check \
-inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link inst-link.o \
-install_core.o install_error.o installer installer.o instchk instchk.o \
-insthier.o v_abs.o v_abs_alti.o v_abs_sse.o v_abs_sse2.o v_add.o v_add_alti.o \
-v_add_sse.o v_add_sse2.o v_addsc.o v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o \
-v_align.o v_angle.o v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o \
-v_assi_sse2.o v_degree.o v_degreen.o v_dist.o v_div.o v_div_alti.o v_div_sse.o \
-v_div_sse2.o v_divsc.o v_divsc_alti.o v_divsc_sse.o v_divsc_sse2.o v_dotp.o \
-v_dotp_alti.o v_dotp_sse.o v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o \
-v_mult.o v_mult_alti.o v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
-v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o v_norm.o \
-v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o \
-v_subsc_sse.o v_subsc_sse2.o v_xprod.o v_zero.o v_zero_alti.o v_zero_sse.o \
-v_zero_sse2.o vector-conf vector-conf.o vector.a
+UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 UNIT_TESTS/t_add2.o \
+UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc1.o UNIT_TESTS/t_addsc2 \
+UNIT_TESTS/t_addsc2.o UNIT_TESTS/t_align1 UNIT_TESTS/t_align1.o \
+UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o \
+UNIT_TESTS/t_div2 UNIT_TESTS/t_div2.o UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc1.o \
+UNIT_TESTS/t_divsc2 UNIT_TESTS/t_divsc2.o UNIT_TESTS/t_dotprod \
+UNIT_TESTS/t_dotprod.o UNIT_TESTS/t_mag1 UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mult1 \
+UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o \
+UNIT_TESTS/t_multsc1 UNIT_TESTS/t_multsc1.o UNIT_TESTS/t_multsc2 \
+UNIT_TESTS/t_multsc2.o UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o \
+UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o \
+UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o \
+UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o \
+UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a \
+UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero \
+UNIT_TESTS/t_zero.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/flags_math.o \
+ctxt/incdir.o ctxt/libs_math.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o \
+deinstaller deinstaller.o inst-check inst-check.o inst-copy inst-copy.o \
+inst-dir inst-dir.o inst-link inst-link.o install_core.o install_error.o \
+installer installer.o instchk instchk.o insthier.o v_abs.o v_abs_alti.o \
+v_abs_sse.o v_abs_sse2.o v_add.o v_add_alti.o v_add_sse.o v_add_sse2.o \
+v_addsc.o v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o v_align.o v_angle.o \
+v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o v_assi_sse2.o v_degree.o \
+v_degreen.o v_dist.o v_div.o v_div_alti.o v_div_sse.o v_div_sse2.o v_divsc.o \
+v_divsc_alti.o v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o v_dotp_sse.o \
+v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o v_mult.o v_mult_alti.o \
+v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o v_multsc_sse2.o v_nega.o \
+v_nega_alti.o v_nega_sse.o v_nega_sse2.o v_norm.o v_simd.o v_sub.o v_sub_alti.o \
+v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o \
+v_xprod.o v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o vector-conf \
+vector-conf.o vector.a
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -113,7 +108,7 @@ cc-link UNIT_TESTS/t_abs1.ld UNIT_TESTS/t_abs1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_abs1.o:\
 cc-compile UNIT_TESTS/t_abs1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_abs_data.c
+UNIT_TESTS/t_abs_data.dat
 	./cc-compile UNIT_TESTS/t_abs1.c
 
 UNIT_TESTS/t_abs2:\
@@ -122,12 +117,8 @@ cc-link UNIT_TESTS/t_abs2.ld UNIT_TESTS/t_abs2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_abs2.o:\
 cc-compile UNIT_TESTS/t_abs2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_abs_data.c
+UNIT_TESTS/t_abs_data.dat
 	./cc-compile UNIT_TESTS/t_abs2.c
-
-UNIT_TESTS/t_abs_data.o:\
-cc-compile UNIT_TESTS/t_abs_data.c
-	./cc-compile UNIT_TESTS/t_abs_data.c
 
 UNIT_TESTS/t_add1:\
 cc-link UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a vector.a
@@ -135,7 +126,7 @@ cc-link UNIT_TESTS/t_add1.ld UNIT_TESTS/t_add1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_add1.o:\
 cc-compile UNIT_TESTS/t_add1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_add_data.c
+UNIT_TESTS/t_add_data.dat
 	./cc-compile UNIT_TESTS/t_add1.c
 
 UNIT_TESTS/t_add2:\
@@ -144,12 +135,8 @@ cc-link UNIT_TESTS/t_add2.ld UNIT_TESTS/t_add2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_add2.o:\
 cc-compile UNIT_TESTS/t_add2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_add_data.c
+UNIT_TESTS/t_add_data.dat
 	./cc-compile UNIT_TESTS/t_add2.c
-
-UNIT_TESTS/t_add_data.o:\
-cc-compile UNIT_TESTS/t_add_data.c
-	./cc-compile UNIT_TESTS/t_add_data.c
 
 UNIT_TESTS/t_addsc1:\
 cc-link UNIT_TESTS/t_addsc1.ld UNIT_TESTS/t_addsc1.o UNIT_TESTS/t_util.a \
@@ -159,7 +146,7 @@ vector.a
 
 UNIT_TESTS/t_addsc1.o:\
 cc-compile UNIT_TESTS/t_addsc1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_addsc_data.c
+UNIT_TESTS/t_addsc_data.dat
 	./cc-compile UNIT_TESTS/t_addsc1.c
 
 UNIT_TESTS/t_addsc2:\
@@ -170,12 +157,8 @@ vector.a
 
 UNIT_TESTS/t_addsc2.o:\
 cc-compile UNIT_TESTS/t_addsc2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_addsc_data.c
+UNIT_TESTS/t_addsc_data.dat
 	./cc-compile UNIT_TESTS/t_addsc2.c
-
-UNIT_TESTS/t_addsc_data.o:\
-cc-compile UNIT_TESTS/t_addsc_data.c
-	./cc-compile UNIT_TESTS/t_addsc_data.c
 
 UNIT_TESTS/t_align1:\
 cc-link UNIT_TESTS/t_align1.ld UNIT_TESTS/t_align1.o UNIT_TESTS/t_util.a \
@@ -195,12 +178,8 @@ vector.a
 
 UNIT_TESTS/t_assign.o:\
 cc-compile UNIT_TESTS/t_assign.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_assign_data.c
+UNIT_TESTS/t_assign_data.dat
 	./cc-compile UNIT_TESTS/t_assign.c
-
-UNIT_TESTS/t_assign_data.o:\
-cc-compile UNIT_TESTS/t_assign_data.c
-	./cc-compile UNIT_TESTS/t_assign_data.c
 
 UNIT_TESTS/t_div1:\
 cc-link UNIT_TESTS/t_div1.ld UNIT_TESTS/t_div1.o UNIT_TESTS/t_util.a vector.a
@@ -208,7 +187,7 @@ cc-link UNIT_TESTS/t_div1.ld UNIT_TESTS/t_div1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_div1.o:\
 cc-compile UNIT_TESTS/t_div1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_div_data.c
+UNIT_TESTS/t_div_data.dat
 	./cc-compile UNIT_TESTS/t_div1.c
 
 UNIT_TESTS/t_div2:\
@@ -217,12 +196,8 @@ cc-link UNIT_TESTS/t_div2.ld UNIT_TESTS/t_div2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_div2.o:\
 cc-compile UNIT_TESTS/t_div2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_div_data.c
+UNIT_TESTS/t_div_data.dat
 	./cc-compile UNIT_TESTS/t_div2.c
-
-UNIT_TESTS/t_div_data.o:\
-cc-compile UNIT_TESTS/t_div_data.c
-	./cc-compile UNIT_TESTS/t_div_data.c
 
 UNIT_TESTS/t_divsc1:\
 cc-link UNIT_TESTS/t_divsc1.ld UNIT_TESTS/t_divsc1.o UNIT_TESTS/t_util.a \
@@ -232,7 +207,7 @@ vector.a
 
 UNIT_TESTS/t_divsc1.o:\
 cc-compile UNIT_TESTS/t_divsc1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_divsc_data.c
+UNIT_TESTS/t_divsc_data.dat
 	./cc-compile UNIT_TESTS/t_divsc1.c
 
 UNIT_TESTS/t_divsc2:\
@@ -243,16 +218,8 @@ vector.a
 
 UNIT_TESTS/t_divsc2.o:\
 cc-compile UNIT_TESTS/t_divsc2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_divsc_data.c
+UNIT_TESTS/t_divsc_data.dat
 	./cc-compile UNIT_TESTS/t_divsc2.c
-
-UNIT_TESTS/t_divsc_data.o:\
-cc-compile UNIT_TESTS/t_divsc_data.c
-	./cc-compile UNIT_TESTS/t_divsc_data.c
-
-UNIT_TESTS/t_dotp_data.o:\
-cc-compile UNIT_TESTS/t_dotp_data.c
-	./cc-compile UNIT_TESTS/t_dotp_data.c
 
 UNIT_TESTS/t_dotprod:\
 cc-link UNIT_TESTS/t_dotprod.ld UNIT_TESTS/t_dotprod.o UNIT_TESTS/t_util.a \
@@ -262,7 +229,7 @@ vector.a
 
 UNIT_TESTS/t_dotprod.o:\
 cc-compile UNIT_TESTS/t_dotprod.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_dotp_data.c
+UNIT_TESTS/t_dotp_data.dat
 	./cc-compile UNIT_TESTS/t_dotprod.c
 
 UNIT_TESTS/t_mag1:\
@@ -271,12 +238,8 @@ cc-link UNIT_TESTS/t_mag1.ld UNIT_TESTS/t_mag1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_mag1.o:\
 cc-compile UNIT_TESTS/t_mag1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_mag_data.c
+UNIT_TESTS/t_mag_data.dat
 	./cc-compile UNIT_TESTS/t_mag1.c
-
-UNIT_TESTS/t_mag_data.o:\
-cc-compile UNIT_TESTS/t_mag_data.c
-	./cc-compile UNIT_TESTS/t_mag_data.c
 
 UNIT_TESTS/t_mult1:\
 cc-link UNIT_TESTS/t_mult1.ld UNIT_TESTS/t_mult1.o UNIT_TESTS/t_util.a vector.a
@@ -284,7 +247,7 @@ cc-link UNIT_TESTS/t_mult1.ld UNIT_TESTS/t_mult1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_mult1.o:\
 cc-compile UNIT_TESTS/t_mult1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_mult_data.c
+UNIT_TESTS/t_mult_data.dat
 	./cc-compile UNIT_TESTS/t_mult1.c
 
 UNIT_TESTS/t_mult2:\
@@ -293,12 +256,8 @@ cc-link UNIT_TESTS/t_mult2.ld UNIT_TESTS/t_mult2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_mult2.o:\
 cc-compile UNIT_TESTS/t_mult2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_mult_data.c
+UNIT_TESTS/t_mult_data.dat
 	./cc-compile UNIT_TESTS/t_mult2.c
-
-UNIT_TESTS/t_mult_data.o:\
-cc-compile UNIT_TESTS/t_mult_data.c
-	./cc-compile UNIT_TESTS/t_mult_data.c
 
 UNIT_TESTS/t_multsc1:\
 cc-link UNIT_TESTS/t_multsc1.ld UNIT_TESTS/t_multsc1.o UNIT_TESTS/t_util.a \
@@ -308,7 +267,7 @@ vector.a
 
 UNIT_TESTS/t_multsc1.o:\
 cc-compile UNIT_TESTS/t_multsc1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_multsc_data.c
+UNIT_TESTS/t_multsc_data.dat
 	./cc-compile UNIT_TESTS/t_multsc1.c
 
 UNIT_TESTS/t_multsc2:\
@@ -319,12 +278,8 @@ vector.a
 
 UNIT_TESTS/t_multsc2.o:\
 cc-compile UNIT_TESTS/t_multsc2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_multsc_data.c
+UNIT_TESTS/t_multsc_data.dat
 	./cc-compile UNIT_TESTS/t_multsc2.c
-
-UNIT_TESTS/t_multsc_data.o:\
-cc-compile UNIT_TESTS/t_multsc_data.c
-	./cc-compile UNIT_TESTS/t_multsc_data.c
 
 UNIT_TESTS/t_nega1:\
 cc-link UNIT_TESTS/t_nega1.ld UNIT_TESTS/t_nega1.o UNIT_TESTS/t_util.a vector.a
@@ -332,7 +287,7 @@ cc-link UNIT_TESTS/t_nega1.ld UNIT_TESTS/t_nega1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_nega1.o:\
 cc-compile UNIT_TESTS/t_nega1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_nega_data.c
+UNIT_TESTS/t_nega_data.dat
 	./cc-compile UNIT_TESTS/t_nega1.c
 
 UNIT_TESTS/t_nega2:\
@@ -341,12 +296,8 @@ cc-link UNIT_TESTS/t_nega2.ld UNIT_TESTS/t_nega2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_nega2.o:\
 cc-compile UNIT_TESTS/t_nega2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_nega_data.c
+UNIT_TESTS/t_nega_data.dat
 	./cc-compile UNIT_TESTS/t_nega2.c
-
-UNIT_TESTS/t_nega_data.o:\
-cc-compile UNIT_TESTS/t_nega_data.c
-	./cc-compile UNIT_TESTS/t_nega_data.c
 
 UNIT_TESTS/t_norm1:\
 cc-link UNIT_TESTS/t_norm1.ld UNIT_TESTS/t_norm1.o UNIT_TESTS/t_util.a vector.a
@@ -354,7 +305,7 @@ cc-link UNIT_TESTS/t_norm1.ld UNIT_TESTS/t_norm1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_norm1.o:\
 cc-compile UNIT_TESTS/t_norm1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_norm_data.c
+UNIT_TESTS/t_norm_data.dat
 	./cc-compile UNIT_TESTS/t_norm1.c
 
 UNIT_TESTS/t_norm2:\
@@ -363,12 +314,8 @@ cc-link UNIT_TESTS/t_norm2.ld UNIT_TESTS/t_norm2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_norm2.o:\
 cc-compile UNIT_TESTS/t_norm2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_norm_data.c
+UNIT_TESTS/t_norm_data.dat
 	./cc-compile UNIT_TESTS/t_norm2.c
-
-UNIT_TESTS/t_norm_data.o:\
-cc-compile UNIT_TESTS/t_norm_data.c
-	./cc-compile UNIT_TESTS/t_norm_data.c
 
 UNIT_TESTS/t_sub1:\
 cc-link UNIT_TESTS/t_sub1.ld UNIT_TESTS/t_sub1.o UNIT_TESTS/t_util.a vector.a
@@ -376,7 +323,7 @@ cc-link UNIT_TESTS/t_sub1.ld UNIT_TESTS/t_sub1.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_sub1.o:\
 cc-compile UNIT_TESTS/t_sub1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_sub_data.c
+UNIT_TESTS/t_sub_data.dat
 	./cc-compile UNIT_TESTS/t_sub1.c
 
 UNIT_TESTS/t_sub2:\
@@ -385,12 +332,8 @@ cc-link UNIT_TESTS/t_sub2.ld UNIT_TESTS/t_sub2.o UNIT_TESTS/t_util.a vector.a
 
 UNIT_TESTS/t_sub2.o:\
 cc-compile UNIT_TESTS/t_sub2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_sub_data.c
+UNIT_TESTS/t_sub_data.dat
 	./cc-compile UNIT_TESTS/t_sub2.c
-
-UNIT_TESTS/t_sub_data.o:\
-cc-compile UNIT_TESTS/t_sub_data.c
-	./cc-compile UNIT_TESTS/t_sub_data.c
 
 UNIT_TESTS/t_subsc1:\
 cc-link UNIT_TESTS/t_subsc1.ld UNIT_TESTS/t_subsc1.o UNIT_TESTS/t_util.a \
@@ -400,7 +343,7 @@ vector.a
 
 UNIT_TESTS/t_subsc1.o:\
 cc-compile UNIT_TESTS/t_subsc1.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_subsc_data.c
+UNIT_TESTS/t_subsc_data.dat
 	./cc-compile UNIT_TESTS/t_subsc1.c
 
 UNIT_TESTS/t_subsc2:\
@@ -411,12 +354,8 @@ vector.a
 
 UNIT_TESTS/t_subsc2.o:\
 cc-compile UNIT_TESTS/t_subsc2.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_subsc_data.c
+UNIT_TESTS/t_subsc_data.dat
 	./cc-compile UNIT_TESTS/t_subsc2.c
-
-UNIT_TESTS/t_subsc_data.o:\
-cc-compile UNIT_TESTS/t_subsc_data.c
-	./cc-compile UNIT_TESTS/t_subsc_data.c
 
 UNIT_TESTS/t_util.a:\
 cc-slib UNIT_TESTS/t_util.sld UNIT_TESTS/t_util.o
@@ -440,12 +379,8 @@ cc-link UNIT_TESTS/t_zero.ld UNIT_TESTS/t_zero.o UNIT_TESTS/t_util.o vector.a
 
 UNIT_TESTS/t_zero.o:\
 cc-compile UNIT_TESTS/t_zero.c vector.h UNIT_TESTS/t_util.h \
-UNIT_TESTS/t_zero_data.c
+UNIT_TESTS/t_zero_data.dat
 	./cc-compile UNIT_TESTS/t_zero.c
-
-UNIT_TESTS/t_zero_data.o:\
-cc-compile UNIT_TESTS/t_zero_data.c
-	./cc-compile UNIT_TESTS/t_zero_data.c
 
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-cc-vector \
@@ -944,45 +879,40 @@ clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
 	rm -f UNIT_TESTS/t_abs1 UNIT_TESTS/t_abs1.o UNIT_TESTS/t_abs2 \
-	UNIT_TESTS/t_abs2.o UNIT_TESTS/t_abs_data.o UNIT_TESTS/t_add1 \
-	UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 UNIT_TESTS/t_add2.o \
-	UNIT_TESTS/t_add_data.o UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc1.o \
-	UNIT_TESTS/t_addsc2 UNIT_TESTS/t_addsc2.o UNIT_TESTS/t_addsc_data.o \
-	UNIT_TESTS/t_align1 UNIT_TESTS/t_align1.o UNIT_TESTS/t_assign \
-	UNIT_TESTS/t_assign.o UNIT_TESTS/t_assign_data.o UNIT_TESTS/t_div1 \
-	UNIT_TESTS/t_div1.o UNIT_TESTS/t_div2 UNIT_TESTS/t_div2.o \
-	UNIT_TESTS/t_div_data.o UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc1.o \
-	UNIT_TESTS/t_divsc2 UNIT_TESTS/t_divsc2.o UNIT_TESTS/t_divsc_data.o \
-	UNIT_TESTS/t_dotp_data.o UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
-	UNIT_TESTS/t_mag1 UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mag_data.o \
-	UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o \
-	UNIT_TESTS/t_mult_data.o UNIT_TESTS/t_multsc1 UNIT_TESTS/t_multsc1.o \
-	UNIT_TESTS/t_multsc2 UNIT_TESTS/t_multsc2.o UNIT_TESTS/t_multsc_data.o \
-	UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o
-	rm -f UNIT_TESTS/t_nega_data.o UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o \
-	UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o UNIT_TESTS/t_norm_data.o \
+	UNIT_TESTS/t_abs2.o UNIT_TESTS/t_add1 UNIT_TESTS/t_add1.o UNIT_TESTS/t_add2 \
+	UNIT_TESTS/t_add2.o UNIT_TESTS/t_addsc1 UNIT_TESTS/t_addsc1.o \
+	UNIT_TESTS/t_addsc2 UNIT_TESTS/t_addsc2.o UNIT_TESTS/t_align1 \
+	UNIT_TESTS/t_align1.o UNIT_TESTS/t_assign UNIT_TESTS/t_assign.o \
+	UNIT_TESTS/t_div1 UNIT_TESTS/t_div1.o UNIT_TESTS/t_div2 UNIT_TESTS/t_div2.o \
+	UNIT_TESTS/t_divsc1 UNIT_TESTS/t_divsc1.o UNIT_TESTS/t_divsc2 \
+	UNIT_TESTS/t_divsc2.o UNIT_TESTS/t_dotprod UNIT_TESTS/t_dotprod.o \
+	UNIT_TESTS/t_mag1 UNIT_TESTS/t_mag1.o UNIT_TESTS/t_mult1 UNIT_TESTS/t_mult1.o \
+	UNIT_TESTS/t_mult2 UNIT_TESTS/t_mult2.o UNIT_TESTS/t_multsc1 \
+	UNIT_TESTS/t_multsc1.o UNIT_TESTS/t_multsc2 UNIT_TESTS/t_multsc2.o \
+	UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o \
+	UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o \
 	UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o \
-	UNIT_TESTS/t_sub_data.o UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o \
-	UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_subsc_data.o \
-	UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o \
-	UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o UNIT_TESTS/t_zero_data.o ctxt/bindir.c \
-	ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o ctxt/flags_math.c \
-	ctxt/flags_math.o ctxt/incdir.c ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o \
-	ctxt/repos.c ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c \
-	ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o inst-copy \
-	inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
-	install_error.o installer installer.o instchk instchk.o insthier.o v_abs.o \
-	v_abs_alti.o v_abs_sse.o v_abs_sse2.o v_add.o v_add_alti.o v_add_sse.o \
-	v_add_sse2.o v_addsc.o v_addsc_alti.o v_addsc_sse.o v_addsc_sse2.o v_align.o
-	rm -f v_angle.o v_anglen.o v_assi.o v_assi_alti.o v_assi_sse.o v_assi_sse2.o \
-	v_degree.o v_degreen.o v_dist.o v_div.o v_div_alti.o v_div_sse.o v_div_sse2.o \
-	v_divsc.o v_divsc_alti.o v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o \
-	v_dotp_sse.o v_dotp_sse2.o v_dotp_sse3.o v_mag.o v_math.o v_mult.o \
-	v_mult_alti.o v_mult_sse.o v_multsc.o v_multsc_alti.o v_multsc_sse.o \
-	v_multsc_sse2.o v_nega.o v_nega_alti.o v_nega_sse.o v_nega_sse2.o v_norm.o \
-	v_simd.o v_sub.o v_sub_alti.o v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o \
-	v_subsc_sse.o v_subsc_sse2.o v_xprod.o v_zero.o v_zero_alti.o v_zero_sse.o \
-	v_zero_sse2.o vector-conf vector-conf.o vector.a
+	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o UNIT_TESTS/t_subsc2 \
+	UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a
+	rm -f UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o \
+	UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
+	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/flags_math.c ctxt/flags_math.o ctxt/incdir.c \
+	ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c ctxt/repos.o \
+	ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o \
+	inst-link inst-link.o install_core.o install_error.o installer installer.o \
+	instchk instchk.o insthier.o v_abs.o v_abs_alti.o v_abs_sse.o v_abs_sse2.o \
+	v_add.o v_add_alti.o v_add_sse.o v_add_sse2.o v_addsc.o v_addsc_alti.o \
+	v_addsc_sse.o v_addsc_sse2.o v_align.o v_angle.o v_anglen.o v_assi.o \
+	v_assi_alti.o v_assi_sse.o v_assi_sse2.o v_degree.o v_degreen.o v_dist.o \
+	v_div.o v_div_alti.o v_div_sse.o v_div_sse2.o v_divsc.o v_divsc_alti.o \
+	v_divsc_sse.o v_divsc_sse2.o v_dotp.o v_dotp_alti.o v_dotp_sse.o v_dotp_sse2.o \
+	v_dotp_sse3.o v_mag.o v_math.o v_mult.o v_mult_alti.o v_mult_sse.o v_multsc.o \
+	v_multsc_alti.o v_multsc_sse.o v_multsc_sse2.o v_nega.o v_nega_alti.o
+	rm -f v_nega_sse.o v_nega_sse2.o v_norm.o v_simd.o v_sub.o v_sub_alti.o \
+	v_sub_sse.o v_sub_sse2.o v_subsc.o v_subsc_alti.o v_subsc_sse.o v_subsc_sse2.o \
+	v_xprod.o v_zero.o v_zero_alti.o v_zero_sse.o v_zero_sse2.o vector-conf \
+	vector-conf.o vector.a
 ext_clean:
 	rm -f conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

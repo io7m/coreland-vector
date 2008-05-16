@@ -4,6 +4,8 @@
 #include "v_types.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float *
 vec_addscNf_altivec(float *va, float sc, unsigned int ne)
 {
@@ -116,3 +118,5 @@ vec_addscNfx_altivec(const float *va, float *vr, float sc, unsigned int ne)
 
   return vr;
 }
+
+#endif

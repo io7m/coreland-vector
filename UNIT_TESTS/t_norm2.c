@@ -3,7 +3,7 @@
 #include "../vector.h"
 #include "t_util.h"
 
-#include "t_norm_data.c"
+#include "t_norm_data.dat"
 
 int main()
 {

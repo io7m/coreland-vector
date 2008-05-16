@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float *
 vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
 {
@@ -50,3 +52,5 @@ vec_assignNf_altivec(float *va, const float *vb, unsigned int ne)
 
   return va;
 }
+
+#endif

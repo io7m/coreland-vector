@@ -2,6 +2,8 @@
 #include "v_sub.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float *
 vec_subNf_altivec(float *va, const float *vb, unsigned int ne)
 {
@@ -139,3 +141,5 @@ vec_subNfx_altivec(const float *va, const float *vb, float *vr, unsigned int ne)
 
   return vr;
 }
+
+#endif

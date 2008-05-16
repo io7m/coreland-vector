@@ -3,7 +3,7 @@
 #include "../vector.h"
 #include "t_util.h"
 
-#include "t_abs_data.c"
+#include "t_abs_data.dat"
 
 int main()
 {

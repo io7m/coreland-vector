@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_types.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline vector float
 vec_recip(vector float v)
 {
@@ -127,3 +129,5 @@ vec_divscNfx_altivec(const float *va, float *vr, float sc, unsigned int ne)
 
   return vr;
 }
+
+#endif

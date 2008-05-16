@@ -2,6 +2,8 @@
 #include "v_align.h"
 #include "v_simd.h"
 
+#ifdef HAVE_CPU_EXT_SSE2
+
 static inline double *
 vec_divNd_sse2(double *va, const double *vb, unsigned int ne)
 {
@@ -74,3 +76,5 @@ vec_divNdx_sse2(const double *va, const double *vb,
 
   return vr;
 }
+
+#endif

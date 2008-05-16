@@ -3,7 +3,7 @@
 #include "../vector.h"
 #include "t_util.h"
 
-#include "t_addsc_data.c"
+#include "t_addsc_data.dat"
 
 vector_16f vftmp;
 vector_16d vdtmp;

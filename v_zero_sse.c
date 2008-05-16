@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_SSE
+
 static inline float *
 vec_zeroNf_sse_lt16(float *va, unsigned int ne)
 {
@@ -57,3 +59,5 @@ vec_zeroNf_sse(float *va, unsigned int ne)
 {
   return (ne >= 16) ? vec_zeroNf_sse_gte16(va, ne) : vec_zeroNf_sse_lt16(va, ne);
 }
+
+#endif

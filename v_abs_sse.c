@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_SSE
+
 static inline float *
 vec_absNf_sse_lt16(float *va, unsigned int ne)
 {
@@ -105,3 +107,5 @@ vec_absNfx_sse(const float *va, float *vr, unsigned int ne)
 
   return vr;
 }
+
+#endif

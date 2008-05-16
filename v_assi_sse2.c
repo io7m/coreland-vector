@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_inline.h"
 
+#ifdef HAVE_CPU_EXT_SSE2
+
 static inline double *
 vec_assignNd_sse2(double *va, const double *vb, unsigned int ne)
 {
@@ -61,3 +63,5 @@ vec_assignNd_sse2(double *va, const double *vb, unsigned int ne)
 
   return va;
 }
+
+#endif

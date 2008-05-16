@@ -3,6 +3,8 @@
 #include "v_simd.h"
 #include "v_types.h"
 
+#ifdef HAVE_CPU_EXT_ALTIVEC
+
 static inline float *
 vec_negaNf_altivec(float *va, unsigned int ne)
 {
@@ -112,3 +114,5 @@ vec_negaNfx_altivec(const float *va, float *vr, unsigned int ne)
 
   return vr;
 }
+
+#endif

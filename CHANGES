@@ -13,3 +13,5 @@
 20071030 code: massive optimization over entire code.
 20080115 code: updated inst-check.c
 20080516 code: changed configuration of source files for updated build system.
+20080603 code: changed configuration of source files again for updated build
+               system (and fixed SSE include problems).

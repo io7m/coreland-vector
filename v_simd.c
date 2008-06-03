@@ -1,5 +1,7 @@
-#include "v_inline.h"
 #include "v_simd.h"
+#include "v_types.h"
+#include "v_align.h"
+#include "v_inline.h"
 
 /*
  * split ne into buffer sizes and pack into array of hm integers.
@@ -7,7 +9,7 @@
  * at least hm. remainder is placed in seg[0].
  *
  * example:
- *   vec_segments(seg, 4, 55);
+ *   vec_segments (seg, 4, 55);
  *     seg[3] = 3;
  *     seg[2] = 0;
  *     seg[1] = 1;
@@ -21,7 +23,7 @@
  */
 
 inline void
-vec_segments(unsigned int *seg, unsigned int hm, unsigned int ne)
+vec_segments (unsigned int *seg, unsigned int hm, unsigned int ne)
 {
   for (;;) {
     if (hm - 1) {

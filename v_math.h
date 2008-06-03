@@ -9,11 +9,11 @@
 #endif
 
 #if !defined(HAVE_MATH_ACOSF)
-float acosf(float);
+float acosf (float);
 #endif
 
 #if !defined(HAVE_MATH_SQRTF)
-float sqrtf(float);
+float sqrtf (float);
 #endif
 
 #endif

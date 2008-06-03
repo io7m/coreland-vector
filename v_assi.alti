@@ -1,0 +1,48 @@
+static inline float *
+vec_assignNf_altivec (float *va, const float *vb, unsigned int ne)
+{
+  vector float vvb1;
+  vector float vvb2;
+  vector float vvb3;
+  vector float vvb4;
+  unsigned int seg[4];
+  const float *pvb;
+  float *pva;
+  unsigned int ind;
+
+  pva = va;
+  pvb = vb;
+  vec_segments (seg, 4, ne);
+
+  for (ind = 0; ind < seg[3]; ++ind) {
+    vvb1 = vec_ld (0, pvb);
+    vvb2 = vec_ld (0, pvb + 4);
+    vvb3 = vec_ld (0, pvb + 8);
+    vvb4 = vec_ld (0, pvb + 12);
+    vec_st (vvb1, 0, pva);
+    vec_st (vvb2, 0, pva + 4);
+    vec_st (vvb3, 0, pva + 8);
+    vec_st (vvb4, 0, pva + 12);
+    pva += 16;
+    pvb += 16;
+  }
+  for (ind = 0; ind < seg[2]; ++ind) {
+    vvb1 = vec_ld (0, pvb);
+    vvb2 = vec_ld (0, pvb + 4);
+    vec_st (vvb1, 0, pva);
+    vec_st (vvb2, 0, pva + 4);
+    pva += 8;
+    pvb += 8;
+  }
+  for (ind = 0; ind < seg[1]; ++ind) {
+    vvb1 = vec_ld (0, pvb);
+    vec_st (vvb1, 0, pva);
+    pva += 4;
+    pvb += 4;
+  }
+  for (ind = 0; ind < seg[0]; ++ind)
+    pva[ind] = pvb[ind];
+
+  return va;
+}
+

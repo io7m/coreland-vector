@@ -26,8 +26,8 @@ inst-dir inst-dir.o inst-link inst-link.o install_core.o install_error.o \
 installer installer.o instchk instchk.o insthier.o v_abs.o v_add.o v_addsc.o \
 v_align.o v_angle.o v_anglen.o v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o \
 v_divsc.o v_dotp.o v_mag.o v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o \
-v_simd.o v_sub.o v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o \
-vector.a
+v_proj.o v_simd.o v_sub.o v_subsc.o v_xprod.o v_zero.o vector-conf \
+vector-conf.o vector.a
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -580,17 +580,17 @@ mk-systype:\
 conf-cc
 
 v_abs.o:\
-cc-compile v_abs.c v_abs.h v_align.h v_simd.h v_inline.h v_math.h v_abs.sse \
-v_abs.sse2 v_abs.alti
+cc-compile v_abs.c v_simd.h v_types.h v_align.h v_inline.h v_abs.h v_math.h \
+v_abs.sse v_abs.sse2 v_abs.alti
 	./cc-compile v_abs.c
 
 v_add.o:\
-cc-compile v_add.c v_add.h v_align.h v_simd.h v_types.h v_inline.h v_add.sse \
+cc-compile v_add.c v_simd.h v_types.h v_align.h v_inline.h v_add.h v_add.sse \
 v_add.sse2 v_add.alti
 	./cc-compile v_add.c
 
 v_addsc.o:\
-cc-compile v_addsc.c v_addsc.h v_align.h v_simd.h v_types.h v_inline.h \
+cc-compile v_addsc.c v_simd.h v_types.h v_align.h v_inline.h v_addsc.h \
 v_addsc.sse v_addsc.sse2 v_addsc.alti
 	./cc-compile v_addsc.c
 
@@ -598,45 +598,51 @@ v_align.h:\
 _sd-ptr_uint.h
 
 v_align.o:\
-cc-compile v_align.c v_align.h v_inline.h _sd-ptr_uint.h
+cc-compile v_align.c v_simd.h v_types.h v_align.h v_inline.h
 	./cc-compile v_align.c
 
 v_angle.o:\
-cc-compile v_angle.c v_math.h v_dotp.h v_mag.h v_angle.h
+cc-compile v_angle.c v_simd.h v_types.h v_align.h v_inline.h v_math.h v_dotp.h \
+v_mag.h v_angle.h
 	./cc-compile v_angle.c
 
 v_anglen.o:\
-cc-compile v_anglen.c v_math.h v_dotp.h v_anglen.h
+cc-compile v_anglen.c v_simd.h v_types.h v_align.h v_inline.h v_math.h v_dotp.h \
+v_anglen.h
 	./cc-compile v_anglen.c
 
 v_assi.o:\
-cc-compile v_assi.c v_assi.h v_align.h v_simd.h v_inline.h v_assi.sse \
+cc-compile v_assi.c v_simd.h v_types.h v_align.h v_inline.h v_assi.h v_assi.sse \
 v_assi.sse2 v_assi.alti
 	./cc-compile v_assi.c
 
 v_degree.o:\
-cc-compile v_degree.c v_math.h v_angle.h v_degree.h
+cc-compile v_degree.c v_simd.h v_types.h v_align.h v_inline.h v_math.h \
+v_angle.h v_degree.h
 	./cc-compile v_degree.c
 
 v_degreen.o:\
-cc-compile v_degreen.c v_math.h v_angle.h v_anglen.h v_degreen.h
+cc-compile v_degreen.c v_simd.h v_types.h v_align.h v_inline.h v_math.h \
+v_angle.h v_anglen.h v_degreen.h
 	./cc-compile v_degreen.c
 
 v_dist.o:\
-cc-compile v_dist.c v_dist.h
+cc-compile v_dist.c v_simd.h v_types.h v_align.h v_inline.h v_mag.h v_dist.h \
+v_sub.h
 	./cc-compile v_dist.c
 
 v_div.o:\
-cc-compile v_div.c v_div.h v_align.h v_simd.h v_div.sse v_div.sse2 v_div.alti
+cc-compile v_div.c v_simd.h v_types.h v_align.h v_inline.h v_div.h v_div.sse \
+v_div.sse2 v_div.alti
 	./cc-compile v_div.c
 
 v_divsc.o:\
-cc-compile v_divsc.c v_align.h v_divsc.h v_simd.h v_types.h v_divsc.sse \
-v_divsc.sse2 v_divsc.alti
+cc-compile v_divsc.c v_simd.h v_types.h v_align.h v_inline.h v_divsc.h \
+v_divsc.sse v_divsc.sse2 v_divsc.alti
 	./cc-compile v_divsc.c
 
 v_dotp.o:\
-cc-compile v_dotp.c v_align.h v_dotp.h v_simd.h v_types.h v_dotp.sse \
+cc-compile v_dotp.c v_simd.h v_types.h v_align.h v_inline.h v_dotp.h v_dotp.sse \
 v_dotp.sse2 v_dotp.sse3 v_dotp.alti
 	./cc-compile v_dotp.c
 
@@ -644,7 +650,8 @@ v_inline.h:\
 _sd_inline.h
 
 v_mag.o:\
-cc-compile v_mag.c v_math.h v_mag.h v_dotp.h v_simd.h
+cc-compile v_mag.c v_simd.h v_types.h v_align.h v_inline.h v_math.h v_mag.h \
+v_dotp.h
 	./cc-compile v_mag.c
 
 v_math.h:\
@@ -655,43 +662,50 @@ cc-compile v_math.c v_math.h
 	./cc-compile v_math.c
 
 v_mult.o:\
-cc-compile v_mult.c v_align.h v_mult.h v_simd.h v_mult.sse v_mult.alti
+cc-compile v_mult.c v_simd.h v_types.h v_align.h v_inline.h v_mult.h v_mult.sse \
+v_mult.alti
 	./cc-compile v_mult.c
 
 v_multsc.o:\
-cc-compile v_multsc.c v_align.h v_multsc.h v_simd.h v_types.h v_multsc.sse \
-v_multsc.sse2 v_multsc.alti
+cc-compile v_multsc.c v_simd.h v_types.h v_align.h v_inline.h v_multsc.h \
+v_multsc.sse v_multsc.sse2 v_multsc.alti
 	./cc-compile v_multsc.c
 
 v_nega.o:\
-cc-compile v_nega.c v_align.h v_nega.h v_simd.h v_types.h v_nega.sse \
+cc-compile v_nega.c v_simd.h v_types.h v_align.h v_inline.h v_nega.h v_nega.sse \
 v_nega.sse2 v_nega.alti
 	./cc-compile v_nega.c
 
 v_norm.o:\
-cc-compile v_norm.c v_dotp.h v_norm.h v_multsc.h v_simd.h v_types.h v_math.h
+cc-compile v_norm.c v_simd.h v_types.h v_align.h v_inline.h v_math.h v_dotp.h \
+v_norm.h v_multsc.h
 	./cc-compile v_norm.c
 
+v_proj.o:\
+cc-compile v_proj.c v_simd.h v_types.h v_align.h v_inline.h v_proj.h v_mag.h
+	./cc-compile v_proj.c
+
 v_simd.o:\
-cc-compile v_simd.c v_inline.h v_simd.h
+cc-compile v_simd.c v_simd.h v_types.h v_align.h v_inline.h
 	./cc-compile v_simd.c
 
 v_sub.o:\
-cc-compile v_sub.c v_align.h v_sub.h v_simd.h v_sub.sse v_sub.sse2 v_sub.alti
+cc-compile v_sub.c v_simd.h v_types.h v_align.h v_inline.h v_sub.h v_sub.sse \
+v_sub.sse2 v_sub.alti
 	./cc-compile v_sub.c
 
 v_subsc.o:\
-cc-compile v_subsc.c v_align.h v_subsc.h v_simd.h v_types.h v_subsc.sse \
-v_subsc.sse2 v_subsc.alti
+cc-compile v_subsc.c v_simd.h v_types.h v_align.h v_inline.h v_subsc.h \
+v_subsc.sse v_subsc.sse2 v_subsc.alti
 	./cc-compile v_subsc.c
 
 v_xprod.o:\
-cc-compile v_xprod.c v_xprod.h
+cc-compile v_xprod.c v_simd.h v_types.h v_align.h v_inline.h v_xprod.h
 	./cc-compile v_xprod.c
 
 v_zero.o:\
-cc-compile v_zero.c v_align.h v_zero.h v_simd.h v_zero.sse v_zero.sse2 \
-v_zero.alti
+cc-compile v_zero.c v_simd.h v_types.h v_align.h v_inline.h v_zero.h v_zero.sse \
+v_zero.sse2 v_zero.alti
 	./cc-compile v_zero.c
 
 vector-conf:\
@@ -705,12 +719,12 @@ cc-compile vector-conf.c ctxt.h _sysinfo.h
 vector.a:\
 cc-slib vector.sld v_abs.o v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o \
 v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
-v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_simd.o v_sub.o v_subsc.o \
-v_xprod.o v_zero.o
+v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o \
+v_subsc.o v_xprod.o v_zero.o
 	./cc-slib vector v_abs.o v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o \
 	v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
-	v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_simd.o v_sub.o v_subsc.o \
-	v_xprod.o v_zero.o
+	v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o \
+	v_subsc.o v_xprod.o v_zero.o
 
 vector.h:\
 v_abs.h v_add.h v_addsc.h v_angle.h v_anglen.h v_assi.h v_dist.h v_div.h \
@@ -745,8 +759,8 @@ obj_clean:
 	inst-link inst-link.o install_core.o install_error.o installer installer.o \
 	instchk instchk.o insthier.o v_abs.o v_add.o v_addsc.o v_align.o v_angle.o \
 	v_anglen.o v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o \
-	v_mag.o v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_simd.o v_sub.o \
-	v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a
+	v_mag.o v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o \
+	v_sub.o v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a
 ext_clean:
 	rm -f conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

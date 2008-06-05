@@ -9,22 +9,23 @@ APPROX_ERROR) value isn't enough.
   T = tests pass
 
 vec_add             acsStT
-vec_sub             acsStT
-vec_mult            acsSt
-vec_div             acsStT
 vec_addsc           acsStT
-vec_subsc           acsSt
-vec_multsc          acsSt
-vec_divsc           acsSt
-vec_nega            acsStT
-vec_norm            acsStT
 vec_angle           c
 vec_anglenorm       c
+vec_assi            acsStT
 vec_degree          c
 vec_degreenorm      c
 vec_dist            c
-vec_assi            acsStT
+vec_div             acsStT
+vec_divsc           acsStT
 vec_dotp            ac
 vec_mag             c
+vec_mult            acsStT
+vec_multsc          acsStT
+vec_nega            acsStT
+vec_norm            acsStT
+vec_proj            c
+vec_sub             acsStT
+vec_subsc           acsStT
 vec_xprod           c
 vec_zero            acsStT

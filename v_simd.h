@@ -8,6 +8,6 @@
   #undef HAVE_CPU_EXT_ALTIVEC
 #endif
 
-inline void vec_segments(unsigned int *, unsigned int, unsigned int);
+inline void vec_segments (unsigned int *, unsigned int, unsigned int);
 
 #endif

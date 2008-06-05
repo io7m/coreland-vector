@@ -17,6 +17,7 @@ v_mult.o
 v_multsc.o
 v_nega.o
 v_norm.o
+v_proj.o
 v_simd.o
 v_sub.o
 v_subsc.o

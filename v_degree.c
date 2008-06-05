@@ -18,3 +18,15 @@ vec_degreeNd (const double *va, const double *vb, unsigned int n)
 {
   return vec_angleNd (va, vb, n) * (180 / M_PI);
 }
+
+float
+vec_degreeNf_aligned (const float *va, const float *vb, unsigned int n)
+{
+  return vec_angleNf_aligned (va, vb, n) * (180 / M_PI);
+}
+
+double
+vec_degreeNd_aligned (const double *va, const double *vb, unsigned int n)
+{
+  return vec_angleNd_aligned (va, vb, n) * (180 / M_PI);
+}

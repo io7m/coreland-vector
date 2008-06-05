@@ -6,6 +6,11 @@ float *vec_absNfx (const float *, float *, unsigned int);
 double *vec_absNd (double *, unsigned int);
 double *vec_absNdx (const double *, double *, unsigned int);
 
+float *vec_absNf_aligned (float *, unsigned int);
+float *vec_absNfx_aligned (const float *, float *, unsigned int);
+double *vec_absNd_aligned (double *, unsigned int);
+double *vec_absNdx_aligned (const double *, double *, unsigned int);
+
 #define vec_abs2f(va) vec_absNf ((va),2)
 #define vec_abs3f(va) vec_absNf ((va),3)
 #define vec_abs4f(va) vec_absNf ((va),4)

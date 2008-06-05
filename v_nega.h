@@ -6,6 +6,11 @@ float *vec_negaNfx (const float *, float *, unsigned int);
 double *vec_negaNd (double *, unsigned int);
 double *vec_negaNdx (const double *, double *, unsigned int);
 
+float *vec_negaNf_aligned (float *, unsigned int);
+float *vec_negaNfx_aligned (const float *, float *, unsigned int);
+double *vec_negaNd_aligned (double *, unsigned int);
+double *vec_negaNdx_aligned (const double *, double *, unsigned int);
+
 #define vec_nega2f(va) vec_negaNf ((va),2)
 #define vec_nega3f(va) vec_negaNf ((va),3)
 #define vec_nega4f(va) vec_negaNf ((va),4)

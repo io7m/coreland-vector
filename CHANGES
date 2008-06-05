@@ -15,3 +15,6 @@
 20080516 code: changed configuration of source files for updated build system.
 20080603 code: changed configuration of source files again for updated build
                system (and fixed SSE include problems).
+20080605 code: added vec_proj()
+20080605 code: added _aligned() versions of all functions for external bindings
+               that can guarantee alignment (so don't need runtime checks).

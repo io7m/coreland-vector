@@ -4,6 +4,9 @@
 float vec_degreenormNf (const float *, const float *, unsigned int);
 double vec_degreenormNd (const double *, const double *, unsigned int);
 
+float vec_degreenormNf_aligned (const float *, const float *, unsigned int);
+double vec_degreenormNd_aligned (const double *, const double *, unsigned int);
+
 #define vec_degreenorm2f(va,vb) vec_degreenormNf ((va),(vb),2)
 #define vec_degreenorm3f(va,vb) vec_degreenormNf ((va),(vb),3)
 #define vec_degreenorm4f(va,vb) vec_degreenormNf ((va),(vb),4)

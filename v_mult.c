@@ -58,3 +58,43 @@ vec_multNdx (const double *va, const double *vb, double *vr, unsigned int n)
   vec_MULTX (va, vb, vr, n, double);
   return vr;
 }
+
+float *
+vec_multNf_aligned (float *va, const float *vb, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_multNf_sse (va, vb, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_multNf_altivec (va, vb, n);
+#endif
+  vec_MULT (va, vb, n, float);
+  return va;
+}
+
+float *
+vec_multNfx_aligned (const float *va, const float *vb, float *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_multNfx_sse (va, vb, vr, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_multNfx_altivec (va, vb, vr, n);
+#endif
+  vec_MULTX (va, vb, vr, n, float);
+  return vr;
+}
+
+double *
+vec_multNd_aligned (double *va, const double *vb, unsigned int n)
+{
+  vec_MULT (va, vb, n, double);
+  return va;
+}
+
+double *
+vec_multNdx_aligned (const double *va, const double *vb, double *vr, unsigned int n)
+{
+  vec_MULTX (va, vb, vr, n, double);
+  return vr;
+}

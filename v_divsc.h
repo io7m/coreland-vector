@@ -6,6 +6,11 @@ float *vec_divscNfx (const float *, float *, float, unsigned int);
 double *vec_divscNd (double *, double, unsigned int);
 double *vec_divscNdx (const double *, double *, double, unsigned int);
 
+float *vec_divscNf_aligned (float *, float, unsigned int);
+float *vec_divscNfx_aligned (const float *, float *, float, unsigned int);
+double *vec_divscNd_aligned (double *, double, unsigned int);
+double *vec_divscNdx_aligned (const double *, double *, double, unsigned int);
+
 #define vec_divsc2f(v,sc) vec_divscNf ((v),(sc),2)
 #define vec_divsc3f(v,sc) vec_divscNf ((v),(sc),3)
 #define vec_divsc4f(v,sc) vec_divscNf ((v),(sc),4)

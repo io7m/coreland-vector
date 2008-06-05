@@ -4,6 +4,9 @@
 float *vec_zeroNf (float *, unsigned int);
 double *vec_zeroNd (double *, unsigned int);
 
+float *vec_zeroNf_aligned (float *, unsigned int);
+double *vec_zeroNd_aligned (double *, unsigned int);
+
 #define vec_zero2f(va) vec_zeroNf ((va),2)
 #define vec_zero3f(va) vec_zeroNf ((va),3)
 #define vec_zero4f(va) vec_zeroNf ((va),4)

@@ -67,3 +67,49 @@ vec_subscNdx (const double *va, double *vr, double sc, unsigned int n)
   vec_SUBSCX (va, vr, sc, n, double);
   return vr;
 }
+
+float *
+vec_subscNf_aligned (float *va, float sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_subscNf_sse (va, sc, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_subscNf_altivec (va, sc, n);
+#endif
+  vec_SUBSC (va, sc, n, float);
+  return va;
+}
+
+float *
+vec_subscNfx_aligned (const float *va, float *vr, float sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_subscNfx_sse (va, vr, sc, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_subscNfx_altivec (va, vr, sc, n);
+#endif
+  vec_SUBSCX (va, vr, sc, n, float);
+  return vr;
+}
+
+double *
+vec_subscNd_aligned (double *va, double sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_subscNd_sse2 (va, sc, n);
+#endif
+  vec_SUBSC (va, sc, n, double);
+  return va;
+}
+
+double *
+vec_subscNdx_aligned (const double *va, double *vr, double sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_subscNdx_sse2 (va, vr, sc, n);
+#endif
+  vec_SUBSCX (va, vr, sc, n, double);
+  return vr;
+}

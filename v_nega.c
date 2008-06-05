@@ -83,3 +83,65 @@ vec_negaNdx (const double *va, double *vr, unsigned int n)
     return vr;
   }
 }
+
+float *
+vec_negaNf_aligned (float *va, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_negaNf_sse (va, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_negaNf_altivec (va, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] = -va[ind];
+    return va;
+  }
+}
+
+float *
+vec_negaNfx_aligned (const float *va, float *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_negaNfx_sse (va, vr, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_negaNfx_altivec (va, vr, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = -va[ind];
+    return vr;
+  }
+}
+
+double *
+vec_negaNd_aligned (double *va, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_negaNd_sse2 (va, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      va[ind] = -va[ind];
+    return va;
+  }
+}
+
+double *
+vec_negaNdx_aligned (const double *va, double *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_negaNdx_sse2 (va, vr, n);
+#endif
+  {
+    unsigned int ind;
+    for (ind = 0; ind < n; ++ind)
+      vr[ind] = -va[ind];
+    return vr;
+  }
+}

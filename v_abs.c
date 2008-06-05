@@ -63,3 +63,49 @@ vec_absNdx (const double *va, double *vr, unsigned int n)
   vec_ABSX (va, vr, n, double, fabs);
   return vr;
 }
+
+float *
+vec_absNf_aligned (float *va, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_absNf_sse (va, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_absNf_altivec (va, n);
+#endif
+  vec_ABS (va, n, float, fabsf);
+  return va;
+}
+
+float *
+vec_absNfx_aligned (const float *va, float *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_absNfx_sse (va, vr, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_absNfx_altivec (va, vr, n);
+#endif
+  vec_ABSX (va, vr, n, float, fabsf);
+  return vr;
+}
+
+double *
+vec_absNd_aligned (double *va, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_absNd_sse2 (va, n);
+#endif
+  vec_ABS (va, n, double, fabs);
+  return va;
+}
+
+double *
+vec_absNdx_aligned (const double *va, double *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_absNdx_sse2 (va, vr, n);
+#endif
+  vec_ABSX (va, vr, n, double, fabs);
+  return vr;
+}

@@ -4,6 +4,9 @@
 float vec_dotprodNf (const float *, const float *, unsigned int);
 double vec_dotprodNd (const double *, const double *, unsigned int);
 
+float vec_dotprodNf_aligned (const float *, const float *, unsigned int);
+double vec_dotprodNd_aligned (const double *, const double *, unsigned int);
+
 #define vec_dotprod2f(va,vb) vec_dotprodNf ((va),(vb),2)
 #define vec_dotprod3f(va,vb) vec_dotprodNf ((va),(vb),3)
 #define vec_dotprod4f(va,vb) vec_dotprodNf ((va),(vb),4)

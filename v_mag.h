@@ -4,6 +4,9 @@
 float vec_magNf (const float *, unsigned int);
 double vec_magNd (const double *, unsigned int);
 
+float vec_magNf_aligned (const float *, unsigned int);
+double vec_magNd_aligned (const double *, unsigned int);
+
 #define vec_mag2f(va) vec_magNf ((va),2)
 #define vec_mag3f(va) vec_magNf ((va),3)
 #define vec_mag4f(va) vec_magNf ((va),4)

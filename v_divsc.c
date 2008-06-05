@@ -67,3 +67,49 @@ vec_divscNdx (const double *va, double *vr, double sc, unsigned int n)
   vec_DIVSCX (va, vr, sc, n, double);
   return vr;
 }
+
+float *
+vec_divscNf_aligned (float *va, float sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_divscNf_sse (va, sc, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_divscNf_altivec (va, sc, n);
+#endif
+  vec_DIVSC (va, sc, n, float);
+  return va;
+}
+
+float *
+vec_divscNfx_aligned (const float *va, float *vr, float sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_divscNfx_sse (va, vr, sc, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_divscNfx_altivec (va, vr, sc, n);
+#endif
+  vec_DIVSCX (va, vr, sc, n, float);
+  return vr;
+}
+
+double *
+vec_divscNd_aligned (double *va, double sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_divscNd_sse2 (va, sc, n);
+#endif
+  vec_DIVSC (va, sc, n, double);
+  return va;
+}
+
+double *
+vec_divscNdx_aligned (const double *va, double *vr, double sc, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_divscNdx_sse2 (va, vr, sc, n);
+#endif
+  vec_DIVSCX (va, vr, sc, n, double);
+  return vr;
+}

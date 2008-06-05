@@ -6,6 +6,11 @@ float *vec_subNfx (const float *, const float *, float *, unsigned int);
 double *vec_subNd (double *, const double *, unsigned int);
 double *vec_subNdx (const double *, const double *, double *, unsigned int);
 
+float *vec_subNf_aligned (float *, const float *, unsigned int);
+float *vec_subNfx_aligned (const float *, const float *, float *, unsigned int);
+double *vec_subNd_aligned (double *, const double *, unsigned int);
+double *vec_subNdx_aligned (const double *, const double *, double *, unsigned int);
+
 #define vec_sub2f(va,vb) vec_subNf ((va),(vb),2)
 #define vec_sub3f(va,vb) vec_subNf ((va),(vb),3)
 #define vec_sub4f(va,vb) vec_subNf ((va),(vb),4)

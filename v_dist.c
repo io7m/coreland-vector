@@ -18,3 +18,15 @@ vec_distNd (double *vt, const double *va, const double *vb, unsigned int n)
 {
   return vec_magNd (vec_subNdx (va, vb, vt, n), n);
 }
+
+float
+vec_distNf_aligned (float *vt, const float *va, const float *vb, unsigned int n)
+{
+  return vec_magNf_aligned (vec_subNfx_aligned (va, vb, vt, n), n);
+}
+
+double
+vec_distNd_aligned (double *vt, const double *va, const double *vb, unsigned int n)
+{
+  return vec_magNd_aligned (vec_subNdx_aligned (va, vb, vt, n), n);
+}

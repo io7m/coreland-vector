@@ -68,3 +68,50 @@ vec_addNdx (const double *va, const double *vb, double *vr, unsigned int n)
   vec_ADDX (va, vb, vr, n, double);
   return vr;
 }
+
+float *
+vec_addNf_aligned (float *va, const float *vb, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_addNf_sse (va, vb, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_addNf_altivec (va, vb, n);
+#endif
+  vec_ADD (va, vb, n, float);
+  return va;
+}
+
+float *
+vec_addNfx_aligned (const float *va, const float *vb, float *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_addNfx_sse (va, vb, vr, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_addNfx_altivec (va, vb, vr, n);
+#endif
+  vec_ADDX (va, vb, vr, n, float);
+  return vr;
+}
+
+double *
+vec_addNd_aligned (double *va, const double *vb, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_addNd_sse2 (va, vb, n);
+#endif
+  vec_ADD (va, vb, n, double);
+  return va;
+}
+
+double *
+vec_addNdx_aligned (const double *va, const double *vb, double *vr, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_addNdx_sse2 (va, vb, vr, n);
+#endif
+  vec_ADDX (va, vb, vr, n, double);
+  return vr;
+}
+

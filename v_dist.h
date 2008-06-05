@@ -4,6 +4,9 @@
 float vec_distNf (float *, const float *, const float *, unsigned int);
 double vec_distNd (double *, const double *, const double *, unsigned int);
 
+float vec_distNf_aligned (float *, const float *, const float *, unsigned int);
+double vec_distNd_aligned (double *, const double *, const double *, unsigned int);
+
 #define vec_dist2f(va) vec_distNf ((va),2)
 #define vec_dist3f(va) vec_distNf ((va),3)
 #define vec_dist4f(va) vec_distNf ((va),4)

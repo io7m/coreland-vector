@@ -31,3 +31,23 @@ vec_projN (const double *va, const double *vb, double *vr, unsigned int n)
   bms *= bms;
   return vec_multscNdx (vb, vr, adp / bms, n);
 }
+
+float *
+vec_projNf_aligned (const float *va, const float *vb, float *vr, unsigned int n)
+{
+  const float adp = vec_dotprodNf_aligned (va, vb, n);
+  float bms = vec_magNf_aligned (vb, n);
+
+  bms *= bms;
+  return vec_multscNfx_aligned (vb, vr, adp / bms, n);
+}
+
+double *
+vec_projN_aligned (const double *va, const double *vb, double *vr, unsigned int n)
+{
+  const double adp = vec_dotprodNd_aligned (va, vb, n);
+  float bms = vec_magNd_aligned (vb, n);
+
+  bms *= bms;
+  return vec_multscNdx_aligned (vb, vr, adp / bms, n);
+}

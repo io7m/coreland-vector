@@ -42,3 +42,26 @@ vec_assignNd (double *va, const double *vb, unsigned int n)
   vec_ASSIGN (va, vb, n, double);
   return va;
 }
+
+float *
+vec_assignNf_aligned (float *va, const float *vb, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE
+  return vec_assignNf_sse (va, vb, n);
+#endif
+#ifdef HAVE_CPU_EXT_ALTIVEC
+  return vec_assignNf_altivec (va, vb, n);
+#endif
+  vec_ASSIGN (va, vb, n, float);
+  return va;
+}
+
+double *
+vec_assignNd_aligned (double *va, const double *vb, unsigned int n)
+{
+#ifdef HAVE_CPU_EXT_SSE2
+  return vec_assignNd_sse2 (va, vb, n);
+#endif
+  vec_ASSIGN (va, vb, n, double);
+  return va;
+}

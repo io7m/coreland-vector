@@ -19,3 +19,15 @@ vec_degreenormNd (const double *va, const double *vb, unsigned int n)
 {
   return vec_anglenormNd (va, vb, n) * (180 / M_PI);
 }
+
+float
+vec_degreenormNf_aligned (const float *va, const float *vb, unsigned int n)
+{
+  return vec_anglenormNf_aligned (va, vb, n) * (180 / M_PI);
+}
+
+double
+vec_degreenormNd_aligned (const double *va, const double *vb, unsigned int n)
+{
+  return vec_anglenormNd_aligned (va, vb, n) * (180 / M_PI);
+}

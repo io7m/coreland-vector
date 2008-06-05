@@ -4,6 +4,9 @@
 float *vec_assignNf (float *, const float *, unsigned int);
 double *vec_assignNd (double *, const double *, unsigned int);
 
+float *vec_assignNf_aligned (float *, const float *, unsigned int);
+double *vec_assignNd_aligned (double *, const double *, unsigned int);
+
 #define vec_assign2f(va,vb) vec_assignNf ((va),(vb),2)
 #define vec_assign3f(va,vb) vec_assignNf ((va),(vb),3)
 #define vec_assign4f(va,vb) vec_assignNf ((va),(vb),4)

@@ -6,6 +6,11 @@ float *vec_normNfx (const float *, float *, unsigned int);
 double *vec_normNd (double *, unsigned int);
 double *vec_normNdx (const double *, double *, unsigned int);
 
+float *vec_normNf_aligned (float *, unsigned int);
+float *vec_normNfx_aligned (const float *, float *, unsigned int);
+double *vec_normNd_aligned (double *, unsigned int);
+double *vec_normNdx_aligned (const double *, double *, unsigned int);
+
 #define vec_norm2f(va) vec_normNf ((va),2)
 #define vec_norm3f(va) vec_normNf ((va),3)
 #define vec_norm4f(va) vec_normNf ((va),4)

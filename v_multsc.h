@@ -6,6 +6,11 @@ float *vec_multscNfx (const float *, float *, float, unsigned int);
 double *vec_multscNd (double *, double, unsigned int);
 double *vec_multscNdx (const double *, double *, double, unsigned int);
 
+float *vec_multscNf_aligned (float *, float, unsigned int);
+float *vec_multscNfx_aligned (const float *, float *, float, unsigned int);
+double *vec_multscNd_aligned (double *, double, unsigned int);
+double *vec_multscNdx_aligned (const double *, double *, double, unsigned int);
+
 #define vec_multsc2f(v,sc) vec_multscNf ((v),(sc),2)
 #define vec_multsc3f(v,sc) vec_multscNf ((v),(sc),3)
 #define vec_multsc4f(v,sc) vec_multscNf ((v),(sc),4)

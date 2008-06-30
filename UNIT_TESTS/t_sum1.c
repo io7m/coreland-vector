@@ -12,7 +12,6 @@ int main()
   float fsum;
   float *fpa;
   unsigned int ind;
-  unsigned int jnd;
 
   /* single precision */
   for (ind = 0; ind < sizeof(tests_f) / sizeof(struct sum_testf); ++ind) {
@@ -20,7 +19,7 @@ int main()
     fsum = vec_sumNf(fpa, tests_f[ind].sz);
 
     if (!approx_equalf(tests_f[ind].sum, fsum, APPROX_MAX_ERRORF)) {
-      printf("fail: tests_f[%u] r %f != %f\n", ind, jnd, tests_f[ind].sum, fsum);
+      printf("fail: tests_f[%u] r %f != %f\n", ind, tests_f[ind].sum, fsum);
       return 1;
     }
     printf("[%u] r %f ~ %f\n", ind, tests_f[ind].sum, fsum);
@@ -32,7 +31,7 @@ int main()
     dsum = vec_sumNd(dpa, tests_d[ind].sz);
 
     if (!approx_equald(tests_d[ind].sum, dsum, APPROX_MAX_ERRORD)) {
-      printf("fail: tests_d[%u] r %f != %f\n", ind, jnd, tests_d[ind].sum, dsum);
+      printf("fail: tests_d[%u] r %f != %f\n", ind, tests_d[ind].sum, dsum);
       return 1;
     }
     printf("[%u] r %f ~ %f\n", ind, tests_d[ind].sum, dsum);

@@ -21,5 +21,6 @@ v_proj.o
 v_simd.o
 v_sub.o
 v_subsc.o
+v_sum.o
 v_xprod.o
 v_zero.o

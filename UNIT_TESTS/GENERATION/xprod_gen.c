@@ -22,9 +22,9 @@ void print(float f[3], float g[3])
   printf("    {%f, %f, %f},\n", f[0], f[1], f[2]);
   printf("    {%f, %f, %f},\n", g[0], g[1], g[2]);
 
-  tmp[0] = (f[1] * g[2]) - (f[2] - g[1]); 
-  tmp[1] = (f[2] * g[0]) - (f[0] - g[2]); 
-  tmp[2] = (f[0] * g[1]) - (f[1] - g[0]); 
+  tmp[0] = (f[1] * g[2]) - (f[2] * g[1]); 
+  tmp[1] = (f[2] * g[0]) - (f[0] * g[2]); 
+  tmp[2] = (f[0] * g[1]) - (f[1] * g[0]); 
 
   printf("    {%f, %f, %f},\n", tmp[0], tmp[1], tmp[2]);
   printf("  },\n");

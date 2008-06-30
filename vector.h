@@ -19,6 +19,7 @@
 #include "v_proj.h"
 #include "v_sub.h"
 #include "v_subsc.h"
+#include "v_sum.h"
 #include "v_types.h"
 #include "v_xprod.h"
 #include "v_zero.h"

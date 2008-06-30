@@ -17,17 +17,17 @@ UNIT_TESTS/t_multsc2.o UNIT_TESTS/t_nega1 UNIT_TESTS/t_nega1.o \
 UNIT_TESTS/t_nega2 UNIT_TESTS/t_nega2.o UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o \
 UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o \
 UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o \
-UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a \
-UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero \
-UNIT_TESTS/t_zero.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/flags_math.o \
-ctxt/incdir.o ctxt/libs_math.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o \
-deinstaller deinstaller.o inst-check inst-check.o inst-copy inst-copy.o \
-inst-dir inst-dir.o inst-link inst-link.o install_core.o install_error.o \
-installer installer.o instchk instchk.o insthier.o v_abs.o v_add.o v_addsc.o \
-v_align.o v_angle.o v_anglen.o v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o \
-v_divsc.o v_dotp.o v_mag.o v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o \
-v_proj.o v_simd.o v_sub.o v_subsc.o v_xprod.o v_zero.o vector-conf \
-vector-conf.o vector.a
+UNIT_TESTS/t_subsc2 UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_sum1 UNIT_TESTS/t_sum1.o \
+UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o \
+UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o \
+ctxt/flags_math.o ctxt/incdir.o ctxt/libs_math.o ctxt/repos.o ctxt/slibdir.o \
+ctxt/version.o deinstaller deinstaller.o inst-check inst-check.o inst-copy \
+inst-copy.o inst-dir inst-dir.o inst-link inst-link.o install_core.o \
+install_error.o installer installer.o instchk instchk.o insthier.o v_abs.o \
+v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o v_assi.o v_degree.o \
+v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o v_math.o v_mult.o \
+v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o v_subsc.o v_sum.o \
+v_xprod.o v_zero.o vector-conf vector-conf.o vector.a
 
 # Mkf-deinstall
 deinstall: deinstaller inst-check inst-copy inst-dir inst-link
@@ -357,6 +357,15 @@ cc-compile UNIT_TESTS/t_subsc2.c vector.h UNIT_TESTS/t_util.h \
 UNIT_TESTS/t_subsc_data.dat
 	./cc-compile UNIT_TESTS/t_subsc2.c
 
+UNIT_TESTS/t_sum1:\
+cc-link UNIT_TESTS/t_sum1.ld UNIT_TESTS/t_sum1.o UNIT_TESTS/t_util.a vector.a
+	./cc-link UNIT_TESTS/t_sum1 UNIT_TESTS/t_sum1.o UNIT_TESTS/t_util.a vector.a
+
+UNIT_TESTS/t_sum1.o:\
+cc-compile UNIT_TESTS/t_sum1.c vector.h UNIT_TESTS/t_util.h \
+UNIT_TESTS/t_sum_data.dat
+	./cc-compile UNIT_TESTS/t_sum1.c
+
 UNIT_TESTS/t_util.a:\
 cc-slib UNIT_TESTS/t_util.sld UNIT_TESTS/t_util.o
 	./cc-slib UNIT_TESTS/t_util UNIT_TESTS/t_util.o
@@ -393,11 +402,11 @@ cc-slib:\
 conf-systype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-sosuffix:\
@@ -682,7 +691,8 @@ v_norm.h v_multsc.h
 	./cc-compile v_norm.c
 
 v_proj.o:\
-cc-compile v_proj.c v_simd.h v_types.h v_align.h v_inline.h v_proj.h v_mag.h
+cc-compile v_proj.c v_simd.h v_types.h v_align.h v_inline.h v_dotp.h v_proj.h \
+v_mag.h v_multsc.h
 	./cc-compile v_proj.c
 
 v_simd.o:\
@@ -698,6 +708,11 @@ v_subsc.o:\
 cc-compile v_subsc.c v_simd.h v_types.h v_align.h v_inline.h v_subsc.h \
 v_subsc.sse v_subsc.sse2 v_subsc.alti
 	./cc-compile v_subsc.c
+
+v_sum.o:\
+cc-compile v_sum.c v_simd.h v_types.h v_align.h v_inline.h v_sum.h v_sum.sse \
+v_sum.sse2 v_sum.alti
+	./cc-compile v_sum.c
 
 v_xprod.o:\
 cc-compile v_xprod.c v_simd.h v_types.h v_align.h v_inline.h v_xprod.h
@@ -720,16 +735,16 @@ vector.a:\
 cc-slib vector.sld v_abs.o v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o \
 v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
 v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o \
-v_subsc.o v_xprod.o v_zero.o
+v_subsc.o v_sum.o v_xprod.o v_zero.o
 	./cc-slib vector v_abs.o v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o \
 	v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
 	v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o \
-	v_subsc.o v_xprod.o v_zero.o
+	v_subsc.o v_sum.o v_xprod.o v_zero.o
 
 vector.h:\
 v_abs.h v_add.h v_addsc.h v_angle.h v_anglen.h v_assi.h v_dist.h v_div.h \
-	v_divsc.h v_dotp.h v_mag.h v_mult.h v_multsc.h v_nega.h v_norm.h v_sub.h \
-	v_subsc.h v_xprod.h v_zero.h v_types.h
+	v_divsc.h v_dotp.h v_mag.h v_mult.h v_multsc.h v_nega.h v_norm.h v_proj.h \
+	v_sub.h v_subsc.h v_sum.h v_types.h v_xprod.h v_zero.h
 
 clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
@@ -749,18 +764,19 @@ obj_clean:
 	UNIT_TESTS/t_norm1 UNIT_TESTS/t_norm1.o UNIT_TESTS/t_norm2 UNIT_TESTS/t_norm2.o \
 	UNIT_TESTS/t_sub1 UNIT_TESTS/t_sub1.o UNIT_TESTS/t_sub2 UNIT_TESTS/t_sub2.o \
 	UNIT_TESTS/t_subsc1 UNIT_TESTS/t_subsc1.o UNIT_TESTS/t_subsc2 \
-	UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_util.a
-	rm -f UNIT_TESTS/t_util.o UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o \
-	UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
-	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/flags_math.c ctxt/flags_math.o ctxt/incdir.c \
-	ctxt/incdir.o ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c ctxt/repos.o \
-	ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller \
-	deinstaller.o inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o \
-	inst-link inst-link.o install_core.o install_error.o installer installer.o \
-	instchk instchk.o insthier.o v_abs.o v_add.o v_addsc.o v_align.o v_angle.o \
-	v_anglen.o v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o \
-	v_mag.o v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o \
-	v_sub.o v_subsc.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a
+	UNIT_TESTS/t_subsc2.o UNIT_TESTS/t_sum1
+	rm -f UNIT_TESTS/t_sum1.o UNIT_TESTS/t_util.a UNIT_TESTS/t_util.o \
+	UNIT_TESTS/t_xprod UNIT_TESTS/t_xprod.o UNIT_TESTS/t_zero UNIT_TESTS/t_zero.o \
+	ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/flags_math.c ctxt/flags_math.o ctxt/incdir.c ctxt/incdir.o \
+	ctxt/libs_math.c ctxt/libs_math.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
+	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
+	inst-check inst-check.o inst-copy inst-copy.o inst-dir inst-dir.o inst-link \
+	inst-link.o install_core.o install_error.o installer installer.o instchk \
+	instchk.o insthier.o v_abs.o v_add.o v_addsc.o v_align.o v_angle.o v_anglen.o \
+	v_assi.o v_degree.o v_degreen.o v_dist.o v_div.o v_divsc.o v_dotp.o v_mag.o \
+	v_math.o v_mult.o v_multsc.o v_nega.o v_norm.o v_proj.o v_simd.o v_sub.o \
+	v_subsc.o v_sum.o v_xprod.o v_zero.o vector-conf vector-conf.o vector.a
 ext_clean:
 	rm -f conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

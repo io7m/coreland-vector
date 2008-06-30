@@ -1,4 +1,5 @@
 #!/bin/sh
+# $Id$
 
 CC=`head -n 1 conf-cc`
 if [ $? -ne 0 ]

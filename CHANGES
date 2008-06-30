@@ -18,3 +18,6 @@
 20080605 code: added vec_proj()
 20080605 code: added _aligned() versions of all functions for external bindings
                that can guarantee alignment (so don't need runtime checks).
+20080630 code: fixed xprod tests.
+20080630 code: added sum and tests.
+20080630 code: updated generation tools.

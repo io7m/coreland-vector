@@ -1,9 +1,11 @@
+#define IEEE754_FLOAT_SIGNBIT 0x7fffffff
+
 static inline float *
 vec_absNf_sse_lt16 (float *va, unsigned int ne)
 {
   __m128 mva1;
   __m128 mvx; 
-  const union { unsigned int i; float f; } sb = { 0x7fffffff };
+  const union { unsigned int i; float f; } sb = { IEEE754_FLOAT_SIGNBIT };
   float *pva;
   unsigned int ind;
   unsigned int n4;
@@ -34,7 +36,7 @@ vec_absNf_sse_gte16 (float *va, unsigned int ne)
   __m128 mva3;
   __m128 mva4;
   __m128 mvx; 
-  const union { unsigned int i; float f; } sb = { 0x7fffffff };
+  const union { unsigned int i; float f; } sb = { IEEE754_FLOAT_SIGNBIT };
   float *pva;
   unsigned int ind;
   unsigned int n16;
@@ -75,7 +77,7 @@ vec_absNfx_sse (const float *va, float *vr, unsigned int ne)
 {
   __m128 mva1;
   __m128 mvx; 
-  const union { unsigned int i; float f; } sb = { 0x7fffffff };
+  const union { unsigned int i; float f; } sb = { IEEE754_FLOAT_SIGNBIT };
   const float *pva;
   float *pvr;
   unsigned int ind;

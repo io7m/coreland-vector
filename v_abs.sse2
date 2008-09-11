@@ -1,3 +1,5 @@
+#define IEEE754_DOUBLE_SIGNBIT 0x7fffffffffffffffULL
+
 static inline double
 *vec_absNd_sse2 (double *va, unsigned int ne)
 {
@@ -8,7 +10,7 @@ static inline double
   __m128d mvx;
   unsigned int seg[4];
   double *pva;
-  const union { unsigned long long i; double d; } sb = { 0x7fffffffffffffffULL };
+  const union { unsigned long long i; double d; } sb = { IEEE754_DOUBLE_SIGNBIT };
   unsigned int ind;
 
   mvx = _mm_set1_pd (sb.d);
@@ -63,7 +65,7 @@ vec_absNdx_sse2 (const double *va, double *vr, unsigned int ne)
   unsigned int seg[4];
   const double *pva;
   double *pvr;
-  const union { unsigned long long i; double d; } sb = { 0x7fffffffffffffffULL };
+  const union { unsigned long long i; double d; } sb = { IEEE754_DOUBLE_SIGNBIT };
   unsigned int ind;
 
   mvx = _mm_set1_pd (sb.d);

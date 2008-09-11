@@ -20,5 +20,3 @@ vec_zeroNd_sse2 (double *va, unsigned int ne)
 
   return va;
 }
-
-#endif

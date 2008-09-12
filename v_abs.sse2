@@ -58,56 +58,32 @@ vec_absNdx_sse2 (const double *va, double *vr, unsigned int ne)
 {
   __m128d mva1;
   __m128d mva2;
-  __m128d mva3 = {0.0, 0.0};
-  __m128d mva4;
   __m128d mvx;
-  __m128d mvr;
-  unsigned int seg[4];
   const double *pva;
   double *pvr;
   const union { unsigned long long i; double d; } sb = { IEEE754_DOUBLE_SIGNBIT };
   unsigned int ind;
+  unsigned int n4;
+  unsigned int nr;
 
   mvx = _mm_set1_pd (sb.d);
   pva = va;
   pvr = vr;
-  vec_segments (seg, 4, ne);
 
-  for (ind = 0; ind < seg[3]; ++ind) {
+  n4 = ne >> 2;
+  nr = ne - (n4 << 2);
+
+  for (ind = 0; ind < n4; ++ind) {
     mva1 = _mm_load_pd (pva);
-    mva2 = _mm_load_pd (pva + 4);
-    mva3 = _mm_load_pd (pva + 8);
-    mva4 = _mm_load_pd (pva + 12);
-    mvr = _mm_and_pd (mvx, mva1);
-    _mm_store_pd (pvr, mvr);
-    mvr = _mm_and_pd (mvx, mva2);
-    _mm_store_pd (pvr + 4, mvr);
-    mvr = _mm_and_pd (mvx, mva3);
-    _mm_store_pd (pvr + 8, mvr);
-    mvr = _mm_and_pd (mvx, mva4);
-    _mm_store_pd (pvr + 12, mvr);
-    pva += 16;
-    pvr += 16;
-  }
-  for (ind = 0; ind < seg[2]; ++ind) {
-    mva1 = _mm_load_pd (pva);
-    mva2 = _mm_load_pd (pva + 4);
-    mvr = _mm_and_pd (mvx, mva1);
-    _mm_store_pd (pvr, mvr);
-    mvr = _mm_and_pd (mvx, mva2);
-    _mm_store_pd (pvr + 4, mvr);
-    mvr = _mm_and_pd (mvx, mva3);
-    pva += 8;
-    pvr += 8;
-  }
-  for (ind = 0; ind < seg[1]; ++ind) {
-    mva1 = _mm_load_pd (pva);
-    mvr = _mm_and_pd (mvx, mva1);
-    _mm_store_pd (pvr, mvr);
+    mva2 = _mm_load_pd (pva + 2);
+    mva1 = _mm_and_pd (mva1, mvx);
+    _mm_store_pd (pvr, mva1);
+    mva2 = _mm_and_pd (mva2, mvx);
+    _mm_store_pd (pvr + 2, mva2);
     pva += 4;
     pvr += 4;
   }
-  for (ind = 0; ind < seg[0]; ++ind)
+  for (ind = 0; ind < nr; ++ind)
     pvr[ind] = fabs (pva[ind]);
 
   return vr;

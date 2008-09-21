@@ -1,14 +1,16 @@
 static inline vector float
 vec_recip (vector float v)
 {
-  vector float rcp = vec_re (v);
-  return vec_madd (vec_nmsub (rcp, v, (vector float) (1.0)), rcp, rcp);
+  const vector float rcp = vec_re (v);
+  const vector float one = {1.0, 1.0, 1.0, 1.0};
+  return vec_madd (vec_nmsub (rcp, v, one), rcp, rcp);
 }
 
 static inline vector float
 vec_div (vector float va, vector float vb)
 {
-  return vec_madd (va, vec_recip (vb), (vector float)(0));
+  const vector float zero = {0.0, 0.0, 0.0, 0.0};
+  return vec_madd (va, vec_recip (vb), zero);
 }
 
 static inline float *
